@@ -174,8 +174,10 @@
                                 android:textStyle="bold"/>
                         </TableRow>
 
-                        <TableRow>
+                        <TableRow
+                            android:id="@+id/table_row_1">
                             <TextView
+                                android:id="@+id/skill_1"
                                 android:layout_column="0"
                                 android:layout_gravity="left"
                                 android:layout_marginTop="2dp"
