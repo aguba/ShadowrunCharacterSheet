@@ -1,4 +1,57 @@
 <resources>
     <string name="app_name">Shadowrun Character Manager</string>
     <string name="character_name">Character Name</string>
+
+    <!--    Skill Names     -->
+    <string name="academic_knowledge">Academic Knowledge</string>
+    <string name="arcana">Arcana</string>
+    <string name="archery">Archery</string>
+    <string name="armorer">Armorer</string>
+    <string name="artisan">Artisan</string>
+    <string name="automatics">Automatics</string>
+    <string name="blades">Blades</string>
+    <string name="chemistry">Chemistry</string>
+    <string name="climbing">Climbing</string>
+    <string name="clubs">Clubs</string>
+    <string name="computer">Computer</string>
+    <string name="con">Con</string>
+    <string name="data_search">Data Search</string>
+    <string name="demolitions">Demolitions</string>
+    <string name="disguise">Disguise</string>
+    <string name="diving">Diving</string>
+    <string name="dodge">Dodge</string>
+    <string name="enchanting">Enchanting</string>
+    <string name="escape_artist">Escape Artist</string>
+    <string name="etiquette">Etiquette</string>
+    <string name="first_aid">First Aid</string>
+    <string name="forgery">Forgery</string>
+    <string name="gunnery">Gunnery</string>
+    <string name="gymnastics">Gymnastics</string>
+    <string name="hacking">Hacking</string>
+    <string name="heavy_weapons">Heavy Weapons</string>
+    <string name="infiltration">Infiltration</string>
+    <string name="instruction">Instruction</string>
+    <string name="interests_knowledge">Interests Knowledge</string>
+    <string name="intimidation">Intimidation</string>
+    <string name="leadership">Leadership</string>
+    <string name="locksmith">Locksmith</string>
+    <string name="longarms">Longarms</string>
+    <string name="navigation">Navigation</string>
+    <string name="negotiation">Negotiation</string>
+    <string name="palming">Palming</string>
+    <string name="parachuting">Parachuting</string>
+    <string name="perception">Perception</string>
+    <string name="pilot_ground_craft">Pilot Ground Craft</string>
+    <string name="pilot_watercraft">Pilot Watercraft</string>
+    <string name="pistols">Pistols</string>
+    <string name="professional_knowledge">Professional Knowledge</string>
+    <string name="running">Running</string>
+    <string name="shadowing">Shadowing</string>
+    <string name="street_knowledge">Street Knowledge</string>
+    <string name="survival">Survival</string>
+    <string name="swimming">Swimming</string>
+    <string name="throwing_weapons">Throwing Weapons</string>
+    <string name="tracking">Tracking</string>
+    <string name="unarmed_combat">Unarmed Combat</string>
+    <!--    Skill Names     -->
 </resources>
