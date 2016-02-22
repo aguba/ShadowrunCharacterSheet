@@ -32,10 +32,10 @@
                         android:id="@+id/character_image"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="16dp"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
                         android:background="#607D8B" />
 
                     <ImageButton
@@ -84,8 +84,8 @@
                                 android:id="@+id/karma_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
-                                android:layout_toRightOf="@+id/karma"/>
+                                android:layout_toRightOf="@+id/karma"
+                                android:text="0" />
 
                             <TextView
                                 android:id="@+id/nuyen"
@@ -98,9 +98,9 @@
                                 android:id="@+id/nuyen_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:layout_below="@+id/karma_value"
                                 android:layout_toRightOf="@+id/nuyen"
-                                android:layout_below="@+id/karma_value"/>
+                                android:text="0" />
 
                         </RelativeLayout>
 
@@ -109,42 +109,76 @@
                     <TextView
                         android:id="@+id/physical_health"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" 
-                        android:text="Physical Health"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/character_image"
                         android:layout_marginLeft="16dp"
-                        android:textStyle="bold"
-                        android:layout_below="@id/character_image"/>
+                        android:text="Physical Health"
+                        android:textStyle="bold" />
 
-                    <SeekBar
-                        android:id="@+id/physical_health_bar"
+                    <LinearLayout
+                        android:id="@+id/physical_health_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/physical_health"
+                        android:layout_marginBottom="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_below="@+id/physical_health"
-                        android:max="8"
-                        android:progress="8"/>
+                        android:orientation="horizontal">
+
+                        <SeekBar
+                            android:id="@+id/physical_health_bar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="15"
+                            android:max="8"
+                            android:progress="8" />
+
+                        <TextView
+                            android:id="@+id/physical_health_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="8"
+                            android:textSize="24sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/stun_health"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Stun Health"
+                        android:layout_below="@id/physical_health_group"
                         android:layout_marginLeft="16dp"
-                        android:textStyle="bold"
-                        android:layout_below="@id/physical_health_bar"/>
+                        android:text="Stun Health"
+                        android:textStyle="bold" />
 
-                    <SeekBar
-                        android:id="@+id/stun_health_bar"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_below="@+id/stun_health"
-                        android:max="8"
-                        android:progress="8"/>
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp">
+
+                        <SeekBar
+                            android:id="@+id/stun_health_bar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="15"
+                            android:layout_marginTop="5dp"
+                            android:max="8"
+                            android:progress="8" />
+
+                        <TextView
+                            android:id="@+id/stun_health_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="8"
+                            android:textSize="24sp" />
+                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -205,6 +239,7 @@
                         </TableRow>
 
                         <TableRow>
+
                             <TextView
                                 android:id="@+id/weapon_pool"
                                 android:layout_width="wrap_content"
