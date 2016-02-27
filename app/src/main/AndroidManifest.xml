@@ -15,6 +15,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CharacterCard" />
+        <activity android:name=".SkillsCardActivity" />
+        <activity
+            android:name=".EquipmentActivity"
+            android:label="@string/title_activity_equipment"
+            android:parentActivityName=".CharacterSheet"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.softwareengineering.ttu.shadowruncharactermanager.CharacterSheet" />
+        </activity>
     </application>
 
 </manifest>
