@@ -13,6 +13,7 @@ public class CharacterSheet extends AppCompatActivity {
     TextView sHealth;
     SeekBar pHealthBar;
     SeekBar sHealthBar;
+    public static TextView charName;
 
 
     @Override
@@ -20,6 +21,9 @@ public class CharacterSheet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
         initialize();
+
+        Character.getInstance().setName("Orion");
+        charName.setText(Character.getInstance().getName());
 
         pHealth.setText(String.valueOf(pHealthBar.getMax()) + "/" + String.valueOf(pHealthBar.getMax()));
         sHealth.setText(String.valueOf(sHealthBar.getMax()) + "/" + String.valueOf(sHealthBar.getMax()));
@@ -69,6 +73,7 @@ public class CharacterSheet extends AppCompatActivity {
         pHealthBar = (SeekBar) findViewById(R.id.physical_health_bar);
         sHealth = (TextView) findViewById(R.id.stun_health_value);
         sHealthBar = (SeekBar) findViewById(R.id.stun_health_bar);
+        charName = (TextView) findViewById(R.id.character_name);
     }
 
     public void expandCharacter(View view){

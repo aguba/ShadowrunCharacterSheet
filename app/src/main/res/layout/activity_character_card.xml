@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/character_image"
+                android:id="@+id/character_image2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentLeft="true"
@@ -28,15 +28,61 @@
                 android:background="#607D8B" />
 
             <LinearLayout
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ImageButton
+                    android:id="@+id/btn_edit_character"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:onClick="editOn"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/edit"
+                    android:tint="#757575"/>
+
+                <ImageButton
+                    android:id="@+id/btn_done_edit_character"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:onClick="editOff"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/done"
+                    android:tint="#757575" />
+
+                <ImageButton
+                    android:id="@+id/btn_save_character"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:onClick="saveCharacter"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/save"
+                    android:tint="#757575"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_margin="16dp"
-                android:layout_toRightOf="@+id/character_image"
+                android:layout_toRightOf="@+id/character_image2"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/character_name2"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/character_name"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/character_name_edit"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/character_name"
                     android:textSize="22sp"
