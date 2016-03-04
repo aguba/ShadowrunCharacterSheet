@@ -11,6 +11,7 @@ public class Character {
 
     private String mName;
     private String mMetaType;
+    private String mImageURI;
     private int mKarma;
     private int mNuyen;
     private int mAgility;
@@ -41,6 +42,14 @@ public class Character {
 
     public String getMetaType(){
         return mMetaType;
+    }
+
+    public void setImageURI(String value){
+        mImageURI = value;
+    }
+
+    public String getImageURI(){
+        return mImageURI;
     }
 
     public void setKarma(int value){

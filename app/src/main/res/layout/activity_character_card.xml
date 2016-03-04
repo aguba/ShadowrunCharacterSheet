@@ -25,7 +25,20 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:background="#607D8B" />
+                android:background="#212121"/>
+
+            <ImageView
+                android:id="@+id/character_image_add"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:padding="25dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/add"
+                android:tint="#757575"
+                android:onClick="chooseProfilePic"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -4,8 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.net.URI;
 
 public class CharacterSheet extends AppCompatActivity {
 
@@ -13,7 +19,9 @@ public class CharacterSheet extends AppCompatActivity {
     TextView sHealth;
     SeekBar pHealthBar;
     SeekBar sHealthBar;
+    public static ImageView picture;
     public static TextView charName;
+    public static ImageLoader mainLoader;
 
 
     @Override
@@ -21,6 +29,10 @@ public class CharacterSheet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
         initialize();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+            .build();
+        ImageLoader.getInstance().init(config);
 
         Character.getInstance().setName("Orion");
         charName.setText(Character.getInstance().getName());
@@ -52,7 +64,7 @@ public class CharacterSheet extends AppCompatActivity {
         sHealthBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                sHealth.setText(String.valueOf(progress)+ "/" + String.valueOf(sHealthBar.getMax()));
+                sHealth.setText(String.valueOf(progress) + "/" + String.valueOf(sHealthBar.getMax()));
             }
 
             @Override
@@ -69,11 +81,13 @@ public class CharacterSheet extends AppCompatActivity {
     }
 
     void initialize() {
+        picture = (ImageView) findViewById(R.id.character_image);
         pHealth = (TextView) findViewById(R.id.physical_health_value);
         pHealthBar = (SeekBar) findViewById(R.id.physical_health_bar);
         sHealth = (TextView) findViewById(R.id.stun_health_value);
         sHealthBar = (SeekBar) findViewById(R.id.stun_health_bar);
         charName = (TextView) findViewById(R.id.character_name);
+        mainLoader = ImageLoader.getInstance();
     }
 
     public void expandCharacter(View view){
@@ -90,6 +104,5 @@ public class CharacterSheet extends AppCompatActivity {
         Intent equipmentCard = new Intent(CharacterSheet.this, EquipmentActivity.class);
         CharacterSheet.this.startActivity(equipmentCard);
     }
-
 
 }

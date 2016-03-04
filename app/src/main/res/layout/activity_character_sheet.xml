@@ -35,7 +35,7 @@
                         android:layout_marginBottom="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
-                        android:background="#607D8B" />
+                        android:background="#212121" />
 
                     <ImageButton
                         style="@style/Base.Widget.AppCompat.Button.Borderless"
