@@ -21,6 +21,8 @@ public class CharacterSheet extends AppCompatActivity {
     SeekBar sHealthBar;
     public static ImageView picture;
     public static TextView charName;
+    public static TextView karmaVal;
+    public static TextView nuyenVal;
     public static ImageLoader mainLoader;
 
 
@@ -86,6 +88,8 @@ public class CharacterSheet extends AppCompatActivity {
         pHealthBar = (SeekBar) findViewById(R.id.physical_health_bar);
         sHealth = (TextView) findViewById(R.id.stun_health_value);
         sHealthBar = (SeekBar) findViewById(R.id.stun_health_bar);
+        karmaVal = (TextView) findViewById(R.id.karma_value);
+        nuyenVal = (TextView) findViewById(R.id.nuyen_value);
         charName = (TextView) findViewById(R.id.character_name);
         mainLoader = ImageLoader.getInstance();
     }

@@ -12,8 +12,8 @@ public class Character {
     private String mName;
     private String mMetaType;
     private String mImageURI;
-    private int mKarma;
-    private int mNuyen;
+    private int mKarma = 0;
+    private int mNuyen = 0;
     private int mAgility;
     private int mBody;
     private int mReaction;
