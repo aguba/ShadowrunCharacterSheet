@@ -162,7 +162,169 @@
                             android:textSize="14sp"
                             android:visibility="gone" />
                     </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/body2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Body: " />
+
+                        <TextView
+                            android:id="@+id/body2_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <EditText
+                            android:id="@+id/body2_value_edit"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/agility2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Agility: " />
+
+                        <TextView
+                            android:id="@+id/agility2_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <EditText
+                            android:id="@+id/agility2_value_edit"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/reaction2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reaction: " />
+
+                        <TextView
+                            android:id="@+id/reaction2_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <EditText
+                            android:id="@+id/reaction2_value_edit"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/charisma2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Charisma: " />
+
+                        <TextView
+                            android:id="@+id/charisma2_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <EditText
+                            android:id="@+id/charisma2_value_edit"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/intuition2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Intuition: " />
+
+                        <TextView
+                            android:id="@+id/intuition2_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <EditText
+                            android:id="@+id/intuition2_value_edit"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/logic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Logic: " />
+
+                        <TextView
+                            android:id="@+id/logic2_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <EditText
+                            android:id="@+id/logic2_value_edit"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+                    </TableRow>
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/willpower2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Willpower: " />
+
+                        <TextView
+                            android:id="@+id/willpower2_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <EditText
+                            android:id="@+id/willpower2_value_edit"
+                            android:layout_width="85dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
+                    </TableRow>
                 </TableLayout>
+
 
             </LinearLayout>
 
