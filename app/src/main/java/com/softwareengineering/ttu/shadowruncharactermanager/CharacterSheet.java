@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.net.URI;
 
 public class CharacterSheet extends AppCompatActivity {
 

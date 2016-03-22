@@ -1,7 +1,8 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
 /**
- * Created by Rj on 2/27/2016.
+ * Rafael Mallare
+ * Singleton class to track character
  */
 public class Character {
     private static Character ourInstance = new Character();
@@ -14,14 +15,6 @@ public class Character {
     private String mImageURI;
     private int mKarma = 0;
     private int mNuyen = 0;
-    private int mAgility;
-    private int mBody;
-    private int mReaction;
-    private int mStrength;
-    private int mCharisma;
-    private int mIntuition;
-    private int mLogic;
-    private int mWillpower;
 
     public static Character getInstance() {
 
@@ -66,37 +59,5 @@ public class Character {
 
     public int getNuyen(){
         return mNuyen;
-    }
-
-    public void setAgility(int value){
-        mAgility = value;
-    }
-
-    public int getAgility(){
-        return mAgility;
-    }
-
-    public void setBody(int value){
-        mBody = value;
-    }
-
-    public int getBody(){
-        return mBody;
-    }
-
-    public void setReaction(int value){
-        mReaction = value;
-    }
-
-    public int getReaction(){
-        return mReaction;
-    }
-
-    public void setStrength(int value){
-        mStrength = value;
-    }
-
-    public int getStrength(){
-        return mStrength;
     }
 }

@@ -54,6 +54,7 @@ public class CharacterCard extends AppCompatActivity {
         charName.setText(character.getName());
         charKarma.setText(Integer.toString(character.getKarma()));
         charNuyen.setText(Integer.toString(character.getNuyen()));
+
     }
 
     public void editOn(View view){
@@ -72,19 +73,26 @@ public class CharacterCard extends AppCompatActivity {
     }
 
     public void editOff(View view){
-        addImage.setVisibility(View.GONE);
-        btnEditCharacter.setVisibility(View.VISIBLE);
-        btnSaveCharacter.setEnabled(true);
-        btnDoneEditCharacter.setVisibility(View.GONE);
-        charName.setVisibility(View.VISIBLE);
-        charKarma.setVisibility(View.VISIBLE);
-        charNuyen.setVisibility(View.VISIBLE);
-        editCharName.setVisibility(View.GONE);
-        editCharKarma.setVisibility(View.GONE);
-        editCharNuyen.setVisibility(View.GONE);
-        charName.setText(editCharName.getText().toString());
-        charKarma.setText(editCharKarma.getText().toString());
-        charNuyen.setText(editCharNuyen.getText().toString());
+        if (editCharName.getText().toString().trim().equals("") || editCharKarma.getText().toString().trim().equals("")
+                || editCharNuyen.getText().toString().trim().equals("")){
+            Toast blankFields = Toast.makeText(getApplicationContext(),"Please ensure no fields are blank",Toast.LENGTH_SHORT);
+            blankFields.show();
+        }
+        else {
+            addImage.setVisibility(View.GONE);
+            btnEditCharacter.setVisibility(View.VISIBLE);
+            btnSaveCharacter.setEnabled(true);
+            btnDoneEditCharacter.setVisibility(View.GONE);
+            charName.setVisibility(View.VISIBLE);
+            charKarma.setVisibility(View.VISIBLE);
+            charNuyen.setVisibility(View.VISIBLE);
+            editCharName.setVisibility(View.GONE);
+            editCharKarma.setVisibility(View.GONE);
+            editCharNuyen.setVisibility(View.GONE);
+            charName.setText(editCharName.getText().toString().trim());
+            charKarma.setText(editCharKarma.getText().toString().replaceFirst("^0+(?!$)", ""));
+            charNuyen.setText(editCharNuyen.getText().toString().replaceFirst("^0+(?!$)", ""));
+        }
     }
 
     public void saveCharacter(View view){

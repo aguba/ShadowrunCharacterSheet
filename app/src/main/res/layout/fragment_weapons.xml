@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="layout.EquipmentFragment">
+    tools:context="layout.WeaponsFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Gear"
+                android:text="Weapons"
                 android:textSize="22sp"
                 android:textStyle="bold"/>
 
