@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/gear_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="Name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/gear_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/gear_name"
+        android:text="test"/>
+
+    <ImageButton
+        android:id="@+id/gear_menu"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_vert"
+        android:tint="#757575" />
+
+    <TableLayout
+        android:id="@+id/gear_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gear_name"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:text="Cost"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="Equipped"
+                android:textStyle="bold" />
+
+            <TextView />
+
+            <TextView />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/gear_cost"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/gear_equipped"
+                android:text="No" />
+        </TableRow>
+
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/gear_table"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
+        android:background="#50757575" />
+
+</RelativeLayout>

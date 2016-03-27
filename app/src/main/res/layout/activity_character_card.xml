@@ -14,7 +14,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
 
             <ImageView
                 android:id="@+id/character_image2"
@@ -41,6 +42,7 @@
                 android:visibility="gone" />
 
             <LinearLayout
+                android:id="@+id/buttonPanel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true">
@@ -74,22 +76,33 @@
                     android:onClick="saveCharacter"
                     android:scaleType="fitCenter"
                     android:src="@drawable/save"
-                    android:tint="#757575" />
+                    android:tint="#757575"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/btn_save_character_disabled"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/save"
+                    android:tint="#D5D5D5" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear_layout_character_card"
-                android:layout_width="140dp"
+                android:id="@+id/name_group"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_margin="16dp"
-                android:layout_toRightOf="@+id/character_image2"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_toLeftOf="@id/buttonPanel"
+                android:layout_toRightOf="@id/character_image2"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/character_name2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/character_name"
                     android:textSize="22sp"
@@ -99,11 +112,24 @@
                     android:id="@+id/character_name_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/character_name"
+                    android:inputType="textCapWords"
+                    android:maxLength="20"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="gone"
-                    android:inputType="text"/>
+                    android:textColor="#87000000"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sub_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name_group"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_toRightOf="@id/character_image2"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,14 +191,13 @@
 
                 </TableLayout>
 
-
             </LinearLayout>
 
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/linear_layout_character_card"
+                android:layout_below="@id/sub_info"
                 android:layout_marginLeft="16dp"
                 android:stretchColumns="*">
 

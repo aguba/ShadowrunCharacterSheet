@@ -13,30 +13,39 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 
 public class CharacterSheet extends AppCompatActivity {
+    Character character = Character.getInstance();
 
     TextView pHealth;
     TextView sHealth;
     SeekBar pHealthBar;
     SeekBar sHealthBar;
-    public static ImageView picture;
-    public static TextView charName;
-    public static TextView karmaVal;
-    public static TextView nuyenVal;
-    public static ImageLoader mainLoader;
+    ImageView picture;
+    TextView charName;
+    TextView karmaVal;
+    TextView nuyenVal;
+    ImageLoader mainLoader;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
-        initialize();
+
+        picture = (ImageView) findViewById(R.id.character_image);
+        pHealth = (TextView) findViewById(R.id.physical_health_value);
+        pHealthBar = (SeekBar) findViewById(R.id.physical_health_bar);
+        sHealth = (TextView) findViewById(R.id.stun_health_value);
+        sHealthBar = (SeekBar) findViewById(R.id.stun_health_bar);
+        karmaVal = (TextView) findViewById(R.id.karma_value);
+        nuyenVal = (TextView) findViewById(R.id.nuyen_value);
+        charName = (TextView) findViewById(R.id.character_name);
+        mainLoader = ImageLoader.getInstance();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-            .build();
+                .build();
         ImageLoader.getInstance().init(config);
 
-        Character.getInstance().setName("Orion");
-        charName.setText(Character.getInstance().getName());
+        loadValues();
 
         pHealth.setText(String.valueOf(pHealthBar.getMax()) + "/" + String.valueOf(pHealthBar.getMax()));
         sHealth.setText(String.valueOf(sHealthBar.getMax()) + "/" + String.valueOf(sHealthBar.getMax()));
@@ -81,31 +90,33 @@ public class CharacterSheet extends AppCompatActivity {
 
     }
 
-    void initialize() {
-        picture = (ImageView) findViewById(R.id.character_image);
-        pHealth = (TextView) findViewById(R.id.physical_health_value);
-        pHealthBar = (SeekBar) findViewById(R.id.physical_health_bar);
-        sHealth = (TextView) findViewById(R.id.stun_health_value);
-        sHealthBar = (SeekBar) findViewById(R.id.stun_health_bar);
-        karmaVal = (TextView) findViewById(R.id.karma_value);
-        nuyenVal = (TextView) findViewById(R.id.nuyen_value);
-        charName = (TextView) findViewById(R.id.character_name);
-        mainLoader = ImageLoader.getInstance();
+    void loadValues() {
+        mainLoader.displayImage(character.getImageURI(), picture);
+        karmaVal.setText(Integer.toString(character.getKarma()));
+        nuyenVal.setText(Integer.toString(character.getNuyen()));
+        charName.setText(character.getName());
     }
 
-    public void expandCharacter(View view){
+    public void expandCharacter(View view) {
         Intent characterCard = new Intent(CharacterSheet.this, CharacterCard.class);
-        CharacterSheet.this.startActivity(characterCard);
+        CharacterSheet.this.startActivityForResult(characterCard, 1);
     }
 
-    public void expandSkills(View view){
+    public void expandSkills(View view) {
         Intent skillsCard = new Intent(CharacterSheet.this, SkillsCardActivity.class);
         CharacterSheet.this.startActivity(skillsCard);
     }
 
-    public void expandEquipment(View view){
+    public void expandEquipment(View view) {
         Intent equipmentCard = new Intent(CharacterSheet.this, EquipmentActivity.class);
         CharacterSheet.this.startActivity(equipmentCard);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            loadValues();
+        }
     }
 
 }

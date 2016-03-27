@@ -24,6 +24,7 @@ public class CharacterCard extends AppCompatActivity {
     ImageButton btnEditCharacter;
     ImageButton btnDoneEditCharacter;
     ImageButton btnSaveCharacter;
+    ImageButton btnSaveCharacterDisabled;
     ImageView picture;
     ImageView addImage;
     ImageLoader loadPicture = ImageLoader.getInstance();
@@ -46,14 +47,15 @@ public class CharacterCard extends AppCompatActivity {
         btnEditCharacter = (ImageButton) findViewById(R.id.btn_edit_character);
         btnDoneEditCharacter = (ImageButton) findViewById(R.id.btn_done_edit_character);
         btnSaveCharacter = (ImageButton) findViewById(R.id.btn_save_character);
+        btnSaveCharacterDisabled = (ImageButton) findViewById(R.id.btn_save_character_disabled);
         picture = (ImageView) findViewById(R.id.character_image2);
         addImage = (ImageView) findViewById(R.id.character_image_add);
 
         loadPicture.displayImage(imageURI, picture);
-        btnSaveCharacter.setEnabled(false);
         charName.setText(character.getName());
         charKarma.setText(Integer.toString(character.getKarma()));
         charNuyen.setText(Integer.toString(character.getNuyen()));
+        btnSaveCharacterDisabled.setEnabled(false);
 
     }
 
@@ -61,6 +63,8 @@ public class CharacterCard extends AppCompatActivity {
         addImage.setVisibility(View.VISIBLE);
         btnEditCharacter.setVisibility(View.GONE);
         btnDoneEditCharacter.setVisibility(View.VISIBLE);
+        btnSaveCharacter.setVisibility(View.GONE);
+        btnSaveCharacterDisabled.setVisibility(View.VISIBLE);
         charName.setVisibility(View.GONE);
         charKarma.setVisibility(View.GONE);
         charNuyen.setVisibility(View.GONE);
@@ -81,7 +85,8 @@ public class CharacterCard extends AppCompatActivity {
         else {
             addImage.setVisibility(View.GONE);
             btnEditCharacter.setVisibility(View.VISIBLE);
-            btnSaveCharacter.setEnabled(true);
+            btnSaveCharacterDisabled.setVisibility(View.GONE);
+            btnSaveCharacter.setVisibility(View.VISIBLE);
             btnDoneEditCharacter.setVisibility(View.GONE);
             charName.setVisibility(View.VISIBLE);
             charKarma.setVisibility(View.VISIBLE);
@@ -97,18 +102,16 @@ public class CharacterCard extends AppCompatActivity {
 
     public void saveCharacter(View view){
         character.setName(charName.getText().toString());
-        CharacterSheet.charName.setText(character.getName());
 
         character.setImageURI(imageURI);
-        CharacterSheet.mainLoader.displayImage(character.getImageURI(), CharacterSheet.picture);
 
         character.setKarma(Integer.parseInt(charKarma.getText().toString()));
         character.setNuyen(Integer.parseInt(charNuyen.getText().toString()));
-        CharacterSheet.karmaVal.setText(Integer.toString(character.getKarma()));
-        CharacterSheet.nuyenVal.setText(Integer.toString(character.getNuyen()));
 
         Toast saveMessage = Toast.makeText(getApplicationContext(), "Changes saved", Toast.LENGTH_SHORT);
         saveMessage.show();
+
+        finish();
     }
 
     public void chooseProfilePic(View view){

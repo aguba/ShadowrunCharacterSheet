@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/equip_weapon"
+        android:title="Equip" />
+
+    <item
+        android:id="@+id/sell_weapon"
+        android:title="Sell" />
+
+    <item
+        android:id="@+id/remove_weapon"
+        android:title="Remove" />
+
+</menu>

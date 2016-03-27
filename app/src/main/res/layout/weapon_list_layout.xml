@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/weapon_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="Name"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/weapon_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weapon_name"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="16dp"
+        android:text="Type" />
+
+    <TextView
+        android:id="@+id/weapon_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/weapon_name"
+        android:text="test"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_toLeftOf="@+id/weapon_cost"
+        android:gravity="center_vertical"
+        android:text="Cost: "
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/weapon_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/weapon_menu"
+        android:gravity="center_vertical"
+        android:text="0" />
+
+    <ImageButton
+        android:id="@+id/weapon_menu"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_vert"
+        android:tint="#757575" />
+
+    <TableLayout
+        android:id="@+id/weapon_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weapon_type"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp">
+
+        <TableRow>
+
+            <TextView
+                android:text="Damage"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="Mode"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="AP"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="RC"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="Reach"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/weapon_damage"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/weapon_mode"
+                android:text="SA" />
+
+            <TextView
+                android:id="@+id/weapon_AP"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/weapon_RC"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/weapon_reach"
+                android:text="0" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Equipped"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/weapon_equipped"
+                android:text="No" />
+        </TableRow>
+
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/weapon_table"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
+        android:background="#50757575" />
+
+</RelativeLayout>
