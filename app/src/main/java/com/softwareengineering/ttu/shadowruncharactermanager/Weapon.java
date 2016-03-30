@@ -44,4 +44,9 @@ public class Weapon extends Equipment {
     public void setArmorPen(int AP){
         mArmorPen = AP;
     }
+
+    public boolean isEquipped(){
+        Weapon weapon = (Weapon) this;
+        return weapon == Character.getInstance().getEquipped();
+    }
 }

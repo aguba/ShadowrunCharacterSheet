@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -95,6 +97,20 @@ public class CharacterSheet extends AppCompatActivity {
         karmaVal.setText(Integer.toString(character.getKarma()));
         nuyenVal.setText(Integer.toString(character.getNuyen()));
         charName.setText(character.getName());
+
+        TextView weaponDefaultTxt = (TextView) findViewById(R.id.no_equipped_weapon);
+        LinearLayout weaponContainer = (LinearLayout) findViewById(R.id.weapon_view_container);
+        if(character.packingHeat()){
+            weaponDefaultTxt.setVisibility(View.GONE);
+            View view = WeaponsInventory.getInstance().getWeaponView(getLayoutInflater(), weaponContainer, character.getEquipped());
+            ImageButton btnMenu = (ImageButton) view.findViewById(R.id.weapon_menu);
+            btnMenu.setVisibility(View.GONE);
+            weaponContainer.addView(view);
+        }
+        else{
+            weaponContainer.removeAllViews();
+            weaponDefaultTxt.setVisibility(View.VISIBLE);
+        }
     }
 
     public void expandCharacter(View view) {
@@ -104,7 +120,7 @@ public class CharacterSheet extends AppCompatActivity {
 
     public void expandSkills(View view) {
         Intent skillsCard = new Intent(CharacterSheet.this, SkillsCardActivity.class);
-        CharacterSheet.this.startActivity(skillsCard);
+        CharacterSheet.this.startActivityForResult(skillsCard, 2);
     }
 
     public void expandEquipment(View view) {
@@ -114,9 +130,7 @@ public class CharacterSheet extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            loadValues();
-        }
+        loadValues();
     }
 
 }

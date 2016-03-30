@@ -17,6 +17,8 @@ public class Character {
         mNuyen = 10000;
         mGearStore = new SparseArray<>();
         mWeaponStore = new SparseArray<>();
+        mEquippedWeapon = new Weapon();
+        mEquippedWeapon = null;
         mHasGear = false;
         mGearKey = 0;
         mWeaponKey = 0;
@@ -29,6 +31,7 @@ public class Character {
     private int mNuyen;
     private SparseArray<Equipment> mGearStore;
     private SparseArray<Weapon> mWeaponStore;
+    private Weapon mEquippedWeapon;
     private boolean mHasGear;
     private int mGearKey;
     private int mWeaponKey;
@@ -116,8 +119,12 @@ public class Character {
         return mWeaponKey-1;
     }
 
-    public Weapon getWeapon(int index){
+    public Weapon getWeaponByIndex(int index){
         return mWeaponStore.valueAt(index);
+    }
+
+    public Weapon getWeaponByID(int ID){
+        return mWeaponStore.get(ID);
     }
 
     public void removeWeapon(int key){
@@ -130,5 +137,21 @@ public class Character {
 
     public SparseArray<Weapon> getWeaponList(){
         return mWeaponStore;
+    }
+
+    public void equip(Weapon weapon){
+        mEquippedWeapon = weapon;
+    }
+
+    public void unEquip(){
+        mEquippedWeapon = null;
+    }
+
+    public Weapon getEquipped(){
+        return mEquippedWeapon;
+    }
+
+    public boolean packingHeat(){
+        return getEquipped() != null;
     }
 }

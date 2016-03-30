@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,7 +81,6 @@ public class WeaponsFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View layout = inflater.inflate(R.layout.fragment_weapons, container, false);
         weaponList = (LinearLayout) layout.findViewById(R.id.weapon_list);
         final TextView nuyenVal = (TextView) layout.findViewById(R.id.nuyen_value);
@@ -92,44 +92,16 @@ public class WeaponsFragment extends Fragment {
         if (character.hasWeapons()) {
             for (int i = 0; i < character.getWeaponList().size(); i++) {
                 final View weaponListing = inventory.getWeaponView(weaponList, i);
-                ImageButton weaponMenu = (ImageButton) weaponListing.findViewById(R.id.weapon_menu);
                 final int id = character.getWeaponList().keyAt(i);
-                final TextView txtCost = (TextView) weaponListing.findViewById(R.id.weapon_cost);
-                final int cost = Integer.parseInt(txtCost.getText().toString());
+                final TextView txtID = (TextView) weaponListing.findViewById(R.id.weapon_id);
+                txtID.setText(Integer.toString(id));
 
                 weaponList.addView(weaponListing);
 
-                weaponMenu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        PopupMenu popup = new PopupMenu(getContext(), v);
-                        MenuInflater inflater = popup.getMenuInflater();
-                        inflater.inflate(R.menu.menu_weapon, popup.getMenu());
-                        popup.show();
-
-                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()) {
-                                    case R.id.remove_weapon:
-                                        weaponList.removeView(weaponListing);
-                                        character.removeWeapon(id);
-                                        break;
-
-                                    case R.id.sell_weapon:
-                                        weaponList.removeView(weaponListing);
-                                        character.removeWeapon(id);
-                                        character.addNuyen(cost);
-                                        nuyenVal.setText(Integer.toString(character.getNuyen()));
-                                        break;
-                                }
-                                return true;
-                            }
-                        });
-                    }
-                });
+                weaponMenuBtnListener(weaponListing, id, nuyenVal);
             }
         }
+
 
         addWeaponButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +115,7 @@ public class WeaponsFragment extends Fragment {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         true);
                 popupWindow.setBackgroundDrawable(new ColorDrawable(0x80000000));
+                popupWindow.setAnimationStyle(android.R.style.Animation_Toast);
 
                 txtNuyenVal.setText(Integer.toString(character.getNuyen()));
 
@@ -153,26 +126,25 @@ public class WeaponsFragment extends Fragment {
                     }
                 });
 
-                for (int i=0; i<inventory.getWeaponCount(); i++) {
+                for (int i = 0; i < inventory.getWeaponCount(); i++) {
                     final LinearLayout weaponSection = (LinearLayout) weaponPopup.findViewById(R.id.weapon_section);
                     final View popupListing = inventory.getWeaponPopupMiniView(weaponSection, i);
-                    final View weaponListing2 = inventory.getWeaponPopupFullView(weaponList, i);
+                    RelativeLayout selection = (RelativeLayout) popupListing.findViewById(R.id.container1);
+                    final View weaponListing = inventory.getWeaponPopupFullView(weaponList, i);
                     final Weapon weapon = inventory.getWeapon(i);
-                    ImageButton weaponMenu = (ImageButton) weaponListing2.findViewById(R.id.weapon_menu);
-                    final TextView txtCost = (TextView) popupListing.findViewById(R.id.weapon_cost);
+                    final TextView txtCost = (TextView) weaponListing.findViewById(R.id.weapon_cost);
                     final int cost = Integer.parseInt(txtCost.getText().toString());
 
-                    final TextView weaponID = (TextView) weaponListing2.findViewById(R.id.weapon_id);
+                    final TextView weaponID = (TextView) weaponListing.findViewById(R.id.weapon_id);
 
-                    popupListing.setOnClickListener(new View.OnClickListener() {
+                    selection.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(cost > character.getNuyen()){
+                            if (cost > character.getNuyen()) {
                                 Toast nuyenWarning = Toast.makeText(getContext(), "Insufficient Nuyen", Toast.LENGTH_SHORT);
                                 nuyenWarning.show();
-                            }
-                            else {
-                                weaponList.addView(weaponListing2);
+                            } else {
+                                weaponList.addView(weaponListing);
                                 weaponID.setText(Integer.toString(character.addWeapon(weapon)));
                                 character.subNuyen(cost);
                                 nuyenVal.setText(Integer.toString(character.getNuyen()));
@@ -182,35 +154,8 @@ public class WeaponsFragment extends Fragment {
                     });
 
                     weaponSection.addView(popupListing);
-                    weaponMenu.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PopupMenu popup = new PopupMenu(getContext(), v);
-                            MenuInflater inflater = popup.getMenuInflater();
-                            inflater.inflate(R.menu.menu_weapon, popup.getMenu());
-                            popup.show();
 
-                            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                @Override
-                                public boolean onMenuItemClick(MenuItem item) {
-                                    switch (item.getItemId()) {
-                                        case R.id.remove_weapon:
-                                            weaponList.removeView(weaponListing2);
-                                            character.removeWeapon(Integer.parseInt(weaponID.getText().toString()));
-                                            break;
-
-                                        case R.id.sell_weapon:
-                                            weaponList.removeView(weaponListing2);
-                                            character.removeWeapon(Integer.parseInt(weaponID.getText().toString()));
-                                            character.addNuyen(cost);
-                                            nuyenVal.setText(Integer.toString(character.getNuyen()));
-                                            break;
-                                    }
-                                    return true;
-                                }
-                            });
-                        }
-                    });
+                    weaponMenuBtnListener(weaponListing, Integer.parseInt(weaponID.getText().toString()), nuyenVal);
                 }
 
                 popupWindow.showAtLocation(layout.findViewById(R.id.weapon_list), Gravity.CENTER, 0, 0);
@@ -219,6 +164,65 @@ public class WeaponsFragment extends Fragment {
 
         return layout;
     }
+
+    public void weaponMenuBtnListener(final View weaponListing, final int ID, final TextView nuyenVal){
+        ImageButton menuBtn = (ImageButton) weaponListing.findViewById(R.id.weapon_menu);
+        TextView txtCost = (TextView) weaponListing.findViewById(R.id.weapon_cost);
+        final TextView txtEquipped = (TextView) weaponListing.findViewById(R.id.weapon_equipped);
+        final int cost = Integer.parseInt(txtCost.getText().toString());
+        menuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final PopupMenu popup = new PopupMenu(getContext(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.menu_weapon, popup.getMenu());
+
+                if (character.getWeaponByID(ID).isEquipped()) {
+                    popup.getMenu().getItem(0).setTitle("Unequip");
+                }
+
+                popup.show();
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        boolean equippedFlag = popup.getMenu().getItem(0).getTitle().toString().equals("Unequip");
+                        switch (item.getItemId()) {
+                            case R.id.remove_weapon:
+                                if (equippedFlag) {
+                                    character.unEquip();
+                                }
+                                weaponList.removeView(weaponListing);
+                                character.removeWeapon(ID);
+                                break;
+
+                            case R.id.sell_weapon:
+                                if (equippedFlag) {
+                                    character.unEquip();
+                                }
+                                weaponList.removeView(weaponListing);
+                                character.removeWeapon(ID);
+                                character.addNuyen(cost);
+                                nuyenVal.setText(Integer.toString(character.getNuyen()));
+                                break;
+
+                            case R.id.equip_weapon:
+                                if (equippedFlag) {
+                                    character.unEquip();
+                                    txtEquipped.setText("No");
+                                } else {
+                                    character.equip(character.getWeaponByID(ID));
+                                    txtEquipped.setText("Yes");
+                                }
+                                break;
+                        }
+                        return true;
+                    }
+                });
+            }
+        });
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

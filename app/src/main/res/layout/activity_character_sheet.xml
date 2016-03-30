@@ -197,57 +197,29 @@
                         android:id="@+id/equipped_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
                         android:text="Equipped Weapon"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <TableLayout
-                        android:id="@+id/table_equip"
+                    <LinearLayout
+                        android:id="@+id/weapon_view_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/equipped_title"
                         android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:stretchColumns="*">
+                        android:layout_below="@+id/equipped_title"
+                        android:orientation="vertical">
 
-                        <TableRow android:layout_marginBottom="8dp">
+                    </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_column="0"
-                                android:text="Dicepool"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_column="1"
-                                android:text="Damage"
-                                android:textStyle="bold" />
-                        </TableRow>
-
-                        <TableRow>
-
-                            <TextView
-                                android:id="@+id/weapon_pool"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_column="0"
-                                android:text="0" />
-
-                            <TextView
-                                android:id="@+id/weapon_damage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_column="1"
-                                android:text="0" />
-                        </TableRow>
-
-
-                    </TableLayout>
+                    <TextView
+                        android:id="@+id/no_equipped_weapon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/equipped_title"
+                        android:layout_margin="16dp"
+                        android:text="No Equipped Weapon" />
 
                 </RelativeLayout>
 
