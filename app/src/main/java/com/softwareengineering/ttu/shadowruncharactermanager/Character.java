@@ -2,7 +2,11 @@ package com.softwareengineering.ttu.shadowruncharactermanager;
 
 import android.util.SparseArray;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Rafael Mallare
@@ -19,20 +23,31 @@ public class Character {
         mWeaponStore = new SparseArray<>();
         mEquippedWeapon = new Weapon();
         mEquippedWeapon = null;
-        mHasGear = false;
         mGearKey = 0;
         mWeaponKey = 0;
+
+        mAttributes = new HashMap<>();
+        mSkills = new HashMap<>();
+        for(int i=0; i<50; i++){
+            if(i<8){
+                mAttributes.put(attributeNames[i], new Attribute(attributeNames[i]));
+            }
+            mSkills.put(skillNames[i], new Skill(skillNames[i]));
+        }
     }
+    private String[] attributeNames = {"Body","Agility","Reaction","Strength","Charisma","Intuition","Logic","Willpower"};
+    private String[] skillNames = {"Academic Knowledge", "Arcana", "Archery", "Armorer", "Artisan", "Automatics", "Blades", "Chemistry", "Climbing", "Clubs", "Computer", "Con", "Data Search", "Demolitions", "Disguise", "Diving", "Dodge", "Enchanting", "Escape Artist", "Etiquette", "First Aid", "Forgery", "Gunnery", "Gymnastics", "Hacking", "Heavy Weapons", "Infiltration", "Instruction", "Interests Knowledge", "Intimidation", "Leadership", "Locksmith", "Longarms", "Navigation", "Negotiation", "Palming", "Parachuting", "Perception", "Pilot Ground Craft", "Pilot Watercraft", "Pistols", "Professional Knowledge", "Running", "Shadowing", "Street Knowledge", "Survival", "Swimming", "Throwing Weapons", "Tracking", "Unarmed Combat"};
 
     private String mName;
     private String mMetaType;
     private String mImageURI;
     private int mKarma;
     private int mNuyen;
+    private Map<String, Attribute> mAttributes;
+    private Map<String, Skill> mSkills;
     private SparseArray<Equipment> mGearStore;
     private SparseArray<Weapon> mWeaponStore;
     private Weapon mEquippedWeapon;
-    private boolean mHasGear;
     private int mGearKey;
     private int mWeaponKey;
 
@@ -71,6 +86,14 @@ public class Character {
 
     public int getKarma(){
         return mKarma;
+    }
+
+    public void addKarma(int karmaAmount){
+        mKarma += karmaAmount;
+    }
+
+    public void subKarma(int karmaAmount){
+        mKarma -= karmaAmount;
     }
 
     public void setNuyen(int value){

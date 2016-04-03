@@ -75,7 +75,7 @@
                             android:layout_marginTop="8dp">
 
                             <TextView
-                                android:id="@+id/karma"
+                                android:id="@+id/karma_txt"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Karma: " />
@@ -84,14 +84,14 @@
                                 android:id="@+id/karma_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toRightOf="@+id/karma"
+                                android:layout_toRightOf="@+id/karma_txt"
                                 android:text="0" />
 
                             <TextView
                                 android:id="@+id/nuyen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/karma"
+                                android:layout_below="@+id/karma_txt"
                                 android:text="Nuyen: " />
 
                             <TextView

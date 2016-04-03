@@ -27,6 +27,10 @@ public class CharacterSheet extends AppCompatActivity {
     TextView nuyenVal;
     ImageLoader mainLoader;
 
+    TextView weaponDefaultTxt;
+    LinearLayout weaponContainer;
+    View weaponView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,9 @@ public class CharacterSheet extends AppCompatActivity {
         nuyenVal = (TextView) findViewById(R.id.nuyen_value);
         charName = (TextView) findViewById(R.id.character_name);
         mainLoader = ImageLoader.getInstance();
+
+        weaponDefaultTxt = (TextView) findViewById(R.id.no_equipped_weapon);
+        weaponContainer = (LinearLayout) findViewById(R.id.weapon_view_container);
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .build();
@@ -98,17 +105,15 @@ public class CharacterSheet extends AppCompatActivity {
         nuyenVal.setText(Integer.toString(character.getNuyen()));
         charName.setText(character.getName());
 
-        TextView weaponDefaultTxt = (TextView) findViewById(R.id.no_equipped_weapon);
-        LinearLayout weaponContainer = (LinearLayout) findViewById(R.id.weapon_view_container);
+        weaponContainer.removeAllViews();
         if(character.packingHeat()){
             weaponDefaultTxt.setVisibility(View.GONE);
-            View view = WeaponsInventory.getInstance().getWeaponView(getLayoutInflater(), weaponContainer, character.getEquipped());
-            ImageButton btnMenu = (ImageButton) view.findViewById(R.id.weapon_menu);
+            weaponView = WeaponsInventory.getInstance().getWeaponView(getLayoutInflater(), weaponContainer, character.getEquipped());
+            ImageButton btnMenu = (ImageButton) weaponView.findViewById(R.id.weapon_menu);
             btnMenu.setVisibility(View.GONE);
-            weaponContainer.addView(view);
+            weaponContainer.addView(weaponView);
         }
         else{
-            weaponContainer.removeAllViews();
             weaponDefaultTxt.setVisibility(View.VISIBLE);
         }
     }
