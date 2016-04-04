@@ -22,4 +22,25 @@ public class Skill {
         mDicepool = 0;
         mSpecialization = "None";
     }
+
+    public void ratingUp(){
+        mRating += 1;
+        dicepoolUp();
+    }
+
+    public void dicepoolUp(){
+        mDicepool += 1;
+    }
+
+    public void dicepoolUp(int attributeValue){
+        mDicepool = mRating + attributeValue;
+    }
+
+    public int getRating(){
+        return mRating;
+    }
+
+    public int getDicepool(){
+        return mDicepool;
+    }
 }

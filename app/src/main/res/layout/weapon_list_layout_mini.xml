@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/container1"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Base.Widget.AppCompat.Button.Borderless">
@@ -109,7 +109,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/container1"
+        android:layout_below="@+id/container"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
         android:background="#50757575" />

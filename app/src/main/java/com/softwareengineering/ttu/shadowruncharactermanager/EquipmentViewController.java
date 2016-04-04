@@ -6,69 +6,69 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 /**
- * Created by Rj on 3/25/2016.
+ * Created by Rj on 4/3/2016.
  */
-public class WeaponsInventory {
-    private static WeaponsInventory ourInstance = new WeaponsInventory();
+public class EquipmentViewController {
 
-    public static WeaponsInventory getInstance() {
-        return ourInstance;
-    }
-
-    private WeaponsInventory() {
+    public EquipmentViewController(LayoutInflater inflater){
+        mInflater = inflater;
         character = Character.getInstance();
-
-        mWeaponArray = new ArrayList<>();
-
-        mWeaponArray.add(new Firearm("Ares Predator IV", 350, "Heavy Pistol", 5, -1, true, false, false, 0));
-        mWeaponArray.add(new Firearm("Ares Viper Silvergun", 500, "Heavy Pistol", 8, 2, true, true, false, 0));
-        mWeaponArray.add(new Firearm("Colt Manhunter", 300, "Heavy Pistol", 5, -1, true, false, false, 0));
-        mWeaponArray.add(new Firearm("Ruger Super Warhawk", 250, "Heavy Pistol", 6, -2, true, false, false, 0));
-        mWeaponArray.add(new Firearm("Ares Alpha", 1700, "Assault Rifle", 6, -1, true, true, true, 2));
-        mWeaponArray.add(new Firearm("Walter MA-2100", 5000, "Sniper Rifle", 7, -3, true, false, false, 1));
-        mWeaponArray.add(new Melee("Katana", 1000, "Blade", 3, -1, 1));
+        inventory = EquipmentInventory.getInstance();
     }
 
-    LayoutInflater mInflater;
-
-    private ArrayList<Weapon> mWeaponArray;
+    private LayoutInflater mInflater;
     private Character character;
+    private EquipmentInventory inventory;
 
     public void setInflater(LayoutInflater inflater) {
         mInflater = inflater;
     }
 
-    public Weapon getWeapon(int id){
-        return mWeaponArray.get(id);
-    }
-
-    public int getWeaponCount(){
-        return mWeaponArray.size();
-    }
-
     public View getWeaponPopupMiniView(ViewGroup root, int index) {
         View view = mInflater.inflate(R.layout.weapon_list_layout_mini, root, false);
-        Weapon weapon = getWeapon(index);
+        Weapon weapon = inventory.getWeapon(index);
 
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(Integer.toString(index));
 
-        setView(view, weapon);
+        setWeaponView(view, weapon);
+
+        return view;
+    }
+
+    public View getArmorPopupMiniView(ViewGroup root, int index){
+        View view = mInflater.inflate(R.layout.armor_list_layout_mini, root, false);
+        Armor armor = inventory.getArmor(index);
+
+        TextView id = (TextView) view.findViewById(R.id.armor_id);
+        id.setText(Integer.toString(index));
+
+        setArmorView(view, armor);
 
         return view;
     }
 
     public View getWeaponPopupFullView(ViewGroup root, int index) {
         View view = mInflater.inflate(R.layout.weapon_list_layout, root, false);
-        Weapon weapon = getWeapon(index);
+        Weapon weapon = inventory.getWeapon(index);
 
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(Integer.toString(index));
 
-        setView(view, weapon);
+        setWeaponView(view, weapon);
+
+        return view;
+    }
+
+    public View getArmorPopupFullView(ViewGroup root, int index) {
+        View view = mInflater.inflate(R.layout.armor_list_layout, root, false);
+        Armor armor = inventory.getArmor(index);
+
+        TextView id = (TextView) view.findViewById(R.id.armor_id);
+        id.setText(Integer.toString(index));
+
+        setArmorView(view, armor);
 
         return view;
     }
@@ -81,19 +81,32 @@ public class WeaponsInventory {
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(idString);
 
-        setView(view, weapon);
+        setWeaponView(view, weapon);
 
         return view;
     }
 
     public View getWeaponView(LayoutInflater inflater, ViewGroup root, Weapon weapon){
         View view = inflater.inflate(R.layout.weapon_list_layout, root, false);
-        setView(view, weapon);
+        setWeaponView(view, weapon);
 
         return view;
     }
 
-    private void setView(View view, Weapon weapon){
+    public View getArmorView(ViewGroup root, int index){
+        View view = mInflater.inflate(R.layout.armor_list_layout, root, false);
+        Armor armor = character.getArmorByIndex(index);
+        String idString = Integer.toString((character.getArmorList().keyAt(index)));
+
+        TextView id = (TextView) view.findViewById(R.id.armor_id);
+        id.setText(idString);
+
+        setArmorView(view, armor);
+
+        return view;
+    }
+
+    private void setWeaponView(View view, Weapon weapon){
         TableLayout table = (TableLayout) view.findViewById(R.id.weapon_table);
         TextView name = (TextView) view.findViewById(R.id.weapon_name);
         TextView type = (TextView) view.findViewById(R.id.weapon_type);
@@ -162,4 +175,26 @@ public class WeaponsInventory {
             reach.setText(Integer.toString(melee.getReach()));
         }
     }
+
+    private void setArmorView(View view, Armor armor){
+        TextView name = (TextView) view.findViewById(R.id.armor_name);
+        TextView cost = (TextView) view.findViewById(R.id.armor_cost);
+        TextView ballisticRtg = (TextView) view.findViewById(R.id.armor_ballistic);
+        TextView impactRtg = (TextView) view.findViewById(R.id.armor_impact);
+
+        if(view.findViewById(R.id.armor_equipped) != null){
+            TextView equipped = (TextView) view.findViewById(R.id.armor_equipped);
+            if (armor.isEquipped()) {
+                equipped.setText("Yes");
+            } else {
+                equipped.setText("No");
+            }
+        }
+
+        name.setText(armor.getName());
+        cost.setText(Integer.toString(armor.getCost()));
+        ballisticRtg.setText(Integer.toString(armor.getBallisticRating()));
+        impactRtg.setText(Integer.toString(armor.getImpactRating()));
+    }
+
 }

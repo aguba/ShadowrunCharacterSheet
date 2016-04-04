@@ -108,9 +108,13 @@ public class CharacterSheet extends AppCompatActivity {
         weaponContainer.removeAllViews();
         if(character.packingHeat()){
             weaponDefaultTxt.setVisibility(View.GONE);
-            weaponView = WeaponsInventory.getInstance().getWeaponView(getLayoutInflater(), weaponContainer, character.getEquipped());
+            weaponView = new EquipmentViewController(getLayoutInflater()).getWeaponView(getLayoutInflater(), weaponContainer, character.getEquippedWeapon());
             ImageButton btnMenu = (ImageButton) weaponView.findViewById(R.id.weapon_menu);
+            TextView equippedTitle = (TextView) weaponView.findViewById(R.id.equipped_title);
+            TextView equippedStatus = (TextView) weaponView.findViewById(R.id.weapon_equipped);
             btnMenu.setVisibility(View.GONE);
+            equippedTitle.setVisibility(View.GONE);
+            equippedStatus.setVisibility(View.GONE);
             weaponContainer.addView(weaponView);
         }
         else{
@@ -130,7 +134,7 @@ public class CharacterSheet extends AppCompatActivity {
 
     public void expandEquipment(View view) {
         Intent equipmentCard = new Intent(CharacterSheet.this, EquipmentActivity.class);
-        CharacterSheet.this.startActivity(equipmentCard);
+        CharacterSheet.this.startActivityForResult(equipmentCard, 3);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,27 +10,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.TextView;
 
 import layout.EquipmentFragment;
 import layout.WeaponsFragment;
-import uk.co.ribot.easyadapter.EasyAdapter;
 
 public class EquipmentActivity extends AppCompatActivity
-                                    implements WeaponsFragment.OnFragmentInteractionListener, EquipmentFragment.OnFragmentInteractionListener{
+        implements WeaponsFragment.OnFragmentInteractionListener,
+        WeaponsFragment.OnEquipmentChangeListener,
+        ArmorFragment.OnFragmentInteractionListener,
+        ArmorFragment.OnEquipmentChangeListener,
+        EquipmentFragment.OnFragmentInteractionListener {
+
+    TextView nuyen;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipment);
+
+        Character character = Character.getInstance();
+
+        nuyen = (TextView) findViewById(R.id.nuyen_value);
+        nuyen.setText(Integer.toString(character.getNuyen()));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,14 +67,13 @@ public class EquipmentActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(mViewPager);
 
 
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_equipment, menu);
+        getMenuInflater().inflate(R.menu.menu_equipment_activity, menu);
         return true;
     }
 
@@ -101,9 +104,11 @@ public class EquipmentActivity extends AppCompatActivity
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
 
-            switch(position) {
-                case 0  :   return new WeaponsFragment();
-                case 1  :   return new EquipmentFragment();
+            switch (position) {
+                case 0:
+                    return new WeaponsFragment();
+                case 1:
+                    return new ArmorFragment();
             }
             return null;
         }
@@ -120,12 +125,17 @@ public class EquipmentActivity extends AppCompatActivity
                 case 0:
                     return "Weapons";
                 case 1:
-                    return "Gear";
+                    return "Armor";
             }
             return null;
         }
     }
 
-    public void onFragmentInteraction(Uri uri){
+    @Override
+    public void nuyenSet(int nuyenAmount) {
+        nuyen.setText(Integer.toString(nuyenAmount));
+    }
+
+    public void onFragmentInteraction(Uri uri) {
     }
 }

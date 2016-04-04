@@ -1,4 +1,4 @@
-package layout;
+package com.softwareengineering.ttu.shadowruncharactermanager;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -20,21 +20,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.softwareengineering.ttu.shadowruncharactermanager.*;
-import com.softwareengineering.ttu.shadowruncharactermanager.Character;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WeaponsFragment.OnFragmentInteractionListener} interface
+ * {@link ArmorFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WeaponsFragment#newInstance} factory method to
+ * Use the {@link ArmorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeaponsFragment extends Fragment {
+public class ArmorFragment extends Fragment {
     Character character = Character.getInstance();
     EquipmentInventory inventory = EquipmentInventory.getInstance();
-    LinearLayout weaponList;
+    LinearLayout armorList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,7 +45,7 @@ public class WeaponsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public WeaponsFragment() {
+    public ArmorFragment() {
         // Required empty public constructor
     }
 
@@ -57,11 +55,11 @@ public class WeaponsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WeaponsFragment.
+     * @return A new instance of fragment ArmorFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static WeaponsFragment newInstance(String param1, String param2) {
-        WeaponsFragment fragment = new WeaponsFragment();
+    public static ArmorFragment newInstance(String param1, String param2) {
+        ArmorFragment fragment = new ArmorFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -81,36 +79,40 @@ public class WeaponsFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View layout = inflater.inflate(R.layout.fragment_weapons, container, false);
+        final View layout = inflater.inflate(R.layout.fragment_armor, container, false);
         final EquipmentViewController viewController = new EquipmentViewController(inflater);
-        weaponList = (LinearLayout) layout.findViewById(R.id.weapon_list);
+        armorList = (LinearLayout) layout.findViewById(R.id.armor_list);
         final TextView nuyenVal = (TextView) layout.findViewById(R.id.nuyen_value);
-        ImageButton addWeaponButton = (ImageButton) layout.findViewById(R.id.btn_add_weapon);
+        ImageButton addArmorButton = (ImageButton) layout.findViewById(R.id.btn_add_armor);
 
         nuyenVal.setText(Integer.toString(character.getNuyen()));
 
-        if (character.hasWeapons()) {
-            for (int i = 0; i < character.getWeaponList().size(); i++) {
-                final View weaponListing = viewController.getWeaponView(weaponList, i);
-                final int id = character.getWeaponList().keyAt(i);
-                final TextView txtID = (TextView) weaponListing.findViewById(R.id.weapon_id);
+        if (character.hasArmor()) {
+            for (int i = 0; i < character.getArmorList().size(); i++) {
+                final View armorListing = viewController.getArmorView(armorList, i);
+                final int id = character.getArmorList().keyAt(i);
+                final TextView txtID = (TextView) armorListing.findViewById(R.id.armor_id);
                 txtID.setText(Integer.toString(id));
 
-                weaponList.addView(weaponListing);
+                armorList.addView(armorListing);
 
-                weaponMenuBtnListener(weaponListing, id, nuyenVal);
+                armorMenuBtnListener(armorListing, id, nuyenVal);
             }
         }
 
 
-        addWeaponButton.setOnClickListener(new View.OnClickListener() {
+        addArmorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final View weaponPopup = inflater.inflate(R.layout.popup_layout, null, false);
-                final Button btnCancel = (Button) weaponPopup.findViewById(R.id.btn_cancel_popup);
-                final TextView txtNuyenVal = (TextView) weaponPopup.findViewById(R.id.nuyen_value);
+                final View armorPopup = inflater.inflate(R.layout.popup_layout, null, false);
+                final TextView title = (TextView) armorPopup.findViewById(R.id.popup_title);
+                final Button btnCancel = (Button) armorPopup.findViewById(R.id.btn_cancel_popup);
+                final TextView txtNuyenVal = (TextView) armorPopup.findViewById(R.id.nuyen_value);
+
+                title.setText("Armor");
+
                 final PopupWindow popupWindow = new PopupWindow(
-                        weaponPopup,
+                        armorPopup,
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         true);
@@ -126,16 +128,16 @@ public class WeaponsFragment extends Fragment {
                     }
                 });
 
-                for (int i = 0; i < inventory.getWeaponCount(); i++) {
-                    final LinearLayout weaponSection = (LinearLayout) weaponPopup.findViewById(R.id.equipment_section);
-                    final View popupListing = viewController.getWeaponPopupMiniView(weaponSection, i);
+                for (int i = 0; i < inventory.getArmorCount(); i++) {
+                    final LinearLayout armorSection = (LinearLayout) armorPopup.findViewById(R.id.equipment_section);
+                    final View popupListing = viewController.getArmorPopupMiniView(armorSection, i);
                     RelativeLayout selection = (RelativeLayout) popupListing.findViewById(R.id.container);
-                    final View weaponListing = viewController.getWeaponPopupFullView(weaponList, i);
-                    final Weapon weapon = inventory.getWeapon(i);
-                    final TextView txtCost = (TextView) weaponListing.findViewById(R.id.weapon_cost);
+                    final View armorListing = viewController.getArmorPopupFullView(armorList, i);
+                    final Armor armor = inventory.getArmor(i);
+                    final TextView txtCost = (TextView) armorListing.findViewById(R.id.armor_cost);
                     final int cost = Integer.parseInt(txtCost.getText().toString());
 
-                    final TextView weaponID = (TextView) weaponListing.findViewById(R.id.weapon_id);
+                    final TextView armorID = (TextView) armorListing.findViewById(R.id.armor_id);
 
                     selection.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -144,30 +146,30 @@ public class WeaponsFragment extends Fragment {
                                 Toast nuyenWarning = Toast.makeText(getContext(), "Insufficient Nuyen", Toast.LENGTH_SHORT);
                                 nuyenWarning.show();
                             } else {
-                                weaponList.addView(weaponListing);
-                                weaponID.setText(Integer.toString(character.addWeapon(weapon)));
+                                armorList.addView(armorListing);
+                                armorID.setText(Integer.toString(character.addArmor(armor)));
                                 character.subNuyen(cost);
                                 ((OnEquipmentChangeListener)getActivity()).nuyenSet(character.getNuyen());
                                 popupWindow.dismiss();
-                                weaponMenuBtnListener(weaponListing, Integer.parseInt(weaponID.getText().toString()), nuyenVal);
+                                armorMenuBtnListener(armorListing, Integer.parseInt(armorID.getText().toString()), nuyenVal);
                             }
                         }
                     });
 
-                    weaponSection.addView(popupListing);
+                    armorSection.addView(popupListing);
                 }
 
-                popupWindow.showAtLocation(layout.findViewById(R.id.weapon_list), Gravity.CENTER, 0, 0);
+                popupWindow.showAtLocation(layout.findViewById(R.id.armor_list), Gravity.CENTER, 0, 0);
             }
         });
 
         return layout;
     }
 
-    public void weaponMenuBtnListener(final View weaponListing, final int ID, final TextView nuyenVal){
-        ImageButton menuBtn = (ImageButton) weaponListing.findViewById(R.id.weapon_menu);
-        TextView txtCost = (TextView) weaponListing.findViewById(R.id.weapon_cost);
-        final TextView txtEquipped = (TextView) weaponListing.findViewById(R.id.weapon_equipped);
+    public void armorMenuBtnListener(final View armorListing, final int ID, final TextView nuyenVal){
+        ImageButton menuBtn = (ImageButton) armorListing.findViewById(R.id.armor_menu);
+        TextView txtCost = (TextView) armorListing.findViewById(R.id.armor_cost);
+        final TextView txtEquipped = (TextView) armorListing.findViewById(R.id.armor_equipped);
         final int cost = Integer.parseInt(txtCost.getText().toString());
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +178,7 @@ public class WeaponsFragment extends Fragment {
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.menu_equipment, popup.getMenu());
 
-                if (character.getWeaponByID(ID).isEquipped()) {
+                if (character.getArmorByID(ID).isEquipped()) {
                     popup.getMenu().getItem(0).setTitle("Unequip");
                 }
 
@@ -191,16 +193,16 @@ public class WeaponsFragment extends Fragment {
                                 if (equippedFlag) {
                                     character.unEquipArmor();
                                 }
-                                weaponList.removeView(weaponListing);
-                                character.removeWeapon(ID);
+                                armorList.removeView(armorListing);
+                                character.removeArmor(ID);
                                 break;
 
                             case R.id.sell:
                                 if (equippedFlag) {
                                     character.unEquipArmor();
                                 }
-                                weaponList.removeView(weaponListing);
-                                character.removeWeapon(ID);
+                                armorList.removeView(armorListing);
+                                character.removeArmor(ID);
                                 character.addNuyen(cost);
                                 ((OnEquipmentChangeListener)getActivity()).nuyenSet(character.getNuyen());
                                 break;
@@ -210,7 +212,7 @@ public class WeaponsFragment extends Fragment {
                                     character.unEquipArmor();
                                     txtEquipped.setText("No");
                                 } else {
-                                    character.equipWeapon(character.getWeaponByID(ID));
+                                    character.equipArmor(character.getArmorByID(ID));
                                     txtEquipped.setText("Yes");
                                 }
                                 break;
@@ -222,13 +224,6 @@ public class WeaponsFragment extends Fragment {
         });
     }
 
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -262,6 +257,7 @@ public class WeaponsFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

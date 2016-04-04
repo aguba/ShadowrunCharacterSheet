@@ -47,6 +47,6 @@ public class Weapon extends Equipment {
 
     public boolean isEquipped(){
         Weapon weapon = (Weapon) this;
-        return weapon == Character.getInstance().getEquipped();
+        return weapon == Character.getInstance().getEquippedWeapon();
     }
 }

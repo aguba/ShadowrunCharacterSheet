@@ -2,10 +2,7 @@ package com.softwareengineering.ttu.shadowruncharactermanager;
 
 import android.util.SparseArray;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 /**
@@ -21,10 +18,13 @@ public class Character {
         mNuyen = 10000;
         mGearStore = new SparseArray<>();
         mWeaponStore = new SparseArray<>();
+        mArmorStore = new SparseArray<>();
         mEquippedWeapon = new Weapon();
+        mEquippedWeapon = null;
         mEquippedWeapon = null;
         mGearKey = 0;
         mWeaponKey = 0;
+        mArmorKey = 0;
 
         mAttributes = new HashMap<>();
         mSkills = new HashMap<>();
@@ -47,9 +47,12 @@ public class Character {
     private Map<String, Skill> mSkills;
     private SparseArray<Equipment> mGearStore;
     private SparseArray<Weapon> mWeaponStore;
+    private SparseArray<Armor> mArmorStore;
     private Weapon mEquippedWeapon;
+    private Armor mEquippedArmor;
     private int mGearKey;
     private int mWeaponKey;
+    private int mArmorKey;
 
     public static Character getInstance() {
 
@@ -139,42 +142,101 @@ public class Character {
         mWeaponStore.append(mWeaponKey, weapon);
         mWeaponKey++;
 
-        return mWeaponKey-1;
+        return mWeaponKey - 1;
+    }
+
+    public int addArmor(Armor armor){
+        mArmorStore.append(mArmorKey, armor);
+        mArmorKey++;
+
+        return mArmorKey - 1;
     }
 
     public Weapon getWeaponByIndex(int index){
         return mWeaponStore.valueAt(index);
     }
 
+    public Armor getArmorByIndex(int index) {
+        return mArmorStore.valueAt(index);
+    }
+
     public Weapon getWeaponByID(int ID){
         return mWeaponStore.get(ID);
+    }
+
+    public Armor getArmorByID(int ID){
+        return mArmorStore.get(ID);
     }
 
     public void removeWeapon(int key){
         mWeaponStore.delete(key);
     }
 
+    public void removeArmor(int key){
+        mArmorStore.delete(key);
+    }
+
     public boolean hasWeapons(){
         return mWeaponStore.size() != 0;
+    }
+
+    public boolean hasArmor(){
+        return mArmorStore.size() != 0;
     }
 
     public SparseArray<Weapon> getWeaponList(){
         return mWeaponStore;
     }
 
-    public void equip(Weapon weapon){
+    public SparseArray<Armor> getArmorList(){
+        return mArmorStore;
+    }
+
+    public void equipWeapon(Weapon weapon){
         mEquippedWeapon = weapon;
     }
 
-    public void unEquip(){
+    public void equipArmor(Armor armor){
+        mEquippedArmor = armor;
+    }
+
+    public void unEquipArmor(){
         mEquippedWeapon = null;
     }
 
-    public Weapon getEquipped(){
+    public void unEquipWeapon(){
+        mEquippedArmor = null;
+    }
+
+    public Weapon getEquippedWeapon(){
         return mEquippedWeapon;
     }
 
+    public Armor getEquippedArmor(){
+        return mEquippedArmor;
+    }
+
     public boolean packingHeat(){
-        return getEquipped() != null;
+        return getEquippedWeapon() != null;
+    }
+
+    public boolean isProtected(){
+        return getEquippedArmor() != null;
+    }
+
+    public Skill getSkill(String skillName){
+        return mSkills.get(skillName);
+    }
+
+    public void upSkill(String skillName){
+        mSkills.get(skillName).ratingUp();
+    }
+
+    public Attribute getAttribute(String attributeName){
+        return mAttributes.get(attributeName);
+    }
+
+    public void upAttribute(String attributeName){
+        mAttributes.get(attributeName).upRating();
     }
 }

@@ -14,30 +14,23 @@
         android:background="#50757575" />
 
     <TextView
-        android:id="@+id/weapon_name"
+        android:id="@+id/armor_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/separator"
         android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Name"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/weapon_type"
+        android:id="@+id/armor_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weapon_name"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="16dp"
-        android:text="Type" />
-
-    <TextView
-        android:id="@+id/weapon_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/weapon_name"
-        android:text="test"
+        android:layout_below="@id/separator"
+        android:layout_toRightOf="@id/armor_name"
+        android:text="id"
         android:visibility="gone" />
 
     <LinearLayout
@@ -55,7 +48,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/weapon_cost"
+            android:id="@+id/armor_cost"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginRight="16dp"
@@ -63,7 +56,7 @@
             android:text="0" />
 
         <ImageButton
-            android:id="@+id/weapon_menu"
+            android:id="@+id/armor_menu"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -74,64 +67,38 @@
     </LinearLayout>
 
     <TableLayout
-        android:id="@+id/weapon_table"
+        android:id="@+id/armor_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/weapon_type"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="4dp">
+        android:layout_below="@id/armor_name"
+        android:layout_margin="16dp"
+        android:stretchColumns="*">
 
         <TableRow>
 
             <TextView
-                android:text="Damage"
+                android:text="Ballistic Rating"
                 android:textStyle="bold" />
 
             <TextView
-                android:text="Mode"
-                android:textStyle="bold" />
-
-            <TextView
-                android:text="AP"
-                android:textStyle="bold" />
-
-            <TextView
-                android:text="RC"
-                android:textStyle="bold" />
-
-            <TextView
-                android:text="Reach"
+                android:text="Impact Rating"
                 android:textStyle="bold" />
         </TableRow>
 
         <TableRow android:layout_marginBottom="4dp">
 
             <TextView
-                android:id="@+id/weapon_damage"
+                android:id="@+id/armor_ballistic"
                 android:text="0" />
 
             <TextView
-                android:id="@+id/weapon_mode"
-                android:text="SA" />
-
-            <TextView
-                android:id="@+id/weapon_AP"
-                android:text="0" />
-
-            <TextView
-                android:id="@+id/weapon_RC"
-                android:text="0" />
-
-            <TextView
-                android:id="@+id/weapon_reach"
+                android:id="@+id/armor_impact"
                 android:text="0" />
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:id="@+id/equipped_title"
                 android:text="Equipped"
                 android:textStyle="bold" />
         </TableRow>
@@ -139,7 +106,7 @@
         <TableRow>
 
             <TextView
-                android:id="@+id/weapon_equipped"
+                android:id="@+id/armor_equipped"
                 android:text="No" />
         </TableRow>
 
