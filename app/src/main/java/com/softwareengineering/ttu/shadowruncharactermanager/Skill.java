@@ -28,8 +28,17 @@ public class Skill {
         dicepoolUp();
     }
 
+    public void ratingDown(){
+        mRating -= 1;
+        dicepoolDown();
+    }
+
     public void dicepoolUp(){
         mDicepool += 1;
+    }
+
+    public void dicepoolDown(){
+        mDicepool -= 1;
     }
 
     public void dicepoolUp(int attributeValue){

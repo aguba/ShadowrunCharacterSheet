@@ -25,7 +25,6 @@ public class Character {
         mGearKey = 0;
         mWeaponKey = 0;
         mArmorKey = 0;
-
         mAttributes = new HashMap<>();
         mSkills = new HashMap<>();
         for(int i=0; i<50; i++){
