@@ -84,10 +84,7 @@ public class WeaponsFragment extends Fragment {
         final View layout = inflater.inflate(R.layout.fragment_weapons, container, false);
         final EquipmentViewController viewController = new EquipmentViewController(inflater);
         weaponList = (LinearLayout) layout.findViewById(R.id.weapon_list);
-        final TextView nuyenVal = (TextView) layout.findViewById(R.id.nuyen_value);
         ImageButton addWeaponButton = (ImageButton) layout.findViewById(R.id.btn_add_weapon);
-
-        nuyenVal.setText(Integer.toString(character.getNuyen()));
 
         if (character.hasWeapons()) {
             for (int i = 0; i < character.getWeaponList().size(); i++) {
@@ -98,7 +95,7 @@ public class WeaponsFragment extends Fragment {
 
                 weaponList.addView(weaponListing);
 
-                weaponMenuBtnListener(weaponListing, id, nuyenVal);
+                weaponMenuBtnListener(weaponListing, id);
             }
         }
 
@@ -149,7 +146,7 @@ public class WeaponsFragment extends Fragment {
                                 character.subNuyen(cost);
                                 ((OnEquipmentChangeListener)getActivity()).nuyenSet(character.getNuyen());
                                 popupWindow.dismiss();
-                                weaponMenuBtnListener(weaponListing, Integer.parseInt(weaponID.getText().toString()), nuyenVal);
+                                weaponMenuBtnListener(weaponListing, Integer.parseInt(weaponID.getText().toString()));
                             }
                         }
                     });
@@ -164,7 +161,7 @@ public class WeaponsFragment extends Fragment {
         return layout;
     }
 
-    public void weaponMenuBtnListener(final View weaponListing, final int ID, final TextView nuyenVal){
+    public void weaponMenuBtnListener(final View weaponListing, final int ID){
         ImageButton menuBtn = (ImageButton) weaponListing.findViewById(R.id.weapon_menu);
         TextView txtCost = (TextView) weaponListing.findViewById(R.id.weapon_cost);
         final TextView txtEquipped = (TextView) weaponListing.findViewById(R.id.weapon_equipped);

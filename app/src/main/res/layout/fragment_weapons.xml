@@ -33,25 +33,6 @@
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/nuyen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/title"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"
-                        android:text="Nuyen: "
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/nuyen_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/title"
-                        android:layout_marginRight="16dp"
-                        android:layout_toRightOf="@id/nuyen"
-                        android:text="0" />
-
                     <ImageButton
                         android:id="@+id/btn_add_weapon"
                         style="@style/Base.Widget.AppCompat.Button.Borderless"

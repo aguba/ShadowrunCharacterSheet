@@ -82,10 +82,7 @@ public class ArmorFragment extends Fragment {
         final View layout = inflater.inflate(R.layout.fragment_armor, container, false);
         final EquipmentViewController viewController = new EquipmentViewController(inflater);
         armorList = (LinearLayout) layout.findViewById(R.id.armor_list);
-        final TextView nuyenVal = (TextView) layout.findViewById(R.id.nuyen_value);
         ImageButton addArmorButton = (ImageButton) layout.findViewById(R.id.btn_add_armor);
-
-        nuyenVal.setText(Integer.toString(character.getNuyen()));
 
         if (character.hasArmor()) {
             for (int i = 0; i < character.getArmorList().size(); i++) {
@@ -96,7 +93,7 @@ public class ArmorFragment extends Fragment {
 
                 armorList.addView(armorListing);
 
-                armorMenuBtnListener(armorListing, id, nuyenVal);
+                armorMenuBtnListener(armorListing, id);
             }
         }
 
@@ -151,7 +148,7 @@ public class ArmorFragment extends Fragment {
                                 character.subNuyen(cost);
                                 ((OnEquipmentChangeListener)getActivity()).nuyenSet(character.getNuyen());
                                 popupWindow.dismiss();
-                                armorMenuBtnListener(armorListing, Integer.parseInt(armorID.getText().toString()), nuyenVal);
+                                armorMenuBtnListener(armorListing, Integer.parseInt(armorID.getText().toString()));
                             }
                         }
                     });
@@ -166,7 +163,7 @@ public class ArmorFragment extends Fragment {
         return layout;
     }
 
-    public void armorMenuBtnListener(final View armorListing, final int ID, final TextView nuyenVal){
+    public void armorMenuBtnListener(final View armorListing, final int ID){
         ImageButton menuBtn = (ImageButton) armorListing.findViewById(R.id.armor_menu);
         TextView txtCost = (TextView) armorListing.findViewById(R.id.armor_cost);
         final TextView txtEquipped = (TextView) armorListing.findViewById(R.id.armor_equipped);
