@@ -22,6 +22,7 @@ public class CharacterCard extends AppCompatActivity {
     EditText editCharName;
     EditText editCharKarma;
     EditText editCharNuyen;
+    EditText strengthClick;
     ImageButton btnEditCharacter;
     ImageButton btnDoneEditCharacter;
     ImageButton btnAddKarma;
@@ -61,6 +62,7 @@ public class CharacterCard extends AppCompatActivity {
         btnDoneNuyen = (ImageButton) findViewById(R.id.btn_done_nuyen);
         picture = (ImageView) findViewById(R.id.character_image2);
         addImage = (ImageView) findViewById(R.id.character_image_add);
+        strengthClick = (EditText) findViewById(R.id.body_value_edit);
 
         loadPicture.displayImage(imageURI, picture);
         charName.setText(character.getName());
@@ -95,8 +97,18 @@ public class CharacterCard extends AppCompatActivity {
                 editNuyenKarma("Nuyen");
             }
         });
+        strengthClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == strengthClick.getId()) {
+                    strengthClick.setCursorVisible(true);
+                }
+            }
+        });
 
     }
+
+
 
     public void editOn(View view) {
         addImage.setVisibility(View.VISIBLE);

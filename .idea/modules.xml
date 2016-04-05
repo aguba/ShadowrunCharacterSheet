@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ShadowrunCharacterSheet.iml" filepath="$PROJECT_DIR$/ShadowrunCharacterSheet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Shadowrun.iml" filepath="$PROJECT_DIR$/Shadowrun.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/version1.iml" filepath="$PROJECT_DIR$/version1.iml" />
     </modules>
   </component>
 </project>
