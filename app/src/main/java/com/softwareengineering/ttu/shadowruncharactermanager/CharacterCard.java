@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,13 +30,19 @@ public class CharacterCard extends AppCompatActivity {
     ImageButton btnSubNuyen;
     ImageButton btnDoneKarma;
     ImageButton btnDoneNuyen;
+    ImageButton btnEditBio;
+    ImageButton btnDoneBio;
     ImageView picture;
     ImageView addImage;
     ImageLoader loadPicture = ImageLoader.getInstance();
+    LinearLayout bioContainer;
+    TextView bio;
+    EditText editBio;
 
     String imageURI;
     String karmaEditMode;
     String nuyenEditMode;
+    boolean bioIsExpanded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,14 @@ public class CharacterCard extends AppCompatActivity {
         btnDoneNuyen = (ImageButton) findViewById(R.id.btn_done_nuyen);
         picture = (ImageView) findViewById(R.id.character_image2);
         addImage = (ImageView) findViewById(R.id.character_image_add);
+        bioContainer = (LinearLayout) findViewById(R.id.bio_container);
+        btnEditBio = (ImageButton) findViewById(R.id.btn_edit_bio);
+        btnDoneBio = (ImageButton) findViewById(R.id.btn_done_bio);
+        bio = (TextView) findViewById(R.id.biography_text);
+        editBio = (EditText) findViewById(R.id.biography_edit);
+
+        bio.setText(character.getBio());
+        bioIsExpanded = false;
 
         loadPicture.displayImage(imageURI, picture);
         charName.setText(character.getName());
@@ -96,6 +110,38 @@ public class CharacterCard extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void expandBio(View view){
+        if(!bioIsExpanded){
+            bioContainer.setVisibility(View.VISIBLE);
+            bioIsExpanded = true;
+        }
+        else{
+            bioContainer.setVisibility(View.GONE);
+            bioIsExpanded = false;
+        }
+    }
+
+    public void editBioOn(View view){
+        editBio.setText(bio.getText());
+
+        btnEditBio.setVisibility(View.GONE);
+        btnDoneBio.setVisibility(View.VISIBLE);
+
+        bio.setVisibility(View.GONE);
+        editBio.setVisibility(View.VISIBLE);
+    }
+
+    public void editBioOff(View view){
+        character.setBio(editBio.getText().toString());
+        bio.setText(character.getBio());
+
+        btnDoneBio.setVisibility(View.GONE);
+        btnEditBio.setVisibility(View.VISIBLE);
+
+        editBio.setVisibility(View.GONE);
+        bio.setVisibility(View.VISIBLE);
     }
 
     public void editOn(View view) {

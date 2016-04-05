@@ -14,6 +14,7 @@ public class Character {
 
     private Character() {
         mName = "Character Name";
+        mBiography = "Character Biography";
         mKarma = 0;
         mNuyen = 10000;
         mGearStore = new SparseArray<>();
@@ -40,6 +41,7 @@ public class Character {
     private String mName;
     private String mMetaType;
     private String mImageURI;
+    private String mBiography;
     private int mKarma;
     private int mNuyen;
     private Map<String, Attribute> mAttributes;
@@ -64,6 +66,14 @@ public class Character {
 
     public String getName(){
         return mName;
+    }
+
+    public void setBio(String bio){
+        mBiography = bio;
+    }
+
+    public String getBio(){
+        return mBiography;
     }
 
     public void setMetaType(String value){

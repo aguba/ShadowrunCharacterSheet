@@ -273,53 +273,125 @@
 
                 </RelativeLayout>
 
-                <TableLayout
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/bio_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sub_info"
+                android:layout_margin="16dp"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#50757575"></View>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
+                        android:text="Bio"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/btn_expand_bio"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:onClick="expandBio"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/expand"
+                        android:tint="#757575" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/bio_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-                    <!--
-                                        <TableRow android:layout_width="match_parent">
+                    android:layout_marginBottom="8dp"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                                            <TextView
-                                                android:id="@+id/karma2"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="Karma: " />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true">
 
-                                            <TextView
-                                                android:id="@+id/karma2_value"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="0" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:animateLayoutChanges="true">
 
-                                            <EditText
-                                                android:id="@+id/karma2_value_edit"
-                                                android:layout_width="85dp"
-                                                android:layout_height="wrap_content"
-                                                android:inputType="number"
-                                                android:text="0"
-                                                android:textSize="14sp"
-                                                android:visibility="gone" />
+                            <ImageButton
+                                android:id="@+id/btn_edit_bio"
+                                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:onClick="editBioOn"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/edit"
+                                android:tint="#757575" />
 
-                                            <RelativeLayout>
+                            <ImageButton
+                                android:id="@+id/btn_done_bio"
+                                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:onClick="editBioOff"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/done"
+                                android:tint="#757575"
+                                android:visibility="gone" />
 
-                                                <ImageButton
-                                                    style="@style/Base.Widget.AppCompat.Button.Borderless"
-                                                    android:layout_width="48dp"
-                                                    android:layout_height="48dp"
-                                                    android:layout_alignParentRight="true"
-                                                    android:scaleType="fitCenter"
-                                                    android:src="@drawable/remove_circle"
-                                                    android:tint="#757575" />
-                                            </RelativeLayout>
-                                        </TableRow>
-                    -->
-                    <TableRow>
+                        </LinearLayout>
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:gravity="center_vertical"
+                            android:text="Biography"
+                            android:textStyle="bold" />
 
-                    </TableRow>
+                    </RelativeLayout>
 
-                </TableLayout>
+                    <TextView
+                        android:id="@+id/biography_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Character Biography" />
+
+                    <EditText
+                        android:id="@+id/biography_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:inputType="textMultiLine"
+                        android:maxLength="2000"
+                        android:maxLines="8"
+                        android:scrollHorizontally="false"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#50757575"></View>
 
             </LinearLayout>
 
@@ -327,7 +399,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/sub_info"
+                android:layout_below="@id/bio_section"
                 android:layout_marginLeft="16dp"
                 android:stretchColumns="*">
 
