@@ -159,10 +159,6 @@ public class CharacterSheet extends AppCompatActivity {
 
         pHealth.setText(String.valueOf(pHealthBar.getMax()) + "/" + String.valueOf(pHealthBar.getMax()));
         sHealth.setText(String.valueOf(sHealthBar.getMax()) + "/" + String.valueOf(sHealthBar.getMax()));
-/*
-        TableRow r = (TableRow) findViewById(R.id.table_row_1);
-        r.setVisibility(View.GONE);
-        */
 
         pHealthBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

@@ -60,6 +60,40 @@
                     android:text="Item Name"
                     android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/pool_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/roll_name"
+                    android:layout_marginTop="16dp"
+                    android:text="Dicepool: " />
+
+                <TextView
+                    android:id="@+id/pool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/roll_name"
+                    android:layout_marginTop="16dp"
+                    android:layout_toRightOf="@id/pool_label"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/rolls_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pool"
+                    android:layout_marginTop="8dp"
+                    android:text="Rolls: " />
+
+                <TextView
+                    android:id="@+id/rolls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pool"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/rolls_label"
+                    android:text="0" />
+
             </RelativeLayout>
 
             <View

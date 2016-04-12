@@ -9,26 +9,24 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.util.Random;
 import java.util.zip.Inflater;
 
 /**
  * Created by Rj on 4/8/2016.
  */
 public class DiceRoller {
-    private int mDicepool;
     private View mRoot;
     private LayoutInflater mInflater;
+    private Random rand;
 
-    public DiceRoller(View view, LayoutInflater inflater){
-        mDicepool = 0;
+    public DiceRoller(View view, LayoutInflater inflater) {
         mRoot = view;
         mInflater = inflater;
+        rand = new Random();
     }
 
-    public void rollDice(ViewGroup view, final LayoutInflater inflater){
-    }
-
-    public void setRoller(View view, final String rollNameText){
+    public void setRoller(View view, final String rollNameText, final int dicePool) {
         View layout = view;
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +35,26 @@ public class DiceRoller {
                 final Button btnOK = (Button) rollLayout.findViewById(R.id.btn_OK);
                 final TextView rollResult = (TextView) rollLayout.findViewById(R.id.result);
                 final TextView rollName = (TextView) rollLayout.findViewById(R.id.roll_name);
+                TextView pool = (TextView) rollLayout.findViewById(R.id.pool);
+                TextView rollCount = (TextView) rollLayout.findViewById(R.id.rolls);
+                int hitCount = 0;
+                int currentRoll = 0;
+                String rollCountTxt = "";
+
+                for (int i = 0; i < dicePool; i++) {
+                    currentRoll = rand.nextInt(6) + 1;
+                    if (currentRoll >= 5) {
+                        hitCount++;
+                    }
+                    if (i > 0) {
+                        rollCountTxt += ", ";
+                    }
+                    rollCountTxt += Integer.toString(currentRoll);
+                }
+
+                pool.setText(Integer.toString(dicePool));
+                rollResult.setText(Integer.toString(hitCount));
+                rollCount.setText(rollCountTxt);
 
                 final PopupWindow rollWindow = new PopupWindow(
                         rollLayout,
