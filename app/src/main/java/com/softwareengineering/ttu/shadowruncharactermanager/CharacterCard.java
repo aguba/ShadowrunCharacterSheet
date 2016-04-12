@@ -73,6 +73,12 @@ public class CharacterCard extends AppCompatActivity {
         bio = (TextView) findViewById(R.id.biography_text);
         editBio = (EditText) findViewById(R.id.biography_edit);
 
+        final ImageButton btnEditKarma = (ImageButton) findViewById(R.id.btn_karma_edit);
+        final ImageButton btnEditNuyen = (ImageButton) findViewById(R.id.btn_nuyen_edit);
+
+        final LinearLayout karmaPanel = (LinearLayout) findViewById(R.id.karma_btn_panel);
+        final LinearLayout nuyenPanel = (LinearLayout) findViewById(R.id.nuyen_btn_panel);
+
         bio.setText(character.getBio());
         bioIsExpanded = false;
 
@@ -81,32 +87,46 @@ public class CharacterCard extends AppCompatActivity {
         charKarma.setText(Integer.toString(character.getKarma()));
         charNuyen.setText(Integer.toString(character.getNuyen()));
 
+        btnEditKarma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editNuyenKarma(charKarma, editCharKarma, karmaPanel, btnEditKarma);
+            }
+        });
+
+        btnEditNuyen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editNuyenKarma(charNuyen, editCharNuyen, nuyenPanel, btnEditNuyen);
+            }
+        });
+
         btnAddKarma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                karmaEditMode = "add";
-                editNuyenKarma("Karma");
+                character.addKarma(Integer.parseInt(editCharKarma.getText().toString()));
+                doneNuyenKarma(charKarma, editCharKarma, karmaPanel, btnEditKarma, character.getKarma());
             }
         });
         btnSubKarma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                karmaEditMode = "sub";
-                editNuyenKarma("Karma");
+                character.subKarma(Integer.parseInt(editCharKarma.getText().toString()));
+                doneNuyenKarma(charKarma, editCharKarma, karmaPanel, btnEditKarma, character.getKarma());
             }
         });
         btnAddNuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nuyenEditMode = "add";
-                editNuyenKarma("Nuyen");
+                character.addNuyen(Integer.parseInt(editCharNuyen.getText().toString()));
+                doneNuyenKarma(charNuyen, editCharNuyen, nuyenPanel, btnEditNuyen, character.getNuyen());
             }
         });
         btnSubNuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nuyenEditMode = "sub";
-                editNuyenKarma("Nuyen");
+                character.subNuyen(Integer.parseInt(editCharNuyen.getText().toString()));
+                doneNuyenKarma(charNuyen, editCharNuyen, nuyenPanel, btnEditNuyen, character.getNuyen());
             }
         });
 
@@ -175,67 +195,25 @@ public class CharacterCard extends AppCompatActivity {
         CharacterCard.this.startActivityForResult(profilePicker, 1);
     }
 
-    public void editNuyenKarma(String item) {
-        if (item.equals("Karma")) {
-            charKarma.setVisibility(View.GONE);
-            editCharKarma.setVisibility(View.VISIBLE);
-            editCharKarma.setText("");
-            btnAddKarma.setVisibility(View.GONE);
-            btnSubKarma.setVisibility(View.GONE);
-            btnDoneKarma.setVisibility(View.VISIBLE);
-        } else if (item.equals("Nuyen")) {
-            charNuyen.setVisibility(View.GONE);
-            editCharNuyen.setVisibility(View.VISIBLE);
-            editCharNuyen.setText("");
-            btnAddNuyen.setVisibility(View.GONE);
-            btnSubNuyen.setVisibility(View.GONE);
-            btnDoneNuyen.setVisibility(View.VISIBLE);
-        }
+    public void editNuyenKarma(TextView textView, EditText editText, LinearLayout btnPanel, ImageButton btnEdit) {
+        textView.setVisibility(View.GONE);
+        editText.setVisibility(View.VISIBLE);
+        editText.setText("");
+
+        btnEdit.setVisibility(View.GONE);
+        btnPanel.setVisibility(View.VISIBLE);
     }
 
-    public void editKarmaOff(View view) {
-        int karmaAmount;
-        if (editCharKarma.getText().toString().equals("")) {
-            karmaAmount = 0;
-        } else {
-            karmaAmount = Integer.parseInt(editCharKarma.getText().toString());
-        }
+    public void doneNuyenKarma(TextView textView, EditText editText, LinearLayout btnPanel, ImageButton btnEdit, int amount){
+        textView.setText(Integer.toString(amount));
 
-        if (karmaEditMode.equals("add")) {
-            character.addKarma(karmaAmount);
-        } else if (karmaEditMode.equals("sub")) {
-            character.subKarma(karmaAmount);
-        }
+        editText.setVisibility(View.GONE);
+        textView.setVisibility(View.VISIBLE);
 
-        btnDoneKarma.setVisibility(View.GONE);
-        btnAddKarma.setVisibility(View.VISIBLE);
-        btnSubKarma.setVisibility(View.VISIBLE);
-        editCharKarma.setVisibility(View.GONE);
-        charKarma.setText(Integer.toString(character.getKarma()));
-        charKarma.setVisibility(View.VISIBLE);
+        btnPanel.setVisibility(View.GONE);
+        btnEdit.setVisibility(View.VISIBLE);
     }
 
-    public void editNuyenOff(View view) {
-        int nuyenAmount;
-        if (editCharNuyen.getText().toString().equals("")) {
-            nuyenAmount = 0;
-        } else {
-            nuyenAmount = Integer.parseInt(editCharNuyen.getText().toString());
-        }
-
-        if (nuyenEditMode.equals("add")) {
-            character.addNuyen(nuyenAmount);
-        } else if (nuyenEditMode.equals("sub")) {
-            character.subNuyen(nuyenAmount);
-        }
-
-        btnDoneNuyen.setVisibility(View.GONE);
-        btnAddNuyen.setVisibility(View.VISIBLE);
-        btnSubNuyen.setVisibility(View.VISIBLE);
-        editCharNuyen.setVisibility(View.GONE);
-        charNuyen.setText(Integer.toString(character.getNuyen()));
-        charNuyen.setVisibility(View.VISIBLE);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

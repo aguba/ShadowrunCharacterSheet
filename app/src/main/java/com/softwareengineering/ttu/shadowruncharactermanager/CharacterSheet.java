@@ -209,13 +209,7 @@ public class CharacterSheet extends AppCompatActivity {
         weaponContainer.removeAllViews();
         if(character.packingHeat()){
             weaponDefaultTxt.setVisibility(View.GONE);
-            weaponView = new EquipmentViewController(getLayoutInflater()).getWeaponView(getLayoutInflater(), weaponContainer, character.getEquippedWeapon());
-            ImageButton btnMenu = (ImageButton) weaponView.findViewById(R.id.weapon_menu);
-            TextView equippedTitle = (TextView) weaponView.findViewById(R.id.equipped_title);
-            TextView equippedStatus = (TextView) weaponView.findViewById(R.id.weapon_equipped);
-            btnMenu.setVisibility(View.GONE);
-            equippedTitle.setVisibility(View.GONE);
-            equippedStatus.setVisibility(View.GONE);
+            weaponView = new EquipmentViewController(getLayoutInflater()).getWeaponViewSummary(getLayoutInflater(), weaponContainer, character.getEquippedWeapon());
             weaponContainer.addView(weaponView);
         }
         else{

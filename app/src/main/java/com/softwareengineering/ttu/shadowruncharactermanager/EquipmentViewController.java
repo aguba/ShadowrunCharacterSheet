@@ -3,6 +3,7 @@ package com.softwareengineering.ttu.shadowruncharactermanager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -21,10 +22,6 @@ public class EquipmentViewController {
     private Character character;
     private EquipmentInventory inventory;
 
-    public void setInflater(LayoutInflater inflater) {
-        mInflater = inflater;
-    }
-
     public View getWeaponPopupMiniView(ViewGroup root, int index) {
         View view = mInflater.inflate(R.layout.weapon_list_layout_mini, root, false);
         Weapon weapon = inventory.getWeapon(index);
@@ -32,7 +29,7 @@ public class EquipmentViewController {
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(Integer.toString(index));
 
-        setWeaponView(view, weapon);
+        setWeaponView(view, weapon, 1);
 
         return view;
     }
@@ -56,7 +53,7 @@ public class EquipmentViewController {
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(Integer.toString(index));
 
-        setWeaponView(view, weapon);
+        setWeaponView(view, weapon, 0);
 
         return view;
     }
@@ -81,14 +78,26 @@ public class EquipmentViewController {
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(idString);
 
-        setWeaponView(view, weapon);
+        setWeaponView(view, weapon, 0);
 
         return view;
     }
 
-    public View getWeaponView(LayoutInflater inflater, ViewGroup root, Weapon weapon){
+    public View getWeaponViewSummary(LayoutInflater inflater, ViewGroup root, Weapon weapon){
         View view = inflater.inflate(R.layout.weapon_list_layout, root, false);
-        setWeaponView(view, weapon);
+        setWeaponView(view, weapon, 0);
+
+        TextView cost = (TextView) view.findViewById(R.id.weapon_cost);
+        TextView costTxt = (TextView) view.findViewById(R.id.weapon_cost_txt);
+        ImageButton btnMenu = (ImageButton) view.findViewById(R.id.weapon_menu);
+        TextView equippedTitle = (TextView) view.findViewById(R.id.equipped_title);
+        TextView equippedStatus = (TextView) view.findViewById(R.id.weapon_equipped);
+
+        cost.setVisibility(View.GONE);
+        costTxt.setVisibility(View.GONE);
+        btnMenu.setVisibility(View.GONE);
+        equippedTitle.setVisibility(View.GONE);
+        equippedStatus.setVisibility(View.GONE);
 
         return view;
     }
@@ -106,7 +115,7 @@ public class EquipmentViewController {
         return view;
     }
 
-    private void setWeaponView(View view, Weapon weapon){
+    private void setWeaponView(View view, Weapon weapon, int identifier){
         TableLayout table = (TableLayout) view.findViewById(R.id.weapon_table);
         TextView name = (TextView) view.findViewById(R.id.weapon_name);
         TextView type = (TextView) view.findViewById(R.id.weapon_type);
@@ -122,6 +131,11 @@ public class EquipmentViewController {
         cost.setText(Integer.toString(weapon.getCost()));
         damage.setText(Integer.toString(weapon.getDamage()));
         AP.setText(Integer.toString(weapon.getArmorPen()));
+
+        if (identifier == 0){
+            DiceRoller diceRoller = new DiceRoller(view, mInflater);
+            diceRoller.setRoller(table, weapon.getName());
+        }
 
         if(view.findViewById(R.id.weapon_equipped) != null) {
             TextView equipped = (TextView) view.findViewById(R.id.weapon_equipped);
