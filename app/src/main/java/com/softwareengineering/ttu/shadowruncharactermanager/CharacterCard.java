@@ -104,28 +104,28 @@ public class CharacterCard extends AppCompatActivity {
         btnAddKarma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                character.addKarma(Integer.parseInt(editCharKarma.getText().toString()));
+                character.addKarma(verifyValue(editCharKarma));
                 doneNuyenKarma(charKarma, editCharKarma, karmaPanel, btnEditKarma, character.getKarma());
             }
         });
         btnSubKarma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                character.subKarma(Integer.parseInt(editCharKarma.getText().toString()));
+                character.subKarma(verifyValue(editCharKarma));
                 doneNuyenKarma(charKarma, editCharKarma, karmaPanel, btnEditKarma, character.getKarma());
             }
         });
         btnAddNuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                character.addNuyen(Integer.parseInt(editCharNuyen.getText().toString()));
+                character.addNuyen(verifyValue(editCharNuyen));
                 doneNuyenKarma(charNuyen, editCharNuyen, nuyenPanel, btnEditNuyen, character.getNuyen());
             }
         });
         btnSubNuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                character.subNuyen(Integer.parseInt(editCharNuyen.getText().toString()));
+                character.subNuyen(verifyValue(editCharNuyen));
                 doneNuyenKarma(charNuyen, editCharNuyen, nuyenPanel, btnEditNuyen, character.getNuyen());
             }
         });
@@ -175,8 +175,9 @@ public class CharacterCard extends AppCompatActivity {
 
     public void editOff(View view) {
         if (editCharName.getText().toString().trim().equals("")) {
-            Toast blankFields = Toast.makeText(getApplicationContext(), "Character name cannot be blank", Toast.LENGTH_SHORT);
-            blankFields.show();
+         //   Toast blankFields = Toast.makeText(getApplicationContext(), "Character name cannot be blank", Toast.LENGTH_SHORT);
+         //   blankFields.show();
+            editCharName.setError("Name cannot be blank");
         } else {
             addImage.setVisibility(View.GONE);
             btnDoneEditCharacter.setVisibility(View.GONE);
@@ -212,6 +213,19 @@ public class CharacterCard extends AppCompatActivity {
 
         btnPanel.setVisibility(View.GONE);
         btnEdit.setVisibility(View.VISIBLE);
+    }
+
+    public int verifyValue(EditText editText){
+        int value;
+        String text = editText.getText().toString();
+        if(text.equals("")){
+            value = 0;
+        }
+        else{
+            value = Integer.parseInt(text);
+        }
+
+        return value;
     }
 
 
