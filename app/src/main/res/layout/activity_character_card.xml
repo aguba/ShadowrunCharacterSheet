@@ -14,601 +14,432 @@
         android:layout_margin="4dp"
         android:animateLayoutChanges="true">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true">
-
-            <ImageView
-                android:id="@+id/character_image2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:background="#212121" />
-
-            <ImageView
-                android:id="@+id/character_image_add"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:onClick="chooseProfilePic"
-                android:padding="25dp"
-                android:src="@drawable/add"
-                android:tint="#757575"
-                android:visibility="gone" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/buttonPanel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:animateLayoutChanges="true">
-
-                <ImageButton
-                    android:id="@+id/btn_edit_character"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:onClick="editOn"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/edit"
-                    android:tint="#757575" />
-
-                <ImageButton
-                    android:id="@+id/btn_done_edit_character"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:onClick="editOff"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/done"
-                    android:tint="#757575"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/name_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_toLeftOf="@id/buttonPanel"
-                android:layout_toRightOf="@id/character_image2"
-                android:animateLayoutChanges="true"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/character_name2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/character_name"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/character_name_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:maxLength="20"
-                    android:textColor="#87000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/sub_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/name_group"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_toRightOf="@id/character_image2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Metatype" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="36dp">
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <ImageView
+                        android:id="@+id/character_image2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_alignParentLeft="true"
-                        android:layout_toRightOf="@+id/karma_btn_panel"
-                        android:animateLayoutChanges="true"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="#212121" />
 
-                        <TextView
-                            android:id="@+id/karma_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Karma: " />
-
-                        <TextView
-                            android:id="@+id/karma_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="0" />
-
-                        <EditText
-                            android:id="@+id/karma_value_edit"
-                            android:layout_width="85dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:inputType="number"
-                            android:text="0"
-                            android:textSize="14sp"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/btn_karma_edit"
-                        style="@style/Base.Widget.AppCompat.Button.Borderless"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_alignParentRight="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/edit"
-                        android:tint="#757575" />
+                    <ImageView
+                        android:id="@+id/character_image_add"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:onClick="chooseProfilePic"
+                        android:padding="25dp"
+                        android:src="@drawable/add"
+                        android:tint="#757575"
+                        android:visibility="gone" />
 
                     <LinearLayout
-                        android:id="@+id/karma_btn_panel"
+                        android:id="@+id/buttonPanel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:animateLayoutChanges="true"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <ImageButton
-                            android:id="@+id/btn_sub_karma"
-                            style="@style/Base.Widget.AppCompat.Button.Borderless"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/remove_circle"
-                            android:tint="#757575" />
-
-                        <ImageButton
-                            android:id="@+id/btn_add_karma"
-                            style="@style/Base.Widget.AppCompat.Button.Borderless"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/add_circle"
-                            android:tint="#757575" />
-
-                        <ImageButton
-                            android:id="@+id/btn_done_karma"
-                            style="@style/Base.Widget.AppCompat.Button.Borderless"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:onClick="editKarmaOff"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/done"
-                            android:tint="#757575"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:animateLayoutChanges="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/nuyen_txt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Nuyen: " />
-
-                        <TextView
-                            android:id="@+id/nuyen_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="0" />
-
-                        <EditText
-                            android:id="@+id/nuyen_value_edit"
-                            android:layout_width="85dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:inputType="number"
-                            android:text="0"
-                            android:textSize="14sp"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/btn_nuyen_edit"
-                        style="@style/Base.Widget.AppCompat.Button.Borderless"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_alignParentRight="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/edit"
-                        android:tint="#757575" />
-
-                    <LinearLayout
-                        android:id="@+id/nuyen_btn_panel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:animateLayoutChanges="true"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <ImageButton
-                            android:id="@+id/btn_sub_nuyen"
-                            style="@style/Base.Widget.AppCompat.Button.Borderless"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/remove_circle"
-                            android:tint="#757575" />
-
-                        <ImageButton
-                            android:id="@+id/btn_add_nuyen"
-                            style="@style/Base.Widget.AppCompat.Button.Borderless"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/add_circle"
-                            android:tint="#757575" />
-
-                        <ImageButton
-                            android:id="@+id/btn_done_nuyen"
-                            style="@style/Base.Widget.AppCompat.Button.Borderless"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:onClick="editNuyenOff"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/done"
-                            android:tint="#757575"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/bio_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/sub_info"
-                android:layout_margin="16dp"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="#50757575"></View>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:gravity="center_vertical"
-                        android:text="Bio"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <ImageButton
-                        android:id="@+id/btn_expand_bio"
-                        style="@style/Base.Widget.AppCompat.Button.Borderless"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_alignParentRight="true"
-                        android:onClick="expandBio"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/expand"
-                        android:tint="#757575" />
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/bio_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:animateLayoutChanges="true"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:animateLayoutChanges="true">
 
-                        <LinearLayout
+                        <ImageButton
+                            android:id="@+id/btn_edit_character"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:onClick="editOn"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/edit"
+                            android:tint="#757575" />
+
+                        <ImageButton
+                            android:id="@+id/btn_done_edit_character"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:onClick="editOff"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/done"
+                            android:tint="#757575"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/name_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_toLeftOf="@id/buttonPanel"
+                        android:layout_toRightOf="@id/character_image2"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/character_name2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/character_name"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/character_name_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapWords"
+                            android:maxLength="20"
+                            android:textColor="#87000000"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sub_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/name_group"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_toRightOf="@id/character_image2"
+                        android:orientation="vertical">
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:animateLayoutChanges="true">
+                            android:text="Metatype" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:layout_toRightOf="@+id/karma_btn_panel"
+                                android:animateLayoutChanges="true"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/karma_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Karma: " />
+
+                                <TextView
+                                    android:id="@+id/karma_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="0" />
+
+                                <EditText
+                                    android:id="@+id/karma_value_edit"
+                                    android:layout_width="85dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:inputType="number"
+                                    android:text="0"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+                            </LinearLayout>
 
                             <ImageButton
-                                android:id="@+id/btn_edit_bio"
+                                android:id="@+id/btn_karma_edit"
                                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                                 android:layout_width="36dp"
                                 android:layout_height="36dp"
-                                android:onClick="editBioOn"
+                                android:layout_alignParentRight="true"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/edit"
                                 android:tint="#757575" />
 
+                            <LinearLayout
+                                android:id="@+id/karma_btn_panel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:animateLayoutChanges="true"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageButton
+                                    android:id="@+id/btn_sub_karma"
+                                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/remove_circle"
+                                    android:tint="#757575" />
+
+                                <ImageButton
+                                    android:id="@+id/btn_add_karma"
+                                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/add_circle"
+                                    android:tint="#757575" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:animateLayoutChanges="true"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/nuyen_txt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Nuyen: " />
+
+                                <TextView
+                                    android:id="@+id/nuyen_value"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="0" />
+
+                                <EditText
+                                    android:id="@+id/nuyen_value_edit"
+                                    android:layout_width="85dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:inputType="number"
+                                    android:text="0"
+                                    android:textSize="14sp"
+                                    android:visibility="gone" />
+
+                            </LinearLayout>
+
                             <ImageButton
-                                android:id="@+id/btn_done_bio"
+                                android:id="@+id/btn_nuyen_edit"
                                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                                 android:layout_width="36dp"
                                 android:layout_height="36dp"
-                                android:onClick="editBioOff"
+                                android:layout_alignParentRight="true"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/done"
-                                android:tint="#757575"
-                                android:visibility="gone" />
+                                android:src="@drawable/edit"
+                                android:tint="#757575" />
 
-                        </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/nuyen_btn_panel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:animateLayoutChanges="true"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageButton
+                                    android:id="@+id/btn_sub_nuyen"
+                                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/remove_circle"
+                                    android:tint="#757575" />
+
+                                <ImageButton
+                                    android:id="@+id/btn_add_nuyen"
+                                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/add_circle"
+                                    android:tint="#757575" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/bio_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#50757575"></View>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="36dp"
+                            android:layout_height="48dp"
                             android:gravity="center_vertical"
-                            android:text="Biography"
+                            android:text="Bio"
+                            android:textSize="22sp"
                             android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/btn_expand_bio"
+                            style="@style/Base.Widget.AppCompat.Button.Borderless"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_alignParentRight="true"
+                            android:onClick="expandBio"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/expand"
+                            android:tint="#757575" />
 
                     </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/biography_text"
+                    <LinearLayout
+                        android:id="@+id/bio_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Character Biography" />
+                        android:layout_marginBottom="8dp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
-                    <EditText
-                        android:id="@+id/biography_edit"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:animateLayoutChanges="true">
+
+                                <ImageButton
+                                    android:id="@+id/btn_edit_bio"
+                                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:onClick="editBioOn"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/edit"
+                                    android:tint="#757575" />
+
+                                <ImageButton
+                                    android:id="@+id/btn_done_bio"
+                                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:onClick="editBioOff"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/done"
+                                    android:tint="#757575"
+                                    android:visibility="gone" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:gravity="center_vertical"
+                                android:text="Biography"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/biography_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Character Biography" />
+
+                        <EditText
+                            android:id="@+id/biography_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:inputType="textMultiLine"
+                            android:maxLength="2000"
+                            android:maxLines="8"
+                            android:scrollHorizontally="false"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/attribute_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Attributes"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:inputType="textMultiLine"
-                        android:maxLength="2000"
-                        android:maxLines="8"
-                        android:scrollHorizontally="false"
-                        android:visibility="gone" />
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Attribute"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="Rating"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/bio_section"
-                android:layout_marginLeft="16dp"
-                android:animateLayoutChanges="true"
-                android:stretchColumns="*">
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/Attribute"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Attribute "
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/Rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rating"
-                        android:textStyle="bold" />
-                </TableRow>
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/body2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Body: " />
-
-                    <TextView
-                        android:id="@+id/body2_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <EditText
-                        android:id="@+id/body2_value_edit"
-                        android:layout_width="85dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-                </TableRow>
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/agility2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Agility: " />
-
-                    <TextView
-                        android:id="@+id/agility2_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <EditText
-                        android:id="@+id/agility2_value_edit"
-                        android:layout_width="85dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-                </TableRow>
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/reaction2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Reaction: " />
-
-                    <TextView
-                        android:id="@+id/reaction2_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <EditText
-                        android:id="@+id/reaction2_value_edit"
-                        android:layout_width="85dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-                </TableRow>
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/charisma2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Charisma: " />
-
-                    <TextView
-                        android:id="@+id/charisma2_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <EditText
-                        android:id="@+id/charisma2_value_edit"
-                        android:layout_width="85dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-                </TableRow>
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/intuition2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Intuition: " />
-
-                    <TextView
-                        android:id="@+id/intuition2_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <EditText
-                        android:id="@+id/intuition2_value_edit"
-                        android:layout_width="85dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-                </TableRow>
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/logic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Logic: " />
-
-                    <TextView
-                        android:id="@+id/logic2_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <EditText
-                        android:id="@+id/logic2_value_edit"
-                        android:layout_width="85dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-                </TableRow>
-
-                <TableRow android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:id="@+id/willpower2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Willpower: " />
-
-                    <TextView
-                        android:id="@+id/willpower2_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <EditText
-                        android:id="@+id/willpower2_value_edit"
-                        android:layout_width="85dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="0"
-                        android:textSize="14sp"
-                        android:visibility="gone" />
-                </TableRow>
-            </TableLayout>
-
-        </RelativeLayout>
+        </ScrollView>
 
     </android.support.v7.widget.CardView>
 

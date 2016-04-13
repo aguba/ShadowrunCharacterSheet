@@ -37,6 +37,8 @@ public class CharacterSheet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
 
+        AttributeSkillBridge.setCharacter();
+
         picture = (ImageView) findViewById(R.id.character_image);
         pHealth = (TextView) findViewById(R.id.physical_health_value);
         pHealthBar = (SeekBar) findViewById(R.id.physical_health_bar);

@@ -29,13 +29,13 @@ public class Character {
         mAttributes = new HashMap<>();
         mSkills = new HashMap<>();
         for(int i=0; i<50; i++){
-            if(i<8){
+            if(i<9){
                 mAttributes.put(attributeNames[i], new Attribute(attributeNames[i]));
             }
             mSkills.put(skillNames[i], new Skill(skillNames[i]));
         }
     }
-    private String[] attributeNames = {"Body","Agility","Reaction","Strength","Charisma","Intuition","Logic","Willpower"};
+    private String[] attributeNames = {"Body","Agility","Reaction","Strength","Charisma","Intuition","Logic","Willpower", "Edge"};
     private String[] skillNames = {"Academic Knowledge", "Arcana", "Archery", "Armorer", "Artisan", "Automatics", "Blades", "Chemistry", "Climbing", "Clubs", "Computer", "Con", "Data Search", "Demolitions", "Disguise", "Diving", "Dodge", "Enchanting", "Escape Artist", "Etiquette", "First Aid", "Forgery", "Gunnery", "Gymnastics", "Hacking", "Heavy Weapons", "Infiltration", "Instruction", "Interests Knowledge", "Intimidation", "Leadership", "Locksmith", "Longarms", "Navigation", "Negotiation", "Palming", "Parachuting", "Perception", "Pilot Ground Craft", "Pilot Watercraft", "Pistols", "Professional Knowledge", "Running", "Shadowing", "Street Knowledge", "Survival", "Swimming", "Throwing Weapons", "Tracking", "Unarmed Combat"};
 
     private String mName;
@@ -243,6 +243,10 @@ public class Character {
 
     public Attribute getAttribute(String attributeName){
         return mAttributes.get(attributeName);
+    }
+
+    public Attribute getAttributeByIndex(int index){
+        return mAttributes.get(attributeNames[index]);
     }
 
     public void upAttribute(String attributeName){
