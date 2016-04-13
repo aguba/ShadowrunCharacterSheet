@@ -75,7 +75,7 @@ public class CharacterCard extends AppCompatActivity {
 
         LinearLayout attributeContainer = (LinearLayout) findViewById(R.id.attribute_container);
 
-        AttributeViewController avc = new AttributeViewController(getLayoutInflater());
+        AttributeViewController avc = new AttributeViewController(getLayoutInflater(), this);
 
         bio.setText(character.getBio());
         bioIsExpanded = false;
