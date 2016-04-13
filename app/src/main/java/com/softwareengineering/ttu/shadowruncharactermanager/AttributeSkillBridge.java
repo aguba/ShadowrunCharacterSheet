@@ -4,15 +4,22 @@ package com.softwareengineering.ttu.shadowruncharactermanager;
  * Created by Rj on 4/4/2016.
  */
 public class AttributeSkillBridge {
-    private String mName;
-    private Character character = Character.getInstance();
+    private static AttributeSkillBridge ourInstance = new AttributeSkillBridge();
+    private static Character character;
 
-    public AttributeSkillBridge(String name){
-        mName = name;
+    private AttributeSkillBridge(){
     }
 
-    public void update(int attributeRating){
-        switch (mName){
+    public static AttributeSkillBridge getInstance(){
+        return ourInstance;
+    }
+
+    public static void setCharacter(){
+        character = Character.getInstance();
+    }
+
+    public void update(String attributeName, int attributeRating){
+        switch (attributeName){
             case "Body"  :
                 character.getSkill("Diving").dicepoolUp(attributeRating);
                 character.getSkill("Parachuting").dicepoolUp(attributeRating);
@@ -21,7 +28,7 @@ public class AttributeSkillBridge {
             case "Reaction"  :
                 character.getSkill("Dodge").dicepoolUp(attributeRating);
                 character.getSkill("Pilot Ground Craft").dicepoolUp(attributeRating);
-                character.getSkill("Pilot Water Craft").dicepoolUp(attributeRating);
+                character.getSkill("Pilot Watercraft").dicepoolUp(attributeRating);
                 break;
 
             case "Strength"  :
@@ -56,7 +63,7 @@ public class AttributeSkillBridge {
                 character.getSkill("Armorer").dicepoolUp(attributeRating);
                 character.getSkill("Chemistry").dicepoolUp(attributeRating);
                 character.getSkill("Computer").dicepoolUp(attributeRating);
-                character.getSkill("Data Search ").dicepoolUp(attributeRating);
+                character.getSkill("Data Search").dicepoolUp(attributeRating);
                 character.getSkill("Demolitions").dicepoolUp(attributeRating);
                 character.getSkill("Enchanting").dicepoolUp(attributeRating);
                 character.getSkill("First Aid").dicepoolUp(attributeRating);
@@ -86,6 +93,8 @@ public class AttributeSkillBridge {
                 character.getSkill("Throwing Weapons").dicepoolUp(attributeRating);
                 character.getSkill("Unarmed Combat").dicepoolUp(attributeRating);
                 break;
+
+            default:    break;
         }
     }
 }

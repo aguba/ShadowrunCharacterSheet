@@ -6,7 +6,7 @@ package com.softwareengineering.ttu.shadowruncharactermanager;
 public class Attribute {
     private String mName;
     private int mRating;
-    private AttributeSkillBridge mUpdater;
+    private AttributeSkillBridge mUpdater = AttributeSkillBridge.getInstance();
 
     public Attribute(){
         mName = "Attribute";
@@ -16,13 +16,15 @@ public class Attribute {
     public Attribute(String name){
         mName = name;
         mRating = 0;
-
-        mUpdater = new AttributeSkillBridge(mName);
     }
 
     public void upRating(){
         mRating += 1;
-        mUpdater.update(mRating);
+        mUpdater.update(mName, mRating);
+    }
+
+    public String getName(){
+        return mName;
     }
 
     public void downRating(){

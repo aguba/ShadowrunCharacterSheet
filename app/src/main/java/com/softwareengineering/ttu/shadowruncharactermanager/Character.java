@@ -28,15 +28,14 @@ public class Character {
         mArmorKey = 0;
         mAttributes = new HashMap<>();
         mSkills = new HashMap<>();
-        for (int i = 0; i < 50; i++) {
-            if (i < 8) {
+        for(int i=0; i<50; i++){
+            if(i<9){
                 mAttributes.put(attributeNames[i], new Attribute(attributeNames[i]));
             }
             mSkills.put(skillNames[i], new Skill(skillNames[i]));
         }
     }
-
-    private String[] attributeNames = {"Body", "Agility", "Reaction", "Strength", "Charisma", "Intuition", "Logic", "Willpower"};
+    private String[] attributeNames = {"Body","Agility","Reaction","Strength","Charisma","Intuition","Logic","Willpower", "Edge"};
     private String[] skillNames = {"Academic Knowledge", "Arcana", "Archery", "Armorer", "Artisan", "Automatics", "Blades", "Chemistry", "Climbing", "Clubs", "Computer", "Con", "Data Search", "Demolitions", "Disguise", "Diving", "Dodge", "Enchanting", "Escape Artist", "Etiquette", "First Aid", "Forgery", "Gunnery", "Gymnastics", "Hacking", "Heavy Weapons", "Infiltration", "Instruction", "Interests Knowledge", "Intimidation", "Leadership", "Locksmith", "Longarms", "Navigation", "Negotiation", "Palming", "Parachuting", "Perception", "Pilot Ground Craft", "Pilot Watercraft", "Pistols", "Professional Knowledge", "Running", "Shadowing", "Street Knowledge", "Survival", "Swimming", "Throwing Weapons", "Tracking", "Unarmed Combat"};
 
     private String mName;
@@ -61,47 +60,47 @@ public class Character {
         return ourInstance;
     }
 
-    public void setName(String value) {
+    public void setName(String value){
         mName = value;
     }
 
-    public String getName() {
+    public String getName(){
         return mName;
     }
 
-    public void setBio(String bio) {
+    public void setBio(String bio){
         mBiography = bio;
     }
 
-    public String getBio() {
+    public String getBio(){
         return mBiography;
     }
 
-    public void setMetaType(String value) {
+    public void setMetaType(String value){
         mMetaType = value;
     }
 
-    public String getMetaType() {
+    public String getMetaType(){
         return mMetaType;
     }
 
-    public void setImageURI(String value) {
+    public void setImageURI(String value){
         mImageURI = value;
     }
 
-    public String getImageURI() {
+    public String getImageURI(){
         return mImageURI;
     }
 
-    public void setKarma(int value) {
+    public void setKarma(int value){
         mKarma = value;
     }
 
-    public int getKarma() {
+    public int getKarma(){
         return mKarma;
     }
 
-    public void addKarma(int karmaAmount) {
+    public void addKarma(int karmaAmount){
         mKarma += karmaAmount;
     }
 
@@ -113,15 +112,15 @@ public class Character {
         }
     }
 
-    public void setNuyen(int value) {
+    public void setNuyen(int value){
         mNuyen = value;
     }
 
-    public int getNuyen() {
+    public int getNuyen(){
         return mNuyen;
     }
 
-    public void addNuyen(int nuyenAmount) {
+    public void addNuyen(int nuyenAmount){
         mNuyen += nuyenAmount;
     }
 
@@ -133,44 +132,44 @@ public class Character {
         }
     }
 
-    public int addGear(Equipment gear) {
+    public int addGear(Equipment gear){
         mGearStore.append(mGearKey, gear);
         mGearKey++;
 
-        return mGearKey - 1;
+        return mGearKey-1;
     }
 
-    public Equipment getGear(int index) {
+    public Equipment getGear(int index){
         return mGearStore.valueAt(index);
     }
 
-    public void removeGear(int key) {
+    public void removeGear(int key){
         mGearStore.delete(key);
     }
 
-    public boolean hasGear() {
+    public boolean hasGear(){
         return mGearStore.size() != 0;
     }
 
-    public SparseArray<Equipment> getGearList() {
+    public SparseArray<Equipment> getGearList(){
         return mGearStore;
     }
 
-    public int addWeapon(Weapon weapon) {
+    public int addWeapon(Weapon weapon){
         mWeaponStore.append(mWeaponKey, weapon);
         mWeaponKey++;
 
         return mWeaponKey - 1;
     }
 
-    public int addArmor(Armor armor) {
+    public int addArmor(Armor armor){
         mArmorStore.append(mArmorKey, armor);
         mArmorKey++;
 
         return mArmorKey - 1;
     }
 
-    public Weapon getWeaponByIndex(int index) {
+    public Weapon getWeaponByIndex(int index){
         return mWeaponStore.valueAt(index);
     }
 
@@ -178,83 +177,87 @@ public class Character {
         return mArmorStore.valueAt(index);
     }
 
-    public Weapon getWeaponByID(int ID) {
+    public Weapon getWeaponByID(int ID){
         return mWeaponStore.get(ID);
     }
 
-    public Armor getArmorByID(int ID) {
+    public Armor getArmorByID(int ID){
         return mArmorStore.get(ID);
     }
 
-    public void removeWeapon(int key) {
+    public void removeWeapon(int key){
         mWeaponStore.delete(key);
     }
 
-    public void removeArmor(int key) {
+    public void removeArmor(int key){
         mArmorStore.delete(key);
     }
 
-    public boolean hasWeapons() {
+    public boolean hasWeapons(){
         return mWeaponStore.size() != 0;
     }
 
-    public boolean hasArmor() {
+    public boolean hasArmor(){
         return mArmorStore.size() != 0;
     }
 
-    public SparseArray<Weapon> getWeaponList() {
+    public SparseArray<Weapon> getWeaponList(){
         return mWeaponStore;
     }
 
-    public SparseArray<Armor> getArmorList() {
+    public SparseArray<Armor> getArmorList(){
         return mArmorStore;
     }
 
-    public void equipWeapon(Weapon weapon) {
+    public void equipWeapon(Weapon weapon){
         mEquippedWeapon = weapon;
     }
 
-    public void equipArmor(Armor armor) {
+    public void equipArmor(Armor armor){
         mEquippedArmor = armor;
     }
 
-    public void unEquipArmor() {
+    public void unEquipArmor(){
         mEquippedWeapon = null;
     }
 
-    public void unEquipWeapon() {
+    public void unEquipWeapon(){
         mEquippedArmor = null;
     }
 
-    public Weapon getEquippedWeapon() {
+    public Weapon getEquippedWeapon(){
         return mEquippedWeapon;
     }
 
-    public Armor getEquippedArmor() {
+    public Armor getEquippedArmor(){
         return mEquippedArmor;
     }
 
-    public boolean packingHeat() {
+    public boolean packingHeat(){
         return getEquippedWeapon() != null;
     }
 
-    public boolean isProtected() {
+    public boolean isProtected(){
         return getEquippedArmor() != null;
     }
 
-    public Skill getSkill(String skillName) {
+    public Skill getSkill(String skillName){
         return mSkills.get(skillName);
     }
 
-    public void upSkill(String skillName) {
+    public void upSkill(String skillName){
         mSkills.get(skillName).ratingUp();
     }
 
-    public Attribute getAttribute(String attributeName) {
+    public Attribute getAttribute(String attributeName){
         return mAttributes.get(attributeName);
     }
 
-    public void upAttribute(String attributeName) {
+    public Attribute getAttributeByIndex(int index){
+        return mAttributes.get(attributeNames[index]);
+    }
+
+    public void upAttribute(String attributeName){
         mAttributes.get(attributeName).upRating();
     }
 }

@@ -28,8 +28,6 @@ public class CharacterCard extends AppCompatActivity {
     ImageButton btnSubKarma;
     ImageButton btnAddNuyen;
     ImageButton btnSubNuyen;
-    ImageButton btnDoneKarma;
-    ImageButton btnDoneNuyen;
     ImageButton btnEditBio;
     ImageButton btnDoneBio;
     ImageView picture;
@@ -40,8 +38,6 @@ public class CharacterCard extends AppCompatActivity {
     EditText editBio;
 
     String imageURI;
-    String karmaEditMode;
-    String nuyenEditMode;
     boolean bioIsExpanded;
 
     @Override
@@ -63,8 +59,6 @@ public class CharacterCard extends AppCompatActivity {
         btnSubKarma = (ImageButton) findViewById(R.id.btn_sub_karma);
         btnAddNuyen = (ImageButton) findViewById(R.id.btn_add_nuyen);
         btnSubNuyen = (ImageButton) findViewById(R.id.btn_sub_nuyen);
-        btnDoneKarma = (ImageButton) findViewById(R.id.btn_done_karma);
-        btnDoneNuyen = (ImageButton) findViewById(R.id.btn_done_nuyen);
         picture = (ImageView) findViewById(R.id.character_image2);
         addImage = (ImageView) findViewById(R.id.character_image_add);
         bioContainer = (LinearLayout) findViewById(R.id.bio_container);
@@ -78,6 +72,10 @@ public class CharacterCard extends AppCompatActivity {
 
         final LinearLayout karmaPanel = (LinearLayout) findViewById(R.id.karma_btn_panel);
         final LinearLayout nuyenPanel = (LinearLayout) findViewById(R.id.nuyen_btn_panel);
+
+        LinearLayout attributeContainer = (LinearLayout) findViewById(R.id.attribute_container);
+
+        AttributeViewController avc = new AttributeViewController(getLayoutInflater(), this);
 
         bio.setText(character.getBio());
         bioIsExpanded = false;
@@ -129,6 +127,11 @@ public class CharacterCard extends AppCompatActivity {
                 doneNuyenKarma(charNuyen, editCharNuyen, nuyenPanel, btnEditNuyen, character.getNuyen());
             }
         });
+
+        for(int i=0; i<9; i++){
+            View attView = avc.getAttributeView(attributeContainer, i, charKarma);
+            attributeContainer.addView(attView);
+        }
 
     }
 
