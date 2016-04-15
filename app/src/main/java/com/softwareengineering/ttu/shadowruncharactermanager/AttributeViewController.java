@@ -1,6 +1,5 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
@@ -28,17 +27,21 @@ public class AttributeViewController {
 
     public View getAttributeView(final ViewGroup root, int index, final TextView karmaView){
         View layout = mInflater.inflate(R.layout.attribute_list_layout, root, false);
+        final DiceRoller diceRoller = new DiceRoller(layout, mInflater);
         final Attribute attribute = character.getAttributeByIndex(index);
         final String attName = attribute.getName();
+
+        final TextView name = (TextView) layout.findViewById(R.id.attribute_name);
+        final TextView rtg = (TextView) layout.findViewById(R.id.attribute_rating);
+        final ImageButton btnRoll = (ImageButton) layout.findViewById(R.id.btn_roll_dice);
+        ImageButton btnUp = (ImageButton) layout.findViewById(R.id.btn_attribute_up);
 
         final View confirmLayout = mInflater.inflate(R.layout.popup_attribute_confirm, null, false);
         final TextView confirmText = (TextView) confirmLayout.findViewById(R.id.confirm_text);
         final Button btnCancel = (Button) confirmLayout.findViewById(R.id.btn_cancel);
         final Button btnOk = (Button) confirmLayout.findViewById(R.id.btn_OK);
 
-        final TextView name = (TextView) layout.findViewById(R.id.attribute_name);
-        final TextView rtg = (TextView) layout.findViewById(R.id.attribute_rating);
-        ImageButton btnUp = (ImageButton) layout.findViewById(R.id.btn_attribute_up);
+        diceRoller.setButton(btnRoll, character.getAttribute(attName));
 
         name.setText(attName);
         rtg.setText(Integer.toString(attribute.getRating()));
@@ -81,6 +84,8 @@ public class AttributeViewController {
 
                             character.upAttribute(attName);
                             rtg.setText(Integer.toString(character.getAttribute(attName).getRating()));
+
+                            diceRoller.setButton(btnRoll, character.getAttribute(attName));
 
                             attrConfirm.dismiss();
                         }

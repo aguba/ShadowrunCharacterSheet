@@ -134,7 +134,7 @@ public class EquipmentViewController {
 
         if (identifier == 0){
             DiceRoller diceRoller = new DiceRoller(view, mInflater);
-            diceRoller.setRoller(table, weapon.getName(), 23);
+            diceRoller.setButton(table, weapon.getName(), 23);
         }
 
         if(view.findViewById(R.id.weapon_equipped) != null) {

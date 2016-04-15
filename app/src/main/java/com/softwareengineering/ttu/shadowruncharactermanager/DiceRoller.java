@@ -26,9 +26,18 @@ public class DiceRoller {
         rand = new Random();
     }
 
-    public void setRoller(View view, final String rollNameText, final int dicePool) {
+    public void setButton(View view, final String rollNameText, final int dicePool) {
         View layout = view;
-        layout.setOnClickListener(new View.OnClickListener() {
+        setClickListener(layout, rollNameText, dicePool);
+    }
+
+    public void setButton(View view, Attribute attribute){
+        View layout = view;
+        setClickListener(layout, attribute.getName(), attribute.getRating());
+    }
+
+    private void setClickListener(View view, final String rollNameText, final int dicePool){
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final View rollLayout = mInflater.inflate(R.layout.popup_dice_roller, null, false);

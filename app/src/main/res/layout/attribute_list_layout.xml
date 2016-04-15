@@ -25,6 +25,16 @@
             android:text="Rating" />
 
         <ImageButton
+            android:id="@+id/btn_roll_dice"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_toRightOf="@id/attribute_rating"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dice"
+            android:tint="#757575" />
+
+        <ImageButton
             android:id="@+id/btn_attribute_up"
             style="@style/Base.Widget.AppCompat.Button.Borderless"
             android:layout_width="36dp"

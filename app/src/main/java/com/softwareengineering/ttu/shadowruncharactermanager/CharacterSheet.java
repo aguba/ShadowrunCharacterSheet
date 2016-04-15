@@ -204,6 +204,11 @@ public class CharacterSheet extends AppCompatActivity {
         nuyenVal.setText(Integer.toString(character.getNuyen()));
         charName.setText(character.getName());
 
+        int maxPHealth = (int)(Math.ceil((double)character.getAttribute("Body").getRating()/2));
+        int maxSHealth = (int)(Math.ceil((double)character.getAttribute("Willpower").getRating()/2));
+        pHealthBar.setMax(8 + maxPHealth);
+        sHealthBar.setMax(8 + maxSHealth);
+
         weaponContainer.removeAllViews();
         if(character.packingHeat()){
             weaponDefaultTxt.setVisibility(View.GONE);
