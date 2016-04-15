@@ -1,7 +1,16 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
+import android.content.Context;
 import android.util.SparseArray;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,13 +22,17 @@ public class Character {
     private static Character ourInstance = new Character();
 
     private Character() {
+        mFileName = "character1";
+        mWeaponFileName = mFileName + "weapons";
+        mArmorFileName = mFileName + "armor";
+
         mName = "Character Name";
         mBiography = "Character Biography";
         mKarma = 0;
         mNuyen = 10000;
         mGearStore = new SparseArray<>();
-        mWeaponStore = new SparseArray<>();
-        mArmorStore = new SparseArray<>();
+        mWeaponStore = new SparseArray<Weapon>(0);
+        mArmorStore = new SparseArray<Armor>(0);
         mEquippedWeapon = new Weapon();
         mEquippedWeapon = null;
         mEquippedWeapon = null;
@@ -28,15 +41,23 @@ public class Character {
         mArmorKey = 0;
         mAttributes = new HashMap<>();
         mSkills = new HashMap<>();
-        for(int i=0; i<50; i++){
-            if(i<9){
+        for (int i = 0; i < 50; i++) {
+            if (i < 9) {
                 mAttributes.put(attributeNames[i], new Attribute(attributeNames[i]));
             }
             mSkills.put(skillNames[i], new Skill(skillNames[i]));
         }
     }
+
     private String[] attributeNames = {"Body","Agility","Reaction","Strength","Charisma","Intuition","Logic","Willpower", "Edge"};
     private String[] skillNames = {"Academic Knowledge", "Arcana", "Archery", "Armorer", "Artisan", "Automatics", "Blades", "Chemistry", "Climbing", "Clubs", "Computer", "Con", "Data Search", "Demolitions", "Disguise", "Diving", "Dodge", "Enchanting", "Escape Artist", "Etiquette", "First Aid", "Forgery", "Gunnery", "Gymnastics", "Hacking", "Heavy Weapons", "Infiltration", "Instruction", "Interests Knowledge", "Intimidation", "Leadership", "Locksmith", "Longarms", "Navigation", "Negotiation", "Palming", "Parachuting", "Perception", "Pilot Ground Craft", "Pilot Watercraft", "Pistols", "Professional Knowledge", "Running", "Shadowing", "Street Knowledge", "Survival", "Swimming", "Throwing Weapons", "Tracking", "Unarmed Combat"};
+
+    private String mSaveData;
+    private String mWeaponData;
+    private String mArmorData;
+    private String mFileName;
+    private String mWeaponFileName;
+    private String mArmorFileName;
 
     private String mName;
     private String mMetaType;
@@ -58,6 +79,104 @@ public class Character {
     public static Character getInstance() {
 
         return ourInstance;
+    }
+
+    public void save(Context context){
+        Gson gson = new Gson();
+        File file = new File(context.getFilesDir(), mFileName);
+        File weaponFile = new File(context.getFilesDir(), mWeaponFileName);
+        File armorFile = new File(context.getFilesDir(), mArmorFileName);
+
+        Type weaponType = new TypeToken<SparseArray<Weapon>>() {}.getType();
+        Type armorType = new TypeToken<SparseArray<Armor>>() {}.getType();
+
+        mSaveData = gson.toJson(ourInstance, Character.class);
+        mWeaponData = gson.toJson(mWeaponStore, weaponType);
+        mArmorData = gson.toJson(mArmorStore, armorType);
+
+        if(!file.exists()){
+            try{
+            file.createNewFile();
+            }
+            catch (IOException e){
+
+            }
+        }
+
+        if(!armorFile.exists()){
+            try{
+                armorFile.createNewFile();
+            }
+            catch (IOException e){
+
+            }
+        }
+
+        if(!weaponFile.exists()){
+            try{
+                weaponFile.createNewFile();
+            }
+            catch (IOException e){
+
+            }
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(mSaveData);
+            fileWriter.flush();
+            fileWriter.close();
+
+            FileWriter fileWriter2 = new FileWriter(weaponFile);
+            fileWriter2.write(mWeaponData);
+            fileWriter2.flush();
+            fileWriter2.close();
+
+            FileWriter fileWriter3 = new FileWriter(armorFile);
+            fileWriter3.write(mArmorData);
+            fileWriter3.flush();
+            fileWriter3.close();
+        }
+        catch (IOException e){
+
+        }
+    }
+
+    public void load(Context context){
+        Gson gson = new Gson();
+        File file = new File(context.getFilesDir(), mFileName);
+        File weaponFile = new File(context.getFilesDir(), mWeaponFileName);
+        File armorFile = new File(context.getFilesDir(), mArmorFileName);
+
+        if(file.exists()) {
+            try {
+                FileInputStream inputStream = new FileInputStream(file);
+                byte[] buffer = new byte[inputStream.available()];
+                inputStream.read(buffer);
+                inputStream.close();
+                String data = new String(buffer);
+//                ourInstance = gson.fromJson(data, Character.class);
+
+
+                FileInputStream inputStream2 = new FileInputStream(weaponFile);
+                byte[] buffer2 = new byte[inputStream2.available()];
+                inputStream2.read(buffer2);
+                inputStream2.close();
+                String data2 = new String(buffer2);
+                Type type = new TypeToken<SparseArray<Weapon>>() {}.getType();
+                mWeaponStore = gson.fromJson(data2, type);
+
+                inputStream2 = new FileInputStream(armorFile);
+                buffer2 = new byte[inputStream2.available()];
+                inputStream2.read(buffer2);
+                inputStream2.close();
+                data = new String(buffer2);
+                type = new TypeToken<SparseArray<Armor>>() {}.getType();
+//                mArmorStore = gson.fromJson(data, type);
+            } catch (IOException e) {
+
+            }
+        }
     }
 
     public void setName(String value){
