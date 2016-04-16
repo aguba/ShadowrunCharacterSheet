@@ -83,8 +83,8 @@ public class EquipmentFragment extends Fragment {
             for (int i = 0; i < character.getGearList().size(); i++){
                 final View gearListing = inflater.inflate(R.layout.gear_list_layout, gearList, false);
                 ImageButton gearMenu = (ImageButton) gearListing.findViewById(R.id.gear_menu);
-                final int id = character.getGearList().keyAt(i);
-
+                //final int id = character.getGearList().keyAt(i);
+                final int id = character.gearKeyAt(i);
                 TextView gearName = (TextView) gearListing.findViewById(R.id.gear_name);
                 TextView gearCost = (TextView) gearListing.findViewById(R.id.gear_cost);
                 TextView gearID = (TextView) gearListing.findViewById(R.id.gear_id);

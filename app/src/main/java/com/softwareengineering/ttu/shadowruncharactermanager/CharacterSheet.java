@@ -37,7 +37,7 @@ public class CharacterSheet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
 
-//        character.load(this);
+        character.load(this);
         AttributeSkillBridge.setCharacter();
 
         picture = (ImageView) findViewById(R.id.character_image);
@@ -238,7 +238,7 @@ public class CharacterSheet extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        character.save(this);
+        character.save(this);
         loadValues();
     }
 

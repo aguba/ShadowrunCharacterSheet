@@ -87,7 +87,8 @@ public class ArmorFragment extends Fragment {
         if (character.hasArmor()) {
             for (int i = 0; i < character.getArmorList().size(); i++) {
                 final View armorListing = viewController.getArmorView(armorList, i);
-                final int id = character.getArmorList().keyAt(i);
+        //        final int id = character.getArmorList().keyAt(i);
+                final int id = character.armorKeyAt(i);
                 final TextView txtID = (TextView) armorListing.findViewById(R.id.armor_id);
                 txtID.setText(Integer.toString(id));
 

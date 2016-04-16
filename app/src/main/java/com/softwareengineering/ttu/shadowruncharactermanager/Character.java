@@ -10,9 +10,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.WriteAbortedException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Rafael Mallare
@@ -30,9 +32,9 @@ public class Character {
         mBiography = "Character Biography";
         mKarma = 0;
         mNuyen = 10000;
-        mGearStore = new SparseArray<>();
-        mWeaponStore = new SparseArray<Weapon>(0);
-        mArmorStore = new SparseArray<Armor>(0);
+        mGearStore = new TreeMap<>();
+        mWeaponStore = new TreeMap<>();
+        mArmorStore = new TreeMap<>();
         mEquippedWeapon = new Weapon();
         mEquippedWeapon = null;
         mEquippedWeapon = null;
@@ -67,9 +69,9 @@ public class Character {
     private int mNuyen;
     private Map<String, Attribute> mAttributes;
     private Map<String, Skill> mSkills;
-    private SparseArray<Equipment> mGearStore;
-    private SparseArray<Weapon> mWeaponStore;
-    private SparseArray<Armor> mArmorStore;
+    private TreeMap<Integer, Equipment> mGearStore;
+    private TreeMap<Integer, Weapon> mWeaponStore;
+    private TreeMap<Integer, Armor> mArmorStore;
     private Weapon mEquippedWeapon;
     private Armor mEquippedArmor;
     private int mGearKey;
@@ -87,34 +89,11 @@ public class Character {
         File weaponFile = new File(context.getFilesDir(), mWeaponFileName);
         File armorFile = new File(context.getFilesDir(), mArmorFileName);
 
-        Type weaponType = new TypeToken<SparseArray<Weapon>>() {}.getType();
-        Type armorType = new TypeToken<SparseArray<Armor>>() {}.getType();
-
         mSaveData = gson.toJson(ourInstance, Character.class);
-        mWeaponData = gson.toJson(mWeaponStore, weaponType);
-        mArmorData = gson.toJson(mArmorStore, armorType);
 
         if(!file.exists()){
             try{
             file.createNewFile();
-            }
-            catch (IOException e){
-
-            }
-        }
-
-        if(!armorFile.exists()){
-            try{
-                armorFile.createNewFile();
-            }
-            catch (IOException e){
-
-            }
-        }
-
-        if(!weaponFile.exists()){
-            try{
-                weaponFile.createNewFile();
             }
             catch (IOException e){
 
@@ -127,15 +106,6 @@ public class Character {
             fileWriter.flush();
             fileWriter.close();
 
-            FileWriter fileWriter2 = new FileWriter(weaponFile);
-            fileWriter2.write(mWeaponData);
-            fileWriter2.flush();
-            fileWriter2.close();
-
-            FileWriter fileWriter3 = new FileWriter(armorFile);
-            fileWriter3.write(mArmorData);
-            fileWriter3.flush();
-            fileWriter3.close();
         }
         catch (IOException e){
 
@@ -155,24 +125,8 @@ public class Character {
                 inputStream.read(buffer);
                 inputStream.close();
                 String data = new String(buffer);
-//                ourInstance = gson.fromJson(data, Character.class);
+                ourInstance = gson.fromJson(data, Character.class);
 
-
-                FileInputStream inputStream2 = new FileInputStream(weaponFile);
-                byte[] buffer2 = new byte[inputStream2.available()];
-                inputStream2.read(buffer2);
-                inputStream2.close();
-                String data2 = new String(buffer2);
-                Type type = new TypeToken<SparseArray<Weapon>>() {}.getType();
-                mWeaponStore = gson.fromJson(data2, type);
-
-                inputStream2 = new FileInputStream(armorFile);
-                buffer2 = new byte[inputStream2.available()];
-                inputStream2.read(buffer2);
-                inputStream2.close();
-                data = new String(buffer2);
-                type = new TypeToken<SparseArray<Armor>>() {}.getType();
-//                mArmorStore = gson.fromJson(data, type);
             } catch (IOException e) {
 
             }
@@ -252,48 +206,63 @@ public class Character {
     }
 
     public int addGear(Equipment gear){
-        mGearStore.append(mGearKey, gear);
+        mGearStore.put(mGearKey, gear);
         mGearKey++;
 
         return mGearKey-1;
     }
 
     public Equipment getGear(int index){
-        return mGearStore.valueAt(index);
+        Integer key = (Integer)mGearStore.keySet().toArray()[index];
+        return mGearStore.get(key);
     }
 
     public void removeGear(int key){
-        mGearStore.delete(key);
+        mGearStore.remove(key);
     }
 
     public boolean hasGear(){
         return mGearStore.size() != 0;
     }
 
-    public SparseArray<Equipment> getGearList(){
+    public TreeMap<Integer, Equipment> getGearList(){
         return mGearStore;
     }
 
     public int addWeapon(Weapon weapon){
-        mWeaponStore.append(mWeaponKey, weapon);
+        mWeaponStore.put(mWeaponKey, weapon);
         mWeaponKey++;
 
         return mWeaponKey - 1;
     }
 
     public int addArmor(Armor armor){
-        mArmorStore.append(mArmorKey, armor);
+        mArmorStore.put(mArmorKey, armor);
         mArmorKey++;
 
         return mArmorKey - 1;
     }
 
     public Weapon getWeaponByIndex(int index){
-        return mWeaponStore.valueAt(index);
+        Integer key = (Integer)mWeaponStore.keySet().toArray()[index];
+        return mWeaponStore.get(key);
     }
 
     public Armor getArmorByIndex(int index) {
-        return mArmorStore.valueAt(index);
+        Integer key = (Integer)mArmorStore.keySet().toArray()[index];
+        return mArmorStore.get(key);
+    }
+
+    public int weaponKeyAt(int index){
+        return (Integer)mWeaponStore.keySet().toArray()[index];
+    }
+
+    public int armorKeyAt(int index){
+        return (Integer)mArmorStore.keySet().toArray()[index];
+    }
+
+    public int gearKeyAt(int index){
+        return (Integer)mGearStore.keySet().toArray()[index];
     }
 
     public Weapon getWeaponByID(int ID){
@@ -305,11 +274,11 @@ public class Character {
     }
 
     public void removeWeapon(int key){
-        mWeaponStore.delete(key);
+        mWeaponStore.remove(key);
     }
 
     public void removeArmor(int key){
-        mArmorStore.delete(key);
+        mArmorStore.remove(key);
     }
 
     public boolean hasWeapons(){
@@ -320,11 +289,11 @@ public class Character {
         return mArmorStore.size() != 0;
     }
 
-    public SparseArray<Weapon> getWeaponList(){
+    public TreeMap<Integer, Weapon> getWeaponList(){
         return mWeaponStore;
     }
 
-    public SparseArray<Armor> getArmorList(){
+    public TreeMap<Integer, Armor> getArmorList(){
         return mArmorStore;
     }
 

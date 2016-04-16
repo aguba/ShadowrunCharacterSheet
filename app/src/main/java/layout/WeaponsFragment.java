@@ -91,7 +91,8 @@ public class WeaponsFragment extends Fragment {
         if (character.hasWeapons()) {
             for (int i = 0; i < character.getWeaponList().size(); i++) {
                 final View weaponListing = viewController.getWeaponView(weaponList, i);
-                final int id = character.getWeaponList().keyAt(i);
+                //final int id = character.getWeaponList().keyAt(i);
+                final int id = character.weaponKeyAt(i);
                 final TextView txtID = (TextView) weaponListing.findViewById(R.id.weapon_id);
                 txtID.setText(Integer.toString(id));
 

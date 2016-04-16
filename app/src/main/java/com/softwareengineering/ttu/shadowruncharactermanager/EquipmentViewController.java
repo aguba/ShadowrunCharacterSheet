@@ -73,7 +73,8 @@ public class EquipmentViewController {
     public View getWeaponView(ViewGroup root, int index){
         View view = mInflater.inflate(R.layout.weapon_list_layout, root, false);
         Weapon weapon = character.getWeaponByIndex(index);
-        String idString = Integer.toString(character.getWeaponList().keyAt(index));
+//        String idString = Integer.toString(character.getWeaponList().keyAt(index));
+        String idString = Integer.toString(character.weaponKeyAt(index));
 
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(idString);
@@ -105,7 +106,8 @@ public class EquipmentViewController {
     public View getArmorView(ViewGroup root, int index){
         View view = mInflater.inflate(R.layout.armor_list_layout, root, false);
         Armor armor = character.getArmorByIndex(index);
-        String idString = Integer.toString((character.getArmorList().keyAt(index)));
+        //String idString = Integer.toString((character.getArmorList().keyAt(index)));
+        String idString = Integer.toString(character.armorKeyAt(index));
 
         TextView id = (TextView) view.findViewById(R.id.armor_id);
         id.setText(idString);
