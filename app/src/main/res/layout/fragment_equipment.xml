@@ -37,6 +37,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_alignParentRight="true"
+                        android:layout_margin="8dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/add_box"
                         android:tint="#757575" />

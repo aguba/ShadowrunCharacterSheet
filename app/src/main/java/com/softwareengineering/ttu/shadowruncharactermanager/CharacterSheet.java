@@ -200,6 +200,7 @@ public class CharacterSheet extends AppCompatActivity {
     }
 
     void loadValues() {
+        Character character = Character.getInstance();
         mainLoader.displayImage(character.getImageURI(), picture);
         karmaVal.setText(Integer.toString(character.getKarma()));
         nuyenVal.setText(Integer.toString(character.getNuyen()));

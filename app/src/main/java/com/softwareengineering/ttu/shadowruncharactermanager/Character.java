@@ -4,14 +4,22 @@ import android.content.Context;
 import android.util.SparseArray;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.WriteAbortedException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -20,21 +28,20 @@ import java.util.TreeMap;
  * Rafael Mallare
  * Singleton class to track character
  */
-public class Character {
+public class Character implements Serializable{
     private static Character ourInstance = new Character();
 
     private Character() {
-        mFileName = "character1";
-        mWeaponFileName = mFileName + "weapons";
-        mArmorFileName = mFileName + "armor";
-
+        mFileName = "character1.txt";
         mName = "Character Name";
         mBiography = "Character Biography";
         mKarma = 0;
         mNuyen = 10000;
-        mGearStore = new TreeMap<>();
-        mWeaponStore = new TreeMap<>();
-        mArmorStore = new TreeMap<>();
+
+        mGearStore = new ArrayList<>();
+        mWeaponStore = new ArrayList<>();
+        mArmorStore = new ArrayList<>();
+
         mEquippedWeapon = new Weapon();
         mEquippedWeapon = null;
         mEquippedWeapon = null;
@@ -54,12 +61,7 @@ public class Character {
     private String[] attributeNames = {"Body","Agility","Reaction","Strength","Charisma","Intuition","Logic","Willpower", "Edge"};
     private String[] skillNames = {"Academic Knowledge", "Arcana", "Archery", "Armorer", "Artisan", "Automatics", "Blades", "Chemistry", "Climbing", "Clubs", "Computer", "Con", "Data Search", "Demolitions", "Disguise", "Diving", "Dodge", "Enchanting", "Escape Artist", "Etiquette", "First Aid", "Forgery", "Gunnery", "Gymnastics", "Hacking", "Heavy Weapons", "Infiltration", "Instruction", "Interests Knowledge", "Intimidation", "Leadership", "Locksmith", "Longarms", "Navigation", "Negotiation", "Palming", "Parachuting", "Perception", "Pilot Ground Craft", "Pilot Watercraft", "Pistols", "Professional Knowledge", "Running", "Shadowing", "Street Knowledge", "Survival", "Swimming", "Throwing Weapons", "Tracking", "Unarmed Combat"};
 
-    private String mSaveData;
-    private String mWeaponData;
-    private String mArmorData;
     private String mFileName;
-    private String mWeaponFileName;
-    private String mArmorFileName;
 
     private String mName;
     private String mMetaType;
@@ -67,11 +69,11 @@ public class Character {
     private String mBiography;
     private int mKarma;
     private int mNuyen;
-    private Map<String, Attribute> mAttributes;
-    private Map<String, Skill> mSkills;
-    private TreeMap<Integer, Equipment> mGearStore;
-    private TreeMap<Integer, Weapon> mWeaponStore;
-    private TreeMap<Integer, Armor> mArmorStore;
+    private HashMap<String, Attribute> mAttributes;
+    private HashMap<String, Skill> mSkills;
+    private ArrayList<Equipment> mGearStore;
+    private ArrayList<Weapon> mWeaponStore;
+    private ArrayList<Armor> mArmorStore;
     private Weapon mEquippedWeapon;
     private Armor mEquippedArmor;
     private int mGearKey;
@@ -83,53 +85,39 @@ public class Character {
         return ourInstance;
     }
 
-    public void save(Context context){
-        Gson gson = new Gson();
-        File file = new File(context.getFilesDir(), mFileName);
-        File weaponFile = new File(context.getFilesDir(), mWeaponFileName);
-        File armorFile = new File(context.getFilesDir(), mArmorFileName);
+    public static void setInstance(Character instance){
+        ourInstance = instance;
+    }
 
-        mSaveData = gson.toJson(ourInstance, Character.class);
+    public void save(Context context){
+        File file = new File(context.getFilesDir(), mFileName);
 
         if(!file.exists()){
             try{
-            file.createNewFile();
+                file.createNewFile();
             }
-            catch (IOException e){
-
-            }
+            catch (IOException e){}
         }
 
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(mSaveData);
-            fileWriter.flush();
-            fileWriter.close();
-
+        try{
+            FileOutputStream fOut = new FileOutputStream(file);
+            ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+            objOut.writeObject(Character.getInstance());
+            objOut.close();
         }
-        catch (IOException e){
-
-        }
+        catch (IOException e){}
     }
 
     public void load(Context context){
-        Gson gson = new Gson();
         File file = new File(context.getFilesDir(), mFileName);
-        File weaponFile = new File(context.getFilesDir(), mWeaponFileName);
-        File armorFile = new File(context.getFilesDir(), mArmorFileName);
 
         if(file.exists()) {
             try {
-                FileInputStream inputStream = new FileInputStream(file);
-                byte[] buffer = new byte[inputStream.available()];
-                inputStream.read(buffer);
-                inputStream.close();
-                String data = new String(buffer);
-                ourInstance = gson.fromJson(data, Character.class);
-
-            } catch (IOException e) {
-
-            }
+                FileInputStream fIn = new FileInputStream(file);
+                ObjectInputStream objIn = new ObjectInputStream(fIn);
+                Character.setInstance((Character)objIn.readObject());
+                objIn.close();
+            } catch (Exception e) {}
         }
     }
 
@@ -206,79 +194,109 @@ public class Character {
     }
 
     public int addGear(Equipment gear){
-        mGearStore.put(mGearKey, gear);
+        Equipment equip = gear;
+        equip.setId(mGearKey);
+
+        mGearStore.add(equip);
         mGearKey++;
 
         return mGearKey-1;
     }
 
     public Equipment getGear(int index){
-        Integer key = (Integer)mGearStore.keySet().toArray()[index];
-        return mGearStore.get(key);
+        return mGearStore.get(index);
     }
 
     public void removeGear(int key){
-        mGearStore.remove(key);
+        for(int i = 0; i < mGearStore.size(); i++){
+            if(mGearStore.get(i).getId() == key){
+                mGearStore.remove(i);
+            }
+        }
     }
 
     public boolean hasGear(){
         return mGearStore.size() != 0;
     }
 
-    public TreeMap<Integer, Equipment> getGearList(){
+    public ArrayList<Equipment> getGearList(){
         return mGearStore;
     }
 
     public int addWeapon(Weapon weapon){
-        mWeaponStore.put(mWeaponKey, weapon);
+        Weapon wep = weapon;
+        wep.setId(mWeaponKey);
+
+        mWeaponStore.add(wep);
         mWeaponKey++;
 
         return mWeaponKey - 1;
     }
 
     public int addArmor(Armor armor){
-        mArmorStore.put(mArmorKey, armor);
+        Armor arm = armor;
+        arm.setId(mArmorKey);
+
+        mArmorStore.add(arm);
         mArmorKey++;
 
         return mArmorKey - 1;
     }
 
     public Weapon getWeaponByIndex(int index){
-        Integer key = (Integer)mWeaponStore.keySet().toArray()[index];
-        return mWeaponStore.get(key);
+        return mWeaponStore.get(index);
     }
 
     public Armor getArmorByIndex(int index) {
-        Integer key = (Integer)mArmorStore.keySet().toArray()[index];
-        return mArmorStore.get(key);
+        return mArmorStore.get(index);
     }
 
     public int weaponKeyAt(int index){
-        return (Integer)mWeaponStore.keySet().toArray()[index];
+        return mWeaponStore.get(index).getId();
     }
 
     public int armorKeyAt(int index){
-        return (Integer)mArmorStore.keySet().toArray()[index];
+        return mArmorStore.get(index).getId();
     }
 
     public int gearKeyAt(int index){
-        return (Integer)mGearStore.keySet().toArray()[index];
+        return mGearStore.get(index).getId();
     }
 
     public Weapon getWeaponByID(int ID){
-        return mWeaponStore.get(ID);
+        for(int i = 0; i < mWeaponStore.size(); i++){
+            if(mWeaponStore.get(i).getId() == ID){
+                return mWeaponStore.get(i);
+            }
+        }
+        return null;
     }
 
     public Armor getArmorByID(int ID){
-        return mArmorStore.get(ID);
+        for(int i = 0; i < mArmorStore.size(); i++){
+            if(mArmorStore.get(i).getId() == ID){
+                return mArmorStore.get(i);
+            }
+        }
+        return null;
     }
 
     public void removeWeapon(int key){
-        mWeaponStore.remove(key);
+        for(int i = 0; i < mWeaponStore.size(); i++){
+            if(mWeaponStore.get(i).getId() == key){
+                mWeaponStore.remove(i);
+                break;
+            }
+        }
     }
 
     public void removeArmor(int key){
-        mArmorStore.remove(key);
+        for(int i = 0; i < mArmorStore.size(); i++){
+            if(mArmorStore.get(i).getId() == key){
+                mArmorStore.remove(i);
+                break;
+            }
+        }
     }
 
     public boolean hasWeapons(){
@@ -289,11 +307,11 @@ public class Character {
         return mArmorStore.size() != 0;
     }
 
-    public TreeMap<Integer, Weapon> getWeaponList(){
+    public ArrayList<Weapon> getWeaponList(){
         return mWeaponStore;
     }
 
-    public TreeMap<Integer, Armor> getArmorList(){
+    public ArrayList<Armor> getArmorList(){
         return mArmorStore;
     }
 
@@ -306,11 +324,11 @@ public class Character {
     }
 
     public void unEquipArmor(){
-        mEquippedWeapon = null;
+        mEquippedArmor = null;
     }
 
     public void unEquipWeapon(){
-        mEquippedArmor = null;
+        mEquippedWeapon = null;
     }
 
     public Weapon getEquippedWeapon(){

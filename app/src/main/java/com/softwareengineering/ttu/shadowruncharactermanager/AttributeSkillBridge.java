@@ -1,9 +1,11 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
+import java.io.Serializable;
+
 /**
  * Created by Rj on 4/4/2016.
  */
-public class AttributeSkillBridge {
+public class AttributeSkillBridge implements Serializable{
     private static AttributeSkillBridge ourInstance = new AttributeSkillBridge();
     private static Character character;
 

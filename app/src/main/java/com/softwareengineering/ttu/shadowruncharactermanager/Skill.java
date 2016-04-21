@@ -1,9 +1,11 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
+import java.io.Serializable;
+
 /**
  * Created by Rj on 4/1/2016.
  */
-public class Skill {
+public class Skill implements Serializable{
     private String mName;
     private int mRating;
     private int mDicepool;

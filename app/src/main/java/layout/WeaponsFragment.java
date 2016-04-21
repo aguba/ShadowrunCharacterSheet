@@ -189,7 +189,7 @@ public class WeaponsFragment extends Fragment {
                         switch (item.getItemId()) {
                             case R.id.remove:
                                 if (equippedFlag) {
-                                    character.unEquipArmor();
+                                    character.unEquipWeapon();
                                 }
                                 weaponList.removeView(weaponListing);
                                 character.removeWeapon(ID);
@@ -197,7 +197,7 @@ public class WeaponsFragment extends Fragment {
 
                             case R.id.sell:
                                 if (equippedFlag) {
-                                    character.unEquipArmor();
+                                    character.unEquipWeapon();
                                 }
                                 weaponList.removeView(weaponListing);
                                 character.removeWeapon(ID);
@@ -207,7 +207,7 @@ public class WeaponsFragment extends Fragment {
 
                             case R.id.equip:
                                 if (equippedFlag) {
-                                    character.unEquipArmor();
+                                    character.unEquipWeapon();
                                     txtEquipped.setText("No");
                                 } else {
                                     character.equipWeapon(character.getWeaponByID(ID));

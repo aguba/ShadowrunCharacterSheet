@@ -1,13 +1,16 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
+import java.io.Serializable;
+
 /**
  * Rafael Mallare
  * Equipment Class
  */
-public class Equipment {
+public class Equipment implements Serializable{
     private String mName;
     private int mCost;
     private boolean mEquipped;
+    private int mId;
 
     public Equipment() {
         mName = "Test Equipment";
@@ -43,5 +46,13 @@ public class Equipment {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public void setId(int Id){
+        mId = Id;
+    }
+
+    public int getId(){
+        return mId;
     }
 }
