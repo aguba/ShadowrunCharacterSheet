@@ -179,7 +179,7 @@ public class CharacterSheet extends AppCompatActivity {
 
             }
         });
-
+        
         sHealthBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
