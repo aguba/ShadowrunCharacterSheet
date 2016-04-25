@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.softwareengineering.ttu.shadowruncharactermanager">
+    package="com.softwareengineering.ttu.shadowruncharactermanager" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".CharacterSheet">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".Login" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Register"
+            android:label="RegisterLabel"
+            android:parentActivityName=".Login"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.softwareengineering.ttu.shadowruncharactermanager.CharacterSheet" />
+        </activity>
+        <activity android:name=".CharacterSheet" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +38,7 @@
             android:name=".CharacterCard"
             android:label="Character"
             android:parentActivityName=".CharacterSheet"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.softwareengineering.ttu.shadowruncharactermanager.CharacterSheet" />
@@ -30,7 +47,7 @@
             android:name=".SkillsCardActivity"
             android:label="Skills"
             android:parentActivityName=".CharacterSheet"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.softwareengineering.ttu.shadowruncharactermanager.CharacterSheet" />
@@ -39,11 +56,16 @@
             android:name=".EquipmentActivity"
             android:label="Equipment"
             android:parentActivityName=".CharacterSheet"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.softwareengineering.ttu.shadowruncharactermanager.CharacterSheet" />
         </activity>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

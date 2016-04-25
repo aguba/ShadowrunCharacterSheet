@@ -1,6 +1,7 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
 
 public class CharacterSheet extends AppCompatActivity {
     Character character = Character.getInstance();
@@ -30,15 +37,29 @@ public class CharacterSheet extends AppCompatActivity {
     TextView weaponDefaultTxt;
     LinearLayout weaponContainer;
     View weaponView;
-
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_character_sheet);
 
         character.load(this);
         AttributeSkillBridge.setCharacter();
+
+        Bundle extras = getIntent().getExtras();
+        String username = extras.getString("username");
+
+        final Firebase db_pHealth = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/pHealth");
+        final Firebase db_sHealth = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/sHealth");
+        final Firebase db_charName = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/charName");
+        final Firebase db_karmaVal = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/karmaVal");
+        final Firebase db_nuyenVal = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/nuyenVal");
 
         picture = (ImageView) findViewById(R.id.character_image);
         pHealth = (TextView) findViewById(R.id.physical_health_value);
@@ -49,6 +70,33 @@ public class CharacterSheet extends AppCompatActivity {
         nuyenVal = (TextView) findViewById(R.id.nuyen_value);
         charName = (TextView) findViewById(R.id.character_name);
         mainLoader = ImageLoader.getInstance();
+
+         /*changes value of pHealth textview whenever 'condition' is changed on database*/
+        db_pHealth.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                pHealth.setText(text);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        db_sHealth.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                sHealth.setText(text);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
         TextView akPool = (TextView) findViewById(R.id.academic_knowledge_pool);
         akPool.setText(Integer.toString(character.getSkill("Academic Knowledge").getDicepool()));
@@ -166,7 +214,8 @@ public class CharacterSheet extends AppCompatActivity {
         pHealthBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                pHealth.setText(String.valueOf(progress) + "/" + String.valueOf(pHealthBar.getMax()));
+                //pHealth.setText(String.valueOf(progress) + "/" + String.valueOf(pHealthBar.getMax()));
+                db_pHealth.setValue(String.valueOf(progress) + "/" + String.valueOf(pHealthBar.getMax())); //changes value in database
             }
 
             @Override
@@ -183,7 +232,8 @@ public class CharacterSheet extends AppCompatActivity {
         sHealthBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                sHealth.setText(String.valueOf(progress) + "/" + String.valueOf(sHealthBar.getMax()));
+                //sHealth.setText(String.valueOf(progress) + "/" + String.valueOf(sHealthBar.getMax()));
+                db_sHealth.setValue(String.valueOf(progress) + "/" + String.valueOf(sHealthBar.getMax()));
             }
 
             @Override
@@ -197,6 +247,9 @@ public class CharacterSheet extends AppCompatActivity {
             }
         });
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     void loadValues() {
@@ -206,18 +259,17 @@ public class CharacterSheet extends AppCompatActivity {
         nuyenVal.setText(Integer.toString(character.getNuyen()));
         charName.setText(character.getName());
 
-        int maxPHealth = (int)(Math.ceil((double)character.getAttribute("Body").getRating()/2));
-        int maxSHealth = (int)(Math.ceil((double)character.getAttribute("Willpower").getRating()/2));
+        int maxPHealth = (int) (Math.ceil((double) character.getAttribute("Body").getRating() / 2));
+        int maxSHealth = (int) (Math.ceil((double) character.getAttribute("Willpower").getRating() / 2));
         pHealthBar.setMax(8 + maxPHealth);
         sHealthBar.setMax(8 + maxSHealth);
 
         weaponContainer.removeAllViews();
-        if(character.packingHeat()){
+        if (character.packingHeat()) {
             weaponDefaultTxt.setVisibility(View.GONE);
             weaponView = new EquipmentViewController(getLayoutInflater()).getWeaponViewSummary(getLayoutInflater(), weaponContainer, character.getEquippedWeapon());
             weaponContainer.addView(weaponView);
-        }
-        else{
+        } else {
             weaponDefaultTxt.setVisibility(View.VISIBLE);
         }
     }
@@ -243,4 +295,43 @@ public class CharacterSheet extends AppCompatActivity {
         loadValues();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CharacterSheet Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.softwareengineering.ttu.shadowruncharactermanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CharacterSheet Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.softwareengineering.ttu.shadowruncharactermanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }
