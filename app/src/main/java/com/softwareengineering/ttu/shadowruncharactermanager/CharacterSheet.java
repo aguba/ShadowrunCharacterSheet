@@ -1,12 +1,18 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -16,6 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class CharacterSheet extends AppCompatActivity {
     Character character = Character.getInstance();
+    CharacterSelector characterSelector = CharacterSelector.getInstance();
 
     TextView pHealth;
     TextView sHealth;
@@ -31,13 +38,24 @@ public class CharacterSheet extends AppCompatActivity {
     LinearLayout weaponContainer;
     View weaponView;
 
+    DrawerLayout drawer;
+    LinearLayout drawerContainer;
+    LinearLayout btnNewChar;
+
+    FileSaver fileSaver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
 
-        character.load(this);
+        drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+        characterSelector.init(this, drawer);
+
+        fileSaver = new FileSaver();
+
+//        fileSaver.loadCharacter("character0.txt", this);
         AttributeSkillBridge.setCharacter();
 
         picture = (ImageView) findViewById(R.id.character_image);
@@ -49,6 +67,69 @@ public class CharacterSheet extends AppCompatActivity {
         nuyenVal = (TextView) findViewById(R.id.nuyen_value);
         charName = (TextView) findViewById(R.id.character_name);
         mainLoader = ImageLoader.getInstance();
+
+        drawerContainer = (LinearLayout) findViewById(R.id.character_drawer);
+
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                loadValues();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
+        btnNewChar = (LinearLayout)findViewById(R.id.btn_new_character);
+        btnNewChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View pLayout = getLayoutInflater().inflate(R.layout.popup_confirm, drawerContainer, false);
+                Button btnOK = (Button)pLayout.findViewById(R.id.btn_OK);
+                TextView title = (TextView)pLayout.findViewById(R.id.title);
+                TextView txt = (TextView)pLayout.findViewById(R.id.confirm_text);
+                final EditText editText = (EditText)pLayout.findViewById(R.id.confirm_edit);
+
+                txt.setVisibility(View.GONE);
+                editText.setVisibility(View.VISIBLE);
+                editText.setHint("Character Name");
+                title.setText("Create Character");
+
+                final PopupWindow pWindow = new PopupWindow(
+                        pLayout,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        true);
+                pWindow.setBackgroundDrawable(new ColorDrawable(0x80000000));
+                pWindow.setAnimationStyle(android.R.style.Animation_Toast);
+
+                btnOK.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(editText.getText().toString().trim().equals("")){
+                            editText.setError("Character name cannot be blank");
+                        }else{
+                            characterSelector.addCharacter(editText.getText().toString(), drawerContainer);
+                            pWindow.dismiss();
+                        }
+                    }
+                });
+
+                pWindow.showAtLocation(drawer, Gravity.CENTER, 0, 0);
+            }
+        });
 
         TextView akPool = (TextView) findViewById(R.id.academic_knowledge_pool);
         akPool.setText(Integer.toString(character.getSkill("Academic Knowledge").getDicepool()));
@@ -199,8 +280,15 @@ public class CharacterSheet extends AppCompatActivity {
 
     }
 
-    void loadValues() {
+    public void loadValues() {
         Character character = Character.getInstance();
+        CharacterSelector characterSelector = CharacterSelector.getInstance();
+
+        drawerContainer.removeAllViews();
+        for(int i = 0; i < characterSelector.size(); i++){
+            drawerContainer.addView(characterSelector.fillDrawer(drawerContainer, i));
+        }
+
         mainLoader.displayImage(character.getImageURI(), picture);
         karmaVal.setText(Integer.toString(character.getKarma()));
         nuyenVal.setText(Integer.toString(character.getNuyen()));
@@ -239,7 +327,7 @@ public class CharacterSheet extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        character.save(this);
+        fileSaver.save(character, this);
         loadValues();
     }
 

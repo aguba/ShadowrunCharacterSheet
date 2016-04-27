@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CharacterCard extends AppCompatActivity {
     Character character = Character.getInstance();
+    CharacterSelector characterSelector = CharacterSelector.getInstance();
 
     TextView charName;
     TextView charKarma;
@@ -186,6 +187,7 @@ public class CharacterCard extends AppCompatActivity {
             btnDoneEditCharacter.setVisibility(View.GONE);
             btnEditCharacter.setVisibility(View.VISIBLE);
             character.setName(editCharName.getText().toString().trim());
+            characterSelector.updateCharName(character.getName(), character.getFileIndex());
             character.setImageURI(imageURI);
             editCharName.setVisibility(View.GONE);
             charName.setText(character.getName());

@@ -36,4 +36,8 @@ public class Attribute implements Serializable{
     public int getRating(){
         return mRating;
     }
+
+    public void clear(){
+        mRating = 0;
+    }
 }

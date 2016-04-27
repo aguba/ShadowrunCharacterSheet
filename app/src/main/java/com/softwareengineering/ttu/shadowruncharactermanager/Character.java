@@ -20,7 +20,8 @@ public class Character implements Serializable{
     private static Character ourInstance = new Character();
 
     private Character() {
-        mFileName = "character1.txt";
+        mFileName = "character0.txt";
+        mFileIndex = 0;
         mName = "Character Name";
         mBiography = "Character Biography";
         mKarma = 0;
@@ -30,9 +31,8 @@ public class Character implements Serializable{
         mWeaponStore = new ArrayList<>();
         mArmorStore = new ArrayList<>();
 
-        mEquippedWeapon = new Weapon();
         mEquippedWeapon = null;
-        mEquippedWeapon = null;
+        mEquippedArmor = null;
         mGearKey = 0;
         mWeaponKey = 0;
         mArmorKey = 0;
@@ -50,6 +50,7 @@ public class Character implements Serializable{
     private String[] skillNames = {"Academic Knowledge", "Arcana", "Archery", "Armorer", "Artisan", "Automatics", "Blades", "Chemistry", "Climbing", "Clubs", "Computer", "Con", "Data Search", "Demolitions", "Disguise", "Diving", "Dodge", "Enchanting", "Escape Artist", "Etiquette", "First Aid", "Forgery", "Gunnery", "Gymnastics", "Hacking", "Heavy Weapons", "Infiltration", "Instruction", "Interests Knowledge", "Intimidation", "Leadership", "Locksmith", "Longarms", "Navigation", "Negotiation", "Palming", "Parachuting", "Perception", "Pilot Ground Craft", "Pilot Watercraft", "Pistols", "Professional Knowledge", "Running", "Shadowing", "Street Knowledge", "Survival", "Swimming", "Throwing Weapons", "Tracking", "Unarmed Combat"};
 
     private String mFileName;
+    private int mFileIndex;
 
     private String mName;
     private String mMetaType;
@@ -76,7 +77,23 @@ public class Character implements Serializable{
     public static void setInstance(Character instance){
         ourInstance = instance;
     }
+/*
+    public void newCharacter(String characterName, int index, Context context){
+        mName = characterName;
+        mFileName = "character" + Integer.toString(index) + ".txt";
 
+        reset();
+        save(context);
+    }
+*/
+    public void setFileName(String fileName){
+        mFileName = fileName;
+    }
+
+    public String getFileName(){
+        return mFileName;
+    }
+/*
     public void save(Context context){
         File file = new File(context.getFilesDir(), mFileName);
 
@@ -96,8 +113,8 @@ public class Character implements Serializable{
         catch (IOException e){}
     }
 
-    public void load(Context context){
-        File file = new File(context.getFilesDir(), mFileName);
+    public void loadCharacter(String fileName, Context context){
+        File file = new File(context.getFilesDir(), fileName);
 
         if(file.exists()) {
             try {
@@ -107,6 +124,36 @@ public class Character implements Serializable{
                 objIn.close();
             } catch (Exception e) {}
         }
+    }
+*/
+    public void reset(int fileIndex){
+        mImageURI = null;
+        mBiography = "Character Biography";
+        mKarma = 0;
+        mNuyen = 0;
+        mFileIndex = fileIndex;
+        mFileName = "character" + Integer.toString(mFileIndex) + ".txt";
+
+        mGearStore.clear();
+        mWeaponStore.clear();
+        mArmorStore.clear();
+
+        mEquippedWeapon = null;
+        mEquippedArmor = null;
+        mGearKey = 0;
+        mWeaponKey = 0;
+        mArmorKey = 0;
+
+        for (int i = 0; i < 50; i++) {
+            if (i < 9) {
+                getAttribute(attributeNames[i]).clear();
+            }
+            getSkill(skillNames[i]).clear();
+        }
+    }
+
+    public int getFileIndex(){
+        return mFileIndex;
     }
 
     public void setName(String value){

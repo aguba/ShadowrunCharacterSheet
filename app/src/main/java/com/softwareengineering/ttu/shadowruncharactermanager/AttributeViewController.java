@@ -36,7 +36,7 @@ public class AttributeViewController {
         final ImageButton btnRoll = (ImageButton) layout.findViewById(R.id.btn_roll_dice);
         ImageButton btnUp = (ImageButton) layout.findViewById(R.id.btn_attribute_up);
 
-        final View confirmLayout = mInflater.inflate(R.layout.popup_attribute_confirm, null, false);
+        final View confirmLayout = mInflater.inflate(R.layout.popup_confirm, null, false);
         final TextView confirmText = (TextView) confirmLayout.findViewById(R.id.confirm_text);
         final Button btnCancel = (Button) confirmLayout.findViewById(R.id.btn_cancel);
         final Button btnOk = (Button) confirmLayout.findViewById(R.id.btn_OK);

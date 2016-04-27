@@ -54,4 +54,10 @@ public class Skill implements Serializable{
     public int getDicepool(){
         return mDicepool;
     }
+
+    public void clear(){
+        mRating = 0;
+        mDicepool = 0;
+        mSpecialization = "";
+    }
 }
