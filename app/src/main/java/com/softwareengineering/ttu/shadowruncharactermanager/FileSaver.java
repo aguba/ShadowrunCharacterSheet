@@ -18,7 +18,6 @@ public class FileSaver {
 
     public void newCharacter(Character character, String characterName, int index, Context context){
         character.setName(characterName);
-//        character.setFileName("character" + Integer.toString(index) + ".txt");
 
         character.reset(index);
         save(character, context);

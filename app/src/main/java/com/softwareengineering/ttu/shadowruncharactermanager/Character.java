@@ -77,55 +77,11 @@ public class Character implements Serializable{
     public static void setInstance(Character instance){
         ourInstance = instance;
     }
-/*
-    public void newCharacter(String characterName, int index, Context context){
-        mName = characterName;
-        mFileName = "character" + Integer.toString(index) + ".txt";
-
-        reset();
-        save(context);
-    }
-*/
-    public void setFileName(String fileName){
-        mFileName = fileName;
-    }
 
     public String getFileName(){
         return mFileName;
     }
-/*
-    public void save(Context context){
-        File file = new File(context.getFilesDir(), mFileName);
 
-        if(!file.exists()){
-            try{
-                file.createNewFile();
-            }
-            catch (IOException e){}
-        }
-
-        try{
-            FileOutputStream fOut = new FileOutputStream(file);
-            ObjectOutputStream objOut = new ObjectOutputStream(fOut);
-            objOut.writeObject(Character.getInstance());
-            objOut.close();
-        }
-        catch (IOException e){}
-    }
-
-    public void loadCharacter(String fileName, Context context){
-        File file = new File(context.getFilesDir(), fileName);
-
-        if(file.exists()) {
-            try {
-                FileInputStream fIn = new FileInputStream(file);
-                ObjectInputStream objIn = new ObjectInputStream(fIn);
-                Character.setInstance((Character)objIn.readObject());
-                objIn.close();
-            } catch (Exception e) {}
-        }
-    }
-*/
     public void reset(int fileIndex){
         mImageURI = null;
         mBiography = "Character Biography";

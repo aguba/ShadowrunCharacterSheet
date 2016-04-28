@@ -2,10 +2,13 @@ package com.softwareengineering.ttu.shadowruncharactermanager;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -23,6 +27,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 public class CharacterSheet extends AppCompatActivity {
     Character character = Character.getInstance();
     CharacterSelector characterSelector = CharacterSelector.getInstance();
+
+    FloatingActionButton btnSave;
+
+    ActionBarDrawerToggle drawerToggle;
 
     TextView pHealth;
     TextView sHealth;
@@ -49,6 +57,8 @@ public class CharacterSheet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         characterSelector.init(this, drawer);
@@ -57,6 +67,8 @@ public class CharacterSheet extends AppCompatActivity {
 
         fileSaver.loadCharacter("character0.txt", this);
         AttributeSkillBridge.setCharacter();
+
+        btnSave = (FloatingActionButton) findViewById(R.id.FAB);
 
         picture = (ImageView) findViewById(R.id.character_image);
         pHealth = (TextView) findViewById(R.id.physical_health_value);
@@ -70,27 +82,25 @@ public class CharacterSheet extends AppCompatActivity {
 
         drawerContainer = (LinearLayout) findViewById(R.id.character_drawer);
 
-        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+        drawerToggle = new ActionBarDrawerToggle(this, drawer, R.string.drawer_open, R.string.drawer_close){
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
+            public void onDrawerOpened(View drawer){
+                super.onDrawerOpened(drawer);
 
+                invalidateOptionsMenu();
             }
 
             @Override
-            public void onDrawerOpened(View drawerView) {
+            public void onDrawerClosed(View drawer){
+                super.onDrawerClosed(drawer);
 
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
                 loadValues();
+                invalidateOptionsMenu();
             }
+        };
 
-            @Override
-            public void onDrawerStateChanged(int newState) {
 
-            }
-        });
+        drawer.addDrawerListener(drawerToggle);
 
         btnNewChar = (LinearLayout) findViewById(R.id.btn_new_character);
         btnNewChar.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +256,15 @@ public class CharacterSheet extends AppCompatActivity {
                 .build();
         ImageLoader.getInstance().init(config);
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                character = Character.getInstance();
+                characterSelector.save(character);
+                Toast.makeText(CharacterSheet.this, character.getName() + " saved", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         loadValues();
 
         pHealth.setText(String.valueOf(pHealthBar.getMax()) + "/" + String.valueOf(pHealthBar.getMax()));
@@ -285,6 +304,21 @@ public class CharacterSheet extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void loadValues() {
@@ -333,8 +367,6 @@ public class CharacterSheet extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        character = Character.getInstance();
-        fileSaver.save(character, this);
         loadValues();
     }
 

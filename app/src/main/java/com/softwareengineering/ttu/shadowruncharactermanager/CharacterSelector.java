@@ -39,9 +39,13 @@ public class CharacterSelector {
         mCharacterList = mFileSaver.loadCharacterList(mCharacterList, mContext);
     }
 
+    public void save(Character character){
+        mFileSaver.save(mCharacterList, mContext);
+        mFileSaver.save(character, mContext);
+    }
+
     public void updateCharName(String characterName, int index){
         mCharacterList.set(index, characterName);
-        mFileSaver.save(mCharacterList, mContext);
     }
 
     public void addCharacter(String characterName, ViewGroup root) {
