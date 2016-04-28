@@ -1,6 +1,7 @@
 package com.softwareengineering.ttu.shadowruncharactermanager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CharacterCard extends AppCompatActivity {
@@ -39,6 +44,11 @@ public class CharacterCard extends AppCompatActivity {
 
     String imageURI;
     boolean bioIsExpanded;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,17 @@ public class CharacterCard extends AppCompatActivity {
         setContentView(R.layout.activity_character_card);
 
         imageURI = character.getImageURI();
+
+        /*gets 'username' from the CharacterSheet Class*/
+        /*Bundle extras = getIntent().getExtras();
+        String username = extras.getString("username");*/
+
+        /*User user = User.getUserInstance("");
+        String username = user.getUsername();*/
+
+        FirebaseReference firebaseReference = FirebaseReference.getReferenceInstance("");
+
+        final Firebase db_karma = firebaseReference.karmaRef;
 
         charName = (TextView) findViewById(R.id.character_name2);
         charKarma = (TextView) findViewById(R.id.karma_value);
@@ -104,6 +125,7 @@ public class CharacterCard extends AppCompatActivity {
             public void onClick(View v) {
                 character.addKarma(verifyValue(editCharKarma));
                 doneNuyenKarma(charKarma, editCharKarma, karmaPanel, btnEditKarma, character.getKarma());
+                db_karma.setValue(String.valueOf(editCharKarma));
             }
         });
         btnSubKarma.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +133,7 @@ public class CharacterCard extends AppCompatActivity {
             public void onClick(View v) {
                 character.subKarma(verifyValue(editCharKarma));
                 doneNuyenKarma(charKarma, editCharKarma, karmaPanel, btnEditKarma, character.getKarma());
+                db_karma.setValue(String.valueOf(editCharKarma));
             }
         });
         btnAddNuyen.setOnClickListener(new View.OnClickListener() {
@@ -128,25 +151,27 @@ public class CharacterCard extends AppCompatActivity {
             }
         });
 
-        for(int i=0; i<9; i++){
+        for (int i = 0; i < 9; i++) {
             View attView = avc.getAttributeView(attributeContainer, i, charKarma);
             attributeContainer.addView(attView);
         }
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void expandBio(View view){
-        if(!bioIsExpanded){
+    public void expandBio(View view) {
+        if (!bioIsExpanded) {
             bioContainer.setVisibility(View.VISIBLE);
             bioIsExpanded = true;
-        }
-        else{
+        } else {
             bioContainer.setVisibility(View.GONE);
             bioIsExpanded = false;
         }
     }
 
-    public void editBioOn(View view){
+    public void editBioOn(View view) {
         editBio.setText(bio.getText());
 
         btnEditBio.setVisibility(View.GONE);
@@ -156,7 +181,7 @@ public class CharacterCard extends AppCompatActivity {
         editBio.setVisibility(View.VISIBLE);
     }
 
-    public void editBioOff(View view){
+    public void editBioOff(View view) {
         character.setBio(editBio.getText().toString());
         bio.setText(character.getBio());
 
@@ -178,8 +203,8 @@ public class CharacterCard extends AppCompatActivity {
 
     public void editOff(View view) {
         if (editCharName.getText().toString().trim().equals("")) {
-         //   Toast blankFields = Toast.makeText(getApplicationContext(), "Character name cannot be blank", Toast.LENGTH_SHORT);
-         //   blankFields.show();
+            //   Toast blankFields = Toast.makeText(getApplicationContext(), "Character name cannot be blank", Toast.LENGTH_SHORT);
+            //   blankFields.show();
             editCharName.setError("Name cannot be blank");
         } else {
             addImage.setVisibility(View.GONE);
@@ -218,13 +243,12 @@ public class CharacterCard extends AppCompatActivity {
         btnEdit.setVisibility(View.VISIBLE);
     }
 
-    public int verifyValue(EditText editText){
+    public int verifyValue(EditText editText) {
         int value;
         String text = editText.getText().toString();
-        if(text.equals("")){
+        if (text.equals("")) {
             value = 0;
-        }
-        else{
+        } else {
             value = Integer.parseInt(text);
         }
 
@@ -242,4 +266,43 @@ public class CharacterCard extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CharacterCard Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.softwareengineering.ttu.shadowruncharactermanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "CharacterCard Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.softwareengineering.ttu.shadowruncharactermanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }

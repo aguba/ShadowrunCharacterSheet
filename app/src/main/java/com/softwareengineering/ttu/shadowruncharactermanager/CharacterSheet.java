@@ -43,6 +43,14 @@ public class CharacterSheet extends AppCompatActivity {
      */
     private GoogleApiClient client;
 
+    User user = User.getUserInstance("","",""); //instantiating singlton user object(really dont need);
+    FirebaseReference firebaseReference = FirebaseReference.getReferenceInstance("");
+
+    final Firebase db_pHealth = firebaseReference.pHealthRef;
+    final Firebase db_sHealth = firebaseReference.sHealthRef;
+    final Firebase db_karma = firebaseReference.karmaRef;
+    final Firebase db_nuyen = firebaseReference.nuyenRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +60,18 @@ public class CharacterSheet extends AppCompatActivity {
         character.load(this);
         AttributeSkillBridge.setCharacter();
 
-        Bundle extras = getIntent().getExtras();
-        String username = extras.getString("username");
+        //username is irrelevant with FirebaseReference object
+        /*Bundle extras = getIntent().getExtras(); /
+        String username = user.username;*/
 
-        final Firebase db_pHealth = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/pHealth");
-        final Firebase db_sHealth = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/sHealth");
-        final Firebase db_charName = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/charName");
-        final Firebase db_karmaVal = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/karmaVal");
-        final Firebase db_nuyenVal = new Firebase("https://shadowrun.firebaseio.com/user_" + username + "/char0/nuyenVal");
+        //instantiated outside of onCreate
+        /*User user = User.getUserInstance(username); //instantiating singlton user object(really dont need);
+        FirebaseReference firebaseReference = FirebaseReference.getReferenceInstance(username);*/
+
+        /*final Firebase db_pHealth = firebaseReference.pHealthRef;
+        final Firebase db_sHealth = firebaseReference.sHealthRef;
+        final Firebase db_karmaVal = firebaseReference.karmaRef;
+        final Firebase db_nuyenVal = firebaseReference.nuyenRef;*/
 
         picture = (ImageView) findViewById(R.id.character_image);
         pHealth = (TextView) findViewById(R.id.physical_health_value);
@@ -255,9 +267,24 @@ public class CharacterSheet extends AppCompatActivity {
     void loadValues() {
         Character character = Character.getInstance();
         mainLoader.displayImage(character.getImageURI(), picture);
-        karmaVal.setText(Integer.toString(character.getKarma()));
+        //karmaVal.setText(Integer.toString(character.getKarma()));
         nuyenVal.setText(Integer.toString(character.getNuyen()));
         charName.setText(character.getName());
+
+        db_karma.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                karmaVal.setText(text);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
 
         int maxPHealth = (int) (Math.ceil((double) character.getAttribute("Body").getRating() / 2));
         int maxSHealth = (int) (Math.ceil((double) character.getAttribute("Willpower").getRating() / 2));
@@ -276,6 +303,7 @@ public class CharacterSheet extends AppCompatActivity {
 
     public void expandCharacter(View view) {
         Intent characterCard = new Intent(CharacterSheet.this, CharacterCard.class);
+        //characterCard.putExtra("username", username);
         CharacterSheet.this.startActivityForResult(characterCard, 1);
     }
 

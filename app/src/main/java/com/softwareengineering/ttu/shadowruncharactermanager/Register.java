@@ -56,7 +56,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                User user = new User(name, username, password);
+                User user = User.getUserInstance(name, username, password);
                 registerUser(user);
 
                 Intent loginIntent = new Intent(Register.this, Login.class);
@@ -67,15 +67,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void registerUser(User user) {
-        Firebase db_name = new Firebase("https://shadowrun.firebaseio.com/user_" + user.username + "/name");
-        Firebase db_username = new Firebase("https://shadowrun.firebaseio.com/user_" + user.username + "/username");
-        Firebase db_password = new Firebase("https://shadowrun.firebaseio.com/user_" + user.username + "/password_"+user.password);
+        Firebase db_name = new Firebase("https://shadowrun6.firebaseio.com/user_" + user.username + "/name");
+        Firebase db_username = new Firebase("https://shadowrun6.firebaseio.com/user_" + user.username + "/username");
+        Firebase db_password = new Firebase("https://shadowrun6.firebaseio.com/user_" + user.username + "/password_"+user.password);
 
         db_name.setValue(String.valueOf(user.name));
-        db_username.setValue(String.valueOf(user.username));//creates user in database;
+        db_username.setValue(String.valueOf(user.username));//creates user in database
         db_password.setValue(String.valueOf(user.password));
-
-
     }
 
 

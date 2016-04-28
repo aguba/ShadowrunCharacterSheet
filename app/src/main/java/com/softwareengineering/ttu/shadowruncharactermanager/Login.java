@@ -62,9 +62,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                User user = new User(username, password);
+                //singleton user is only being created in Register because the fact that it singleton messes stuff up
+                //User user = User.getUserInstance("", username, ""); //isntantiates singleton user object
+                FirebaseReference firebaseReference = FirebaseReference.getReferenceInstance(username); //instantiates singleton FirebaseReference object
 
-                authenticate(user);
+                authenticate(username, password);
                 break;
 
             case R.id.tvRegisterLink:
@@ -75,8 +77,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
     /*url accesses passord key. if username or password is incorrect, then the url will be incorrect causing error message to show*/
-    private void authenticate(final User user) {
-        Firebase db_attempLogIn = new Firebase("https://shadowrun.firebaseio.com/user_" + user.username + "/password_"+user.password);
+    private void authenticate(final String username, String password) {
+        Firebase db_attempLogIn = new Firebase("https://shadowrun6.firebaseio.com/user_" + username + "/password_" + password);
         String text;
 
         db_attempLogIn.addValueEventListener(new ValueEventListener() {
@@ -85,7 +87,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String logInPath = dataSnapshot.getValue(String.class);
                 if (logInPath != null) {
                     //etMessageBox.setText(logInPath);
-                    logUserIn(user);
+                    logUserIn(username);
                 } else {
                     etMessageBox.setText("username or password is incorrect");
                 }
@@ -99,9 +101,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private void logUserIn(User user) {
+    private void logUserIn(String username) {
         Intent finishLoginIntent = new Intent(this, CharacterSheet.class);
-        finishLoginIntent.putExtra("username", user.username);
+        finishLoginIntent.putExtra("username", username);
         startActivity(finishLoginIntent);
     }
 
