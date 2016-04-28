@@ -50,12 +50,12 @@ public class CharacterSheet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_sheet);
 
-        drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         characterSelector.init(this, drawer);
 
         fileSaver = new FileSaver();
 
-//        fileSaver.loadCharacter("character0.txt", this);
+        fileSaver.loadCharacter("character0.txt", this);
         AttributeSkillBridge.setCharacter();
 
         picture = (ImageView) findViewById(R.id.character_image);
@@ -92,15 +92,16 @@ public class CharacterSheet extends AppCompatActivity {
             }
         });
 
-        btnNewChar = (LinearLayout)findViewById(R.id.btn_new_character);
+        btnNewChar = (LinearLayout) findViewById(R.id.btn_new_character);
         btnNewChar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View pLayout = getLayoutInflater().inflate(R.layout.popup_confirm, drawerContainer, false);
-                Button btnOK = (Button)pLayout.findViewById(R.id.btn_OK);
-                TextView title = (TextView)pLayout.findViewById(R.id.title);
-                TextView txt = (TextView)pLayout.findViewById(R.id.confirm_text);
-                final EditText editText = (EditText)pLayout.findViewById(R.id.confirm_edit);
+                Button btnOK = (Button) pLayout.findViewById(R.id.btn_OK);
+                Button btnCancel = (Button) pLayout.findViewById(R.id.btn_cancel);
+                TextView title = (TextView) pLayout.findViewById(R.id.title);
+                TextView txt = (TextView) pLayout.findViewById(R.id.confirm_text);
+                final EditText editText = (EditText) pLayout.findViewById(R.id.confirm_edit);
 
                 txt.setVisibility(View.GONE);
                 editText.setVisibility(View.VISIBLE);
@@ -118,12 +119,18 @@ public class CharacterSheet extends AppCompatActivity {
                 btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(editText.getText().toString().trim().equals("")){
-                            editText.setError("Character name cannot be blank");
-                        }else{
-                            characterSelector.addCharacter(editText.getText().toString(), drawerContainer);
+                        if (!editText.getText().toString().trim().equals("")) {
+                            characterSelector.addCharacter(editText.getText().toString().trim(), drawerContainer);
                             pWindow.dismiss();
+                            drawer.closeDrawers();
                         }
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pWindow.dismiss();
                     }
                 });
 
@@ -260,7 +267,7 @@ public class CharacterSheet extends AppCompatActivity {
 
             }
         });
-        
+
         sHealthBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -281,11 +288,11 @@ public class CharacterSheet extends AppCompatActivity {
     }
 
     public void loadValues() {
-        Character character = Character.getInstance();
+        character = Character.getInstance();
         CharacterSelector characterSelector = CharacterSelector.getInstance();
 
         drawerContainer.removeAllViews();
-        for(int i = 0; i < characterSelector.size(); i++){
+        for (int i = 0; i < characterSelector.size(); i++) {
             drawerContainer.addView(characterSelector.fillDrawer(drawerContainer, i));
         }
 
@@ -294,18 +301,17 @@ public class CharacterSheet extends AppCompatActivity {
         nuyenVal.setText(Integer.toString(character.getNuyen()));
         charName.setText(character.getName());
 
-        int maxPHealth = (int)(Math.ceil((double)character.getAttribute("Body").getRating()/2));
-        int maxSHealth = (int)(Math.ceil((double)character.getAttribute("Willpower").getRating()/2));
+        int maxPHealth = (int) (Math.ceil((double) character.getAttribute("Body").getRating() / 2));
+        int maxSHealth = (int) (Math.ceil((double) character.getAttribute("Willpower").getRating() / 2));
         pHealthBar.setMax(8 + maxPHealth);
         sHealthBar.setMax(8 + maxSHealth);
 
         weaponContainer.removeAllViews();
-        if(character.packingHeat()){
+        if (character.packingHeat()) {
             weaponDefaultTxt.setVisibility(View.GONE);
             weaponView = new EquipmentViewController(getLayoutInflater()).getWeaponViewSummary(getLayoutInflater(), weaponContainer, character.getEquippedWeapon());
             weaponContainer.addView(weaponView);
-        }
-        else{
+        } else {
             weaponDefaultTxt.setVisibility(View.VISIBLE);
         }
     }
@@ -327,6 +333,7 @@ public class CharacterSheet extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        character = Character.getInstance();
         fileSaver.save(character, this);
         loadValues();
     }
