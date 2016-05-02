@@ -342,6 +342,10 @@ public class Character implements Serializable{
         return mSkills.get(skillName);
     }
 
+    public Skill getSkillByIndex(int index){
+        return mSkills.get(skillNames[index]);
+    }
+
     public void upSkill(String skillName){
         mSkills.get(skillName).ratingUp();
     }

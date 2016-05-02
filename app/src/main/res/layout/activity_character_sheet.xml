@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -14,10 +15,11 @@
             android:id="@+id/FAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:src="@drawable/save"
-            android:tint="#F5F5F5" />
+            android:tint="#F5F5F5"
+            app:layout_anchor="@+id/scroll_view"
+            app:layout_anchorGravity="bottom|right" />
 
         <ScrollView
             android:id="@+id/scroll_view"
@@ -56,6 +58,7 @@
                             android:layout_height="48dp"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
+                            android:layout_margin="8dp"
                             android:contentDescription="Expand"
                             android:onClick="expandCharacter"
                             android:scaleType="fitCenter"
@@ -201,6 +204,7 @@
                             android:layout_height="48dp"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
+                            android:layout_margin="8dp"
                             android:contentDescription="Expand"
                             android:onClick="expandEquipment"
                             android:scaleType="fitCenter"
@@ -244,606 +248,84 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <ImageButton
-                            style="@style/Base.Widget.AppCompat.Button.Borderless"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:contentDescription="Expand"
-                            android:onClick="expandSkills"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/expand"
-                            android:tint="#757575" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/skills_card_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
-                            android:text="Active Skills"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
+                            <ImageButton
+                                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_margin="8dp"
+                                android:contentDescription="Expand"
+                                android:onClick="expandSkills"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/expand"
+                                android:tint="#757575" />
 
-                        <TableLayout
-                            android:id="@+id/table_skills"
+                            <TextView
+                                android:id="@+id/skills_card_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="16dp"
+                                android:text="Active Skills"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/skills_card_title"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp">
+
+                            <TextView
+                                android:id="@+id/skill_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="Skill Name"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/dicepool"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:text="Dicepool"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/rating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="Rating"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/skill_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
-                            android:stretchColumns="*">
+                            android:orientation="vertical">
 
-                            <TableRow android:layout_marginBottom="8dp">
+                        </LinearLayout>
 
-                                <TextView
-                                    android:text="Skill"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:text="Dicepool"
-                                    android:textStyle="bold" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_academic_knowledge"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/academic_knowledge" />
-
-                                <TextView
-                                    android:id="@+id/academic_knowledge_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_arcana"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/arcana" />
-
-                                <TextView
-                                    android:id="@+id/arcana_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_archery"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/archery" />
-
-                                <TextView
-                                    android:id="@+id/archery_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_armorer"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/armorer" />
-
-                                <TextView
-                                    android:id="@+id/armorer_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_artisan"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/artisan" />
-
-                                <TextView
-                                    android:id="@+id/artisan_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_automatics"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/automatics" />
-
-                                <TextView
-                                    android:id="@+id/automatics_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_blades"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/blades" />
-
-                                <TextView
-                                    android:id="@+id/blades_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_chemistry"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/chemistry" />
-
-                                <TextView
-                                    android:id="@+id/chemistry_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_climbing"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/climbing" />
-
-                                <TextView
-                                    android:id="@+id/climbing_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_clubs"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/clubs" />
-
-                                <TextView
-                                    android:id="@+id/clubs_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_computer"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/computer" />
-
-                                <TextView
-                                    android:id="@+id/computer_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_con"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/con" />
-
-                                <TextView
-                                    android:id="@+id/con_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_data_search"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/data_search" />
-
-                                <TextView
-                                    android:id="@+id/data_search_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_demolitions"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/demolitions" />
-
-                                <TextView
-                                    android:id="@+id/demolitions_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_disguise"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/disguise" />
-
-                                <TextView
-                                    android:id="@+id/disguise_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_diving"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/diving" />
-
-                                <TextView
-                                    android:id="@+id/diving_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_dodge"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/dodge" />
-
-                                <TextView
-                                    android:id="@+id/dodge_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_enchanting"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/enchanting" />
-
-                                <TextView
-                                    android:id="@+id/enchanting_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_escape_artist"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/escape_artist" />
-
-                                <TextView
-                                    android:id="@+id/escape_artist_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_etiquette"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/etiquette" />
-
-                                <TextView
-                                    android:id="@+id/etiquette_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_first_aid"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/first_aid" />
-
-                                <TextView
-                                    android:id="@+id/first_aid_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_forgery"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/forgery" />
-
-                                <TextView
-                                    android:id="@+id/forgery_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_gunnery"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/gunnery" />
-
-                                <TextView
-                                    android:id="@+id/gunnery_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_gymnastics"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/gymnastics" />
-
-                                <TextView
-                                    android:id="@+id/gymnastics_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_hacking"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/hacking" />
-
-                                <TextView
-                                    android:id="@+id/hacking_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_heavy_weapons"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/heavy_weapons" />
-
-                                <TextView
-                                    android:id="@+id/heavy_weapons_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_infiltration"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/infiltration" />
-
-                                <TextView
-                                    android:id="@+id/infiltration_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_instruction"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/instruction" />
-
-                                <TextView
-                                    android:id="@+id/instruction_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_interests_knowledge"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/interests_knowledge" />
-
-                                <TextView
-                                    android:id="@+id/interests_knowledge_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_intimidation"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/intimidation" />
-
-                                <TextView
-                                    android:id="@+id/intimidation_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_leadership"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/leadership" />
-
-                                <TextView
-                                    android:id="@+id/leadership_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_locksmith"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/locksmith" />
-
-                                <TextView
-                                    android:id="@+id/locksmith_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_longarms"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/longarms" />
-
-                                <TextView
-                                    android:id="@+id/longarms_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_navigation"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/navigation" />
-
-                                <TextView
-                                    android:id="@+id/navigation_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_negotiation"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/negotiation" />
-
-                                <TextView
-                                    android:id="@+id/negotiation_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_palming"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/palming" />
-
-                                <TextView
-                                    android:id="@+id/palming_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_parachuting"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/parachuting" />
-
-                                <TextView
-                                    android:id="@+id/parachuting_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_perception"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/perception" />
-
-                                <TextView
-                                    android:id="@+id/perception_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_pilot_ground_craft"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/pilot_ground_craft" />
-
-                                <TextView
-                                    android:id="@+id/pilot_ground_craft_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_pilot_watercraft"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/pilot_watercraft" />
-
-                                <TextView
-                                    android:id="@+id/pilot_watercraft_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_pistols"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/pistols" />
-
-                                <TextView
-                                    android:id="@+id/pistols_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_professional_knowledge"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/professional_knowledge" />
-
-                                <TextView
-                                    android:id="@+id/professional_knowledge_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_running"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/running" />
-
-                                <TextView
-                                    android:id="@+id/running_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_shadowing"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/shadowing" />
-
-                                <TextView
-                                    android:id="@+id/shadowing_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_street_knowledge"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/street_knowledge" />
-
-                                <TextView
-                                    android:id="@+id/street_knowledge_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_survival"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/survival" />
-
-                                <TextView
-                                    android:id="@+id/survival_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_swimming"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/swimming" />
-
-                                <TextView
-                                    android:id="@+id/swimming_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_throwing_weapons"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/throwing_weapons" />
-
-                                <TextView
-                                    android:id="@+id/throwing_weapons_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_tracking"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/tracking" />
-
-                                <TextView
-                                    android:id="@+id/tracking_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-                            <TableRow
-                                android:id="@+id/skill_card_row_unarmed_combat"
-                                android:layout_marginBottom="8dp">
-
-                                <TextView android:text="@string/unarmed_combat" />
-
-                                <TextView
-                                    android:id="@+id/unarmed_combat_pool"
-                                    android:text="0" />
-                            </TableRow>
-
-
-                        </TableLayout>
-
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </android.support.v7.widget.CardView>
 

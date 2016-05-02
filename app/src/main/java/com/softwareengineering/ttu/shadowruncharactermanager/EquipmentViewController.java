@@ -14,17 +14,20 @@ public class EquipmentViewController {
 
     public EquipmentViewController(LayoutInflater inflater){
         mInflater = inflater;
-        character = Character.getInstance();
-        inventory = EquipmentInventory.getInstance();
+        mCharacter = Character.getInstance();
+        mInventory = EquipmentInventory.getInstance();
+        mBridge = WeaponSkillBridge.getInstance();
+        mBridge.init(mCharacter);
     }
 
     private LayoutInflater mInflater;
-    private Character character;
-    private EquipmentInventory inventory;
+    private Character mCharacter;
+    private EquipmentInventory mInventory;
+    WeaponSkillBridge mBridge;
 
     public View getWeaponPopupMiniView(ViewGroup root, int index) {
         View view = mInflater.inflate(R.layout.weapon_list_layout_mini, root, false);
-        Weapon weapon = inventory.getWeapon(index);
+        Weapon weapon = mInventory.getWeapon(index);
 
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(Integer.toString(index));
@@ -36,7 +39,7 @@ public class EquipmentViewController {
 
     public View getArmorPopupMiniView(ViewGroup root, int index){
         View view = mInflater.inflate(R.layout.armor_list_layout_mini, root, false);
-        Armor armor = inventory.getArmor(index);
+        Armor armor = mInventory.getArmor(index);
 
         TextView id = (TextView) view.findViewById(R.id.armor_id);
         id.setText(Integer.toString(index));
@@ -48,7 +51,7 @@ public class EquipmentViewController {
 
     public View getWeaponPopupFullView(ViewGroup root, int index) {
         View view = mInflater.inflate(R.layout.weapon_list_layout, root, false);
-        Weapon weapon = inventory.getWeapon(index);
+        Weapon weapon = mInventory.getWeapon(index);
 
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(Integer.toString(index));
@@ -60,7 +63,7 @@ public class EquipmentViewController {
 
     public View getArmorPopupFullView(ViewGroup root, int index) {
         View view = mInflater.inflate(R.layout.armor_list_layout, root, false);
-        Armor armor = inventory.getArmor(index);
+        Armor armor = mInventory.getArmor(index);
 
         TextView id = (TextView) view.findViewById(R.id.armor_id);
         id.setText(Integer.toString(index));
@@ -72,9 +75,8 @@ public class EquipmentViewController {
 
     public View getWeaponView(ViewGroup root, int index){
         View view = mInflater.inflate(R.layout.weapon_list_layout, root, false);
-        Weapon weapon = character.getWeaponByIndex(index);
-//        String idString = Integer.toString(character.getWeaponList().keyAt(index));
-        String idString = Integer.toString(character.weaponKeyAt(index));
+        Weapon weapon = mCharacter.getWeaponByIndex(index);
+        String idString = Integer.toString(mCharacter.weaponKeyAt(index));
 
         TextView id = (TextView) view.findViewById(R.id.weapon_id);
         id.setText(idString);
@@ -105,9 +107,8 @@ public class EquipmentViewController {
 
     public View getArmorView(ViewGroup root, int index){
         View view = mInflater.inflate(R.layout.armor_list_layout, root, false);
-        Armor armor = character.getArmorByIndex(index);
-        //String idString = Integer.toString((character.getArmorList().keyAt(index)));
-        String idString = Integer.toString(character.armorKeyAt(index));
+        Armor armor = mCharacter.getArmorByIndex(index);
+        String idString = Integer.toString(mCharacter.armorKeyAt(index));
 
         TextView id = (TextView) view.findViewById(R.id.armor_id);
         id.setText(idString);
@@ -136,7 +137,16 @@ public class EquipmentViewController {
 
         if (identifier == 0){
             DiceRoller diceRoller = new DiceRoller(view, mInflater);
-            diceRoller.setButton(table, weapon.getName(), 23);
+            ImageButton btnRollDice = (ImageButton) view.findViewById(R.id.btn_roll_dice);
+            TextView skillName = (TextView)view.findViewById(R.id.skill_name);
+            TextView dicePool = (TextView)view.findViewById(R.id.dicepool);
+            Skill skill = mBridge.getSkill(weapon.getType());
+            int dPool = skill.getDicepool();
+
+            skillName.setText("(" + skill.getName() + ")");
+            dicePool.setText(Integer.toString(dPool));
+
+            diceRoller.setButton(btnRollDice, weapon.getName(), dPool);
         }
 
         if(view.findViewById(R.id.weapon_equipped) != null) {

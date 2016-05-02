@@ -10,12 +10,18 @@ public class Skill implements Serializable{
     private int mRating;
     private int mDicepool;
     private String mSpecialization;
+    private boolean mHidden;
+
+    public String getName(){
+        return mName;
+    }
 
     public Skill(){
         mName = "Skill";
         mRating = 0;
         mDicepool = 0;
         mSpecialization = "None";
+        mHidden = false;
     }
 
     public Skill(String name){
@@ -53,6 +59,14 @@ public class Skill implements Serializable{
 
     public int getDicepool(){
         return mDicepool;
+    }
+
+    public void isHidden(boolean hidden){
+        mHidden = hidden;
+    }
+
+    public boolean isHidden(){
+        return mHidden;
     }
 
     public void clear(){

@@ -23,7 +23,7 @@ public class AttributeViewController {
     public AttributeViewController(LayoutInflater inflater, Context context){
         mInflater = inflater;
         mContext = context;
-    };
+    }
 
     public View getAttributeView(final ViewGroup root, int index, final TextView karmaView){
         View layout = mInflater.inflate(R.layout.attribute_list_layout, root, false);

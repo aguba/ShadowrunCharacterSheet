@@ -36,6 +36,11 @@ public class DiceRoller {
         setClickListener(layout, attribute.getName(), attribute.getRating());
     }
 
+    public void setButton(View view, Skill skill){
+        View layout = view;
+        setClickListener(layout, skill.getName(), skill.getDicepool());
+    }
+
     private void setClickListener(View view, final String rollNameText, final int dicePool){
         view.setOnClickListener(new View.OnClickListener() {
             @Override
