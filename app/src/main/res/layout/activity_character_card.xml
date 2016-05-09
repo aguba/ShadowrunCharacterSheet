@@ -48,9 +48,8 @@
                         android:layout_marginTop="16dp"
                         android:onClick="chooseProfilePic"
                         android:padding="25dp"
-                        android:src="@drawable/add"
-                        android:tint="#757575"
-                        android:visibility="gone" />
+                        android:src="@drawable/add_circle"
+                        android:tint="#757575" />
 
                     <LinearLayout
                         android:id="@+id/buttonPanel"

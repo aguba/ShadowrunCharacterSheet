@@ -32,7 +32,6 @@ public class CharacterCard extends AppCompatActivity {
     ImageButton btnEditBio;
     ImageButton btnDoneBio;
     ImageView picture;
-    ImageView addImage;
     ImageLoader loadPicture = ImageLoader.getInstance();
     LinearLayout bioContainer;
     TextView bio;
@@ -61,7 +60,6 @@ public class CharacterCard extends AppCompatActivity {
         btnAddNuyen = (ImageButton) findViewById(R.id.btn_add_nuyen);
         btnSubNuyen = (ImageButton) findViewById(R.id.btn_sub_nuyen);
         picture = (ImageView) findViewById(R.id.character_image2);
-        addImage = (ImageView) findViewById(R.id.character_image_add);
         bioContainer = (LinearLayout) findViewById(R.id.bio_container);
         btnEditBio = (ImageButton) findViewById(R.id.btn_edit_bio);
         btnDoneBio = (ImageButton) findViewById(R.id.btn_done_bio);
@@ -169,7 +167,6 @@ public class CharacterCard extends AppCompatActivity {
     }
 
     public void editOn(View view) {
-        addImage.setVisibility(View.VISIBLE);
         btnEditCharacter.setVisibility(View.GONE);
         btnDoneEditCharacter.setVisibility(View.VISIBLE);
         charName.setVisibility(View.GONE);
@@ -179,16 +176,12 @@ public class CharacterCard extends AppCompatActivity {
 
     public void editOff(View view) {
         if (editCharName.getText().toString().trim().equals("")) {
-         //   Toast blankFields = Toast.makeText(getApplicationContext(), "Character name cannot be blank", Toast.LENGTH_SHORT);
-         //   blankFields.show();
             editCharName.setError("Name cannot be blank");
         } else {
-            addImage.setVisibility(View.GONE);
             btnDoneEditCharacter.setVisibility(View.GONE);
             btnEditCharacter.setVisibility(View.VISIBLE);
             character.setName(editCharName.getText().toString().trim());
             characterSelector.updateCharName(character.getName(), character.getFileIndex());
-            character.setImageURI(imageURI);
             editCharName.setVisibility(View.GONE);
             charName.setText(character.getName());
             charName.setVisibility(View.VISIBLE);
@@ -240,6 +233,7 @@ public class CharacterCard extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 imageURI = data.getData().toString();
                 loadPicture.displayImage(imageURI, picture);
+                character.setImageURI(imageURI);
             }
         }
     }
